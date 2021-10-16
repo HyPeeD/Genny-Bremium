@@ -1755,7 +1755,9 @@ client.on('ready', function() {
 		if (commanded) {
 			if (message.author.id == commanded.id) return message.channel.send(`**${message.author.username}** why do you wanna ban yourself <a:Flyyy:770262976749633576> ?`)
 			if (commanded.id == client.user.id) return message.channel.send(`**${message.author.username}** okay I am leaving now <:crying:750050074578649220>`)
-
+			
+			if (commanded.id == message.guild.owner.id) return message.channel.send('**'+message.author.username+'** I can\'t he is server owner!')
+			
 			if (message.guild.member(commanded).roles.highest.position > message.guild.me.roles.highest.position) return message.channel.send('**'+message.author.username+'** I can\'t his highest role is **higher** than me!')
 			if (message.guild.member(commanded).roles.highest.position == message.guild.me.roles.highest.position) return message.channel.send('**'+message.author.username+'** he has my same role :(')
 
@@ -1775,6 +1777,19 @@ client.on('ready', function() {
 			try {
 				let userr = await client.users.fetch(args.slice(1).join(' '))
 				if (!userr) return message.channel.send(`**${message.author.username}** couldn't find **${args.slice(1).join(' ')}** in discord <:drinking:750050072707727371>`)
+				
+				if (message.author.id == userr.id) return message.channel.send(`**${message.author.username}** why do you wanna ban yourself <a:Flyyy:770262976749633576> ?`)
+				if (userr.id == client.user.id) return message.channel.send(`**${message.author.username}** okay I am leaving now <:crying:750050074578649220>`)
+				
+				if (userr.id == message.guild.owner.id) return message.channel.send('**'+message.author.username+'** I can\'t he is server owner!')
+				
+				
+				if (message.guild.member(userr.id).roles.highest.position > message.guild.me.roles.highest.position) return message.channel.send('**'+message.author.username+'** I can\'t his highest role is **higher** than me!')
+				if (message.guild.member(userr.id).roles.highest.position == message.guild.me.roles.highest.position) return message.channel.send('**'+message.author.username+'** he has my same role :(')
+
+				if (message.guild.member(userr.id).roles.highest.position > message.member.roles.highest.position) return message.channel.send('**'+message.author.username+'**, his highest role is **higher** than you run!')
+				if (message.guild.member(userr.id).roles.highest.position == message.member.roles.highest.position) return message.channel.send('**'+message.author.username+'**, he has ur same role :(')
+				
 				message.channel.send(`**${message.author.username}** done **${userr.username}** has been banned from the server! <a:Flyyy:770262976749633576>`)  
 				return  message.guild.members.ban(args.slice(1).join(' '))
 			} catch (e) {
