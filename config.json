@@ -1,0 +1,12 @@
+{
+  "token": "NjAzOTg4ODg0Njk0NjMwNDMw.XTnaew.VfP4-f6vtYZVUf7nKW5HX4CTxOc",
+  "YOUTUBE_API_KEY": "AIzaSyBizSQSC0JT4tPRS6Sm-tIet4TqzgVm1KQ",
+  "MAX_PLAYLIST_SIZE": 30,
+  "prefix": "!!",
+  "PRUNING": false,
+  "dblc": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMzk4ODg4NDY5NDYzMDQzMCIsImJvdCI6dHJ1ZSwiaWF0IjoxNTkxMTk3OTkwfQ._Qaw4VD0XhcMp5nF1wfG5-fRtluyQlPmi6tFJmMbc6E",
+  "dblm": "#HyPeD_Orihalcom...",
+  "empty": "https://media.discordapp.net/attachments/634854460102803456/803970383761244201/Genny_style.png",
+  "database1": "mongodb+srv://dbCinemaPro:6sU!hY!!BcVfEX8@cluster0.gb16h.mongodb.net/UwU-DB?retryWrites=true&w=majority",
+  "database2": "mongodb+srv://dbCinemaProo:6sU!hY!!BcVfEX8@cluster0.ygjxs.mongodb.net/UwU-DB?retryWrites=true&w=majority"
+}
