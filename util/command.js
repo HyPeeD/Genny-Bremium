@@ -27,7 +27,6 @@ module.exports = (client, aliases, callback) => {
 						callback(message)
 						if (message.author.id !== '458997221170479124') client.channels.cache.get('717763226078543954').send('**'+message.author.tag +'** running **'+command+'** in **('+message.guild.name+')**'+(message.content.split(' ').slice(1).join(' ') ? '\n<:space:817796102761611264>arguments: '+message.content.split(' ').slice(1).join(' ') : ''))
 					})
-					mongoose.connection.close()
 				})
 			}
 		})
