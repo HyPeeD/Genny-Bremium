@@ -5764,45 +5764,44 @@ mongo(database2).then(async mongoose => {
 				})
 			}
 			
-			setTimeout(() => {
-				if (firstarray[message.guild.id].length !== 0) {
-					mongo(database2).then(async mongoose => {
-						mongoose.connection.collection('levels').findOne({ [message.guild.id+'.id']: message.guild.id }, async (error, level) => {
-							if (level == null) level = {}
-							if (level == undefined) level = {}
+			// setTimeout(() => {
+				// if (firstarray[message.guild.id].length !== 0) {
+					// mongo(database2).then(async mongoose => {
+						// mongoose.connection.collection('levels').findOne({ [message.guild.id+'.id']: message.guild.id }, async (error, level) => {
+							// if (level == null) level = {}
+							// if (level == undefined) level = {}
 
-							if (!level[message.guild.id]) {
-								level[message.guild.id] = { id: message.guild.id }
-								mongoose.connection.collection('levels').insertOne({ [message.guild.id]: { id: message.guild.id } })
-							}
-							var promises = firstarray[message.guild.id].map(function (commander) {
-								let max = 13
-								let min = 3
-								let ran = parseInt(Math.floor(Math.random() * (max - min + 1)) + min)
-								if (!level[message.guild.id][commander]) {
-									level[message.guild.id][commander] = { xp: ran, level: 1, id: commander }
-								} else if (level[message.guild.id][commander]) {
+							// if (!level[message.guild.id]) {
+								// level[message.guild.id] = { id: message.guild.id }
+								// mongoose.connection.collection('levels').insertOne({ [message.guild.id]: { id: message.guild.id } })
+							// }
+							// var promises = firstarray[message.guild.id].map(function (commander) {
+								// let max = 13
+								// let min = 3
+								// let ran = parseInt(Math.floor(Math.random() * (max - min + 1)) + min)
+								// if (!level[message.guild.id][commander]) {
+									// level[message.guild.id][commander] = { xp: ran, level: 1, id: commander }
+								// } else if (level[message.guild.id][commander]) {
 
-									const levels = level[message.guild.id][commander].level
-									const xps = level[message.guild.id][commander].xp + ran
+									// const levels = level[message.guild.id][commander].level
+									// const xps = level[message.guild.id][commander].xp + ran
 
-									if (parseInt(xps) >= parseInt(levels) * 400) {
-										level[message.guild.id][commander] = { xp: 0, level: levels + 1, id: commander }
-										leveled.push([ level[message.guild.id][commander], { channel: message.channel, guild: message.guild } ])
-									} else {
-										level[message.guild.id][commander] = { xp: xps, level: levels, id: commander }
-									}
-								}
-							})
-							Promise.all(promises).then(function () {
-								mongoose.connection.collection('levels').updateOne({ [message.guild.id+'.id']: message.guild.id }, { $set: { [message.guild.id]: level[message.guild.id] } })
-							
-								firstarray[message.guild.id] = []
-							})
-						})
-					})
-				}
-			}, 6000)
+									// if (parseInt(xps) >= parseInt(levels) * 400) {
+										// level[message.guild.id][commander] = { xp: 0, level: levels + 1, id: commander }
+										// leveled.push([ level[message.guild.id][commander], { channel: message.channel, guild: message.guild } ])
+									// } else {
+										// level[message.guild.id][commander] = { xp: xps, level: levels, id: commander }
+									// }
+								// }
+							// })
+							// Promise.all(promises).then(function () {
+								// mongoose.connection.collection('levels').updateOne({ [message.guild.id+'.id']: message.guild.id }, { $set: { [message.guild.id]: level[message.guild.id] } })
+								// firstarray[message.guild.id] = []
+							// })
+						// })
+					// })
+				// }
+			// }, 6000)
 			
 			commanderwait[message.guild.id][message.author.id] = true
 			setTimeout(() => { delete commanderwait[message.guild.id][message.author.id] }, 6000)
@@ -5946,7 +5945,7 @@ app.post('/dblwebhook', webhook.listener(vote => {
 let ecounter = {}
 let dcounter = {}
 client.on('messageUpdate', (oldMessage, newMessage) => {
-	if (oldMessage.author.bot) return
+	if (message.embeds[0]) return
 	if (newMessage.content == oldMessage.content) return
 	if (!ecounter[oldMessage.channel.id]) ecounter[oldMessage.channel.id] = 0
 	if (!editsnipes[oldMessage.channel.id]) editsnipes[oldMessage.channel.id] = []
