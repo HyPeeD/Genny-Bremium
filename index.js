@@ -5528,8 +5528,8 @@ client.on('ready', function() {
 	
 })
 
-mongo(database2).then(async mongoose => {
-	mongoose.connection.collection('setups').find({}, async (error, setups) => {
+mongo(database2).then(async mongoosee => {
+	mongoosee.connection.collection('setups').find({}, async (error, setups) => {
 		if (setups == null) setups = {}
 		if (setups == undefined) setups = {}
 
