@@ -29,6 +29,7 @@
 	"gifencoder": "^2.0.1",
     "short-number": "^1.0.7",
     "jimp": "^0.16.1",
+	"usetube": "^2.1.4",
 	"canvas": "^2.6.1",
     "lyrics-finder": "^21.0.5",
     "simple-youtube-api": "^5.2.1",
