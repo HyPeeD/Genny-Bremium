@@ -1236,8 +1236,8 @@ client.on('ready', function() {
 	command(client, mentionsnipe, async message => {
 		await waiting(message)
 		if (!message.channel.permissionsFor(message.guild.me).has('EMBED_LINKS')) return message.channel.send('**'+message.author.username+'** I must have embed links permission')
-		if (!mentionsnipes[message.author.id]) return message.channel.send('**'+message.author.username+'** no targeted mentions in (**#'+message.guild.name+'**)')
-		if (!mentionsnipes[message.author.id][message.guild.id]) return message.channel.send('**'+message.author.username+'** no targeted mentions in (**#'+message.guild.name+'**)')
+		if (!mentionsnipes[message.author.id]) return message.channel.send('**'+message.author.username+'** no targeted mentions in (**'+message.guild.name+'**)')
+		if (!mentionsnipes[message.author.id][message.guild.id]) return message.channel.send('**'+message.author.username+'** no targeted mentions in (**'+message.guild.name+'**)')
 		let counter = 0
 		let maxpage = mentionsnipes[message.author.id][message.guild.id].length
 		let result = mentionsnipes[message.author.id][message.guild.id][counter]
@@ -5970,6 +5970,7 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
 
 client.on('messageDelete', message => {
 	if (message.embeds[0]) return
+	if (message.content == '' && !message.attachments.first()) return
 	
 	if (!dcounter[message.channel.id]) dcounter[message.channel.id] = 0
 	if (!deletesnipes[message.channel.id]) deletesnipes[message.channel.id] = []
@@ -5977,7 +5978,7 @@ client.on('messageDelete', message => {
 	let advertise = message.content.replace(message.content.split('discord.gg/')[1] ? message.content.split('discord.gg/')[1].split(' ')[0] : '', '').replace(/discord.gg\//g, '').replace(/https:\/\//g, '')
 	
 	let content = {
-		message: advertise !== '' ? trim(advertise, 1024) : '\u200b',
+		message: trim(advertise, 1024),
 		author: message.author.id,
 		img: message.attachments.first() ? message.attachments.first().proxyURL : empty
 	}
