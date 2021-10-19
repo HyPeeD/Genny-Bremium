@@ -4953,7 +4953,7 @@ client.on('ready', function() {
 		const member = message.mentions.members.first() ? message.mentions.members.first().user : message.author
 		if (member.bot) return message.channel.send('**'+message.author.username+'**, bots do not have profiles!')
 		message.channel.startTyping()
-        mongo(database2).then(async mongoose => {
+        mongo(database1).then(async mongoose => {
 			mongoose.connection.collection('setups').findOne({ [message.guild.id+'.id']: message.guild.id }, async (error, setups) => {
 			mongoose.connection.collection('levels').findOne({ [message.guild.id+'.id']: message.guild.id }, async (error, level) => {
 			mongoose.connection.collection('vclevels').findOne({ [message.guild.id+'.id']: message.guild.id }, async (error, voice_level) => {
@@ -5128,7 +5128,7 @@ client.on('ready', function() {
 	
 	let setup = ['setup']
 	command(client, setup, async message => {
-		mongo(database2).then(async mongoose => {
+		mongo(database1).then(async mongoose => {
 			mongoose.connection.collection('setups').findOne({ [message.guild.id+'.id']: message.guild.id }, async (error, setup) => {
 				if (setup == null) setup = {}
 				if (setup == undefined) setup = {}
@@ -5177,7 +5177,7 @@ client.on('ready', function() {
 		
 		if (!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return message.author.send('**'+message.author.username+'**, sorry i must have send messages permission in this server! (**'+message.guild.name+'**)');
 		if (!message.channel.permissionsFor(message.guild.me).has('EMBED_LINKS')) return message.channel.send('**'+message.author.username+'**, i must have embed links permission');
-		mongo(database2).then(async mongoose => {
+		mongo(database1).then(async mongoose => {
 			mongoose.connection.collection('levels').findOne({ [guild+'.id']: guild }, async (error, level) => {
 			mongoose.connection.collection('vclevels').findOne({ [guild+'.id']: guild }, async (error, voice_level) => {
 			mongoose.connection.collection('setups').findOne({ [message.guild.id+'.id']: message.guild.id }, async (error, setups) => {
@@ -5531,7 +5531,7 @@ client.on('ready', function() {
 	
 })
 
-mongo(database2).then(async mongoosee => {
+mongo(database1).then(async mongoosee => {
 	mongoosee.connection.collection('setups').find({}, async (error, setups) => {
 		if (setups == null) setups = {}
 		if (setups == undefined) setups = {}
@@ -5559,7 +5559,7 @@ mongo(database2).then(async mongoosee => {
 			}
 			if (!firstvcarray[newState.guild.id]) firstvcarray[newState.guild.id] = []
 			if (firstvcarray[newState.guild.id].length >= 50) {
-				mongo(database2).then(async mongoose => {
+				mongo(database1).then(async mongoose => {
 					mongoose.connection.collection('vclevels').findOne({ [newState.guild.id+'.id']: newState.guild.id }, async (error, vclevel) => {
 						if (vclevel == null) vclevel = {}
 						if (vclevel == undefined) vclevel = {}
@@ -5596,7 +5596,7 @@ mongo(database2).then(async mongoosee => {
 			
 			setTimeout(() => {
 				if (firstvcarray[newState.guild.id].length !== 0) {
-					mongo(database2).then(async mongoose => {
+					mongo(database1).then(async mongoose => {
 					mongoose.connection.collection('vclevels').findOne({ [newState.guild.id+'.id']: newState.guild.id }, async (error, vclevel) => {
 						if (vclevel == null) vclevel = {}
 						if (vclevel == undefined) vclevel = {}
@@ -5767,7 +5767,7 @@ mongo(database2).then(async mongoosee => {
       
 			// leveling peopole and cleaning arrays
 			if (firstarray[message.guild.id].length >= 50) {
-				mongo(database2).then(async mongoose => {
+				mongo(database1).then(async mongoose => {
 					mongoose.connection.collection('levels').findOne({ [message.guild.id+'.id']: message.guild.id }, async (error, level) => {
 						if (level == null) level = {}
 						if (level == undefined) level = {}
@@ -5806,7 +5806,7 @@ mongo(database2).then(async mongoosee => {
 			
 			setTimeout(() => {
 				if (firstarray[message.guild.id].length !== 0) {
-					mongo(database2).then(async mongoose => {
+					mongo(database1).then(async mongoose => {
 						mongoose.connection.collection('levels').findOne({ [message.guild.id+'.id']: message.guild.id }, async (error, level) => {
 							if (level == null) level = {}
 							if (level == undefined) level = {}
