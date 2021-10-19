@@ -1,12 +1,11 @@
-const { play } = require('../include/play')
 const { YOUTUBE_API_KEY, empty } = require('../config.json')
-const ytdl = require('ytdl-core')
-const YouTubeAPI = require('simple-youtube-api')
-var fetchVideoInfo = require('updated-youtube-info')
-const { MessageEmbed } = require('discord.js')
+const fetchVideoInfo = require('updated-youtube-info')
 const getYouTubeID = require('get-youtube-id')
-const youtube = new YouTubeAPI(YOUTUBE_API_KEY)
+const { MessageEmbed } = require('discord.js')
+const { play } = require('../include/play')
 const convert = require('hh-mm-ss')
+const usetube = require('usetube')
+const ytdl = require('ytdl-core')
 
 module.exports = {
 	name: 'play',
@@ -83,8 +82,8 @@ module.exports = {
 			}
 		} else {
 			try {
-				const results = await youtube.searchVideos(search, 1)
-				songInfo = await ytdl.getInfo(results[0].url)
+				const results = await usetube.searchVideo(search)
+				songInfo = await ytdl.getInfo('http://www.youtube.com/watch?v='+results.videos[0].id)
 				song = {
 					title: songInfo.videoDetails.title,
 					url: songInfo.videoDetails.video_url,
@@ -118,7 +117,7 @@ module.exports = {
 
 		try {
 			queueConstruct.connection = await channel.join()
-			await queueConstruct.connection.voice.setSelfDeaf(true)
+			queueConstruct.connection.voice.setSelfDeaf(true)
 			play(queueConstruct.songs[0], message)
 		} catch (error) {
 			console.error(error)
