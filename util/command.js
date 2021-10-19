@@ -15,19 +15,19 @@ module.exports = (client, aliases, callback) => {
 			
 			const command = prefix+alias.toLowerCase()
 			if (message.content.split(' ')[0].toLowerCase() == command) {
-				mongo(database1).then(async mongoose => {
-					mongoose.connection.collection('blacklists').findOne({ [message.author.id+'.id']: message.author.id }, async (error, blacklist) => {
-						if (blacklist == null) blacklist = {}
-						if (blacklist == undefined) blacklist = {}
+				// mongo(database1).then(async mongoose => {
+					// mongoose.connection.collection('blacklists').findOne({ [message.author.id+'.id']: message.author.id }, async (error, blacklist) => {
+						// if (blacklist == null) blacklist = {}
+						// if (blacklist == undefined) blacklist = {}
 						
-						if (blacklist[message.author.id] && command !== prefix+'help' && command !== prefix+'bcheck' && command !== prefix+'blacklistcheck') {
-							message.channel.send('**'+message.author.username+'** you are not able to use commands any more! because have been blacklisted!')
-							return message.channel.send('**'+message.author.username+'** contact **HyPeD#0003** for blacklist appeal!')
-						}
+						// if (blacklist[message.author.id] && command !== prefix+'help' && command !== prefix+'bcheck' && command !== prefix+'blacklistcheck') {
+							// message.channel.send('**'+message.author.username+'** you are not able to use commands any more! because have been blacklisted!')
+							// return message.channel.send('**'+message.author.username+'** contact **HyPeD#0003** for blacklist appeal!')
+						// }
 						callback(message)
 						if (message.author.id !== '458997221170479124') client.channels.cache.get('717763226078543954').send('**'+message.author.tag +'** running **'+command+'** in **('+message.guild.name+')**'+(message.content.split(' ').slice(1).join(' ') ? '\n<:space:817796102761611264>arguments: '+message.content.split(' ').slice(1).join(' ') : ''))
-					})
-				})
+					// })
+				// })
 			}
 		})
 		
