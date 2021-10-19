@@ -12,7 +12,7 @@
     "random-word": "^2.0.0",
 	"fs": "0.0.2",
 	"figlet": "^1.5.0",
-	"mongoose": "^6.0.8",
+	"mongoose": "^6.0.11",
 	"updated-youtube-info": "^1.4.7",
 	"node-fetch": "^2.6.1",
     "request-promise-native": "^1.0.8",
