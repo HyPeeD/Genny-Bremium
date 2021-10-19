@@ -3871,7 +3871,6 @@ client.on('ready', function() {
 
 		let profile = {}
 		let sortable = {}
-		message.channel.startTyping()
 		mongo(database1).then(async mongoose => {
 			mongoose.connection.collection('profiles').find({}, async (error, profiles) => {
 				if (profiles == null) profiles = {}
@@ -4010,7 +4009,6 @@ client.on('ready', function() {
 					const avatar = await loadImage(roundedImage(pic, width, height, radius))
 					ctx.drawImage(avatar, x, y + 1.5, width, height)
 					return message.channel.send({ files: [{ attachment: canvas.toBuffer(), name: `profile.png` }] })
-					message.channel.stopTyping()
 				})
 			})
 		})
@@ -4952,7 +4950,6 @@ client.on('ready', function() {
 		
 		const member = message.mentions.members.first() ? message.mentions.members.first().user : message.author
 		if (member.bot) return message.channel.send('**'+message.author.username+'**, bots do not have profiles!')
-		message.channel.startTyping()
         mongo(database1).then(async mongoose => {
 			mongoose.connection.collection('setups').findOne({ [message.guild.id+'.id']: message.guild.id }, async (error, setups) => {
 			mongoose.connection.collection('levels').findOne({ [message.guild.id+'.id']: message.guild.id }, async (error, level) => {
@@ -5119,7 +5116,6 @@ client.on('ready', function() {
 				const avatar = await loadImage(roundedImage(pic, 250, 250, 30))
 				ctx.drawImage(avatar, x, y + 1.5, 250, 250)
 				message.channel.send({ files: [{ attachment: canvas.toBuffer(), name: `level.png` }] })
-				message.channel.stopTyping()
 			})
 			})
 			})
@@ -5531,8 +5527,8 @@ client.on('ready', function() {
 	
 })
 
-mongo(database1).then(async mongoosee => {
-	mongoosee.connection.collection('setups').find({}, async (error, setups) => {
+mongo(database1).then(async mongoose => {
+	mongoose.connection.collection('setups').find({}, async (error, setups) => {
 		if (setups == null) setups = {}
 		if (setups == undefined) setups = {}
 
