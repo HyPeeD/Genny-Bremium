@@ -5945,7 +5945,8 @@ app.post('/dblwebhook', webhook.listener(vote => {
 let ecounter = {}
 let dcounter = {}
 client.on('messageUpdate', (oldMessage, newMessage) => {
-	if (message.embeds[0]) return
+	if (oldMessage.embeds[0]) return
+	if (newMessage.embeds[0]) return
 	if (newMessage.content == oldMessage.content) return
 	if (!ecounter[oldMessage.channel.id]) ecounter[oldMessage.channel.id] = 0
 	if (!editsnipes[oldMessage.channel.id]) editsnipes[oldMessage.channel.id] = []
