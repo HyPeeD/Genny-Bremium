@@ -3871,6 +3871,7 @@ client.on('ready', function() {
 
 		let profile = {}
 		let sortable = {}
+		message.channel.startTyping()
 		mongo(database1).then(async mongoose => {
 			mongoose.connection.collection('profiles').find({}, async (error, profiles) => {
 				if (profiles == null) profiles = {}
@@ -4009,6 +4010,7 @@ client.on('ready', function() {
 					const avatar = await loadImage(roundedImage(pic, width, height, radius))
 					ctx.drawImage(avatar, x, y + 1.5, width, height)
 					return message.channel.send({ files: [{ attachment: canvas.toBuffer(), name: `profile.png` }] })
+					message.channel.stopTyping()
 				})
 			})
 		})
@@ -4950,7 +4952,7 @@ client.on('ready', function() {
 		
 		const member = message.mentions.members.first() ? message.mentions.members.first().user : message.author
 		if (member.bot) return message.channel.send('**'+message.author.username+'**, bots do not have profiles!')
-		
+		message.channel.startTyping()
         mongo(database2).then(async mongoose => {
 			mongoose.connection.collection('setups').findOne({ [message.guild.id+'.id']: message.guild.id }, async (error, setups) => {
 			mongoose.connection.collection('levels').findOne({ [message.guild.id+'.id']: message.guild.id }, async (error, level) => {
@@ -5117,6 +5119,7 @@ client.on('ready', function() {
 				const avatar = await loadImage(roundedImage(pic, 250, 250, 30))
 				ctx.drawImage(avatar, x, y + 1.5, 250, 250)
 				message.channel.send({ files: [{ attachment: canvas.toBuffer(), name: `level.png` }] })
+				message.channel.stopTyping()
 			})
 			})
 			})
@@ -5555,7 +5558,7 @@ mongo(database2).then(async mongoosee => {
 				}, 15000)
 			}
 			if (!firstvcarray[newState.guild.id]) firstvcarray[newState.guild.id] = []
-			if (firstvcarray[newState.guild.id].length >= 20) {
+			if (firstvcarray[newState.guild.id].length >= 50) {
 				mongo(database2).then(async mongoose => {
 					mongoose.connection.collection('vclevels').findOne({ [newState.guild.id+'.id']: newState.guild.id }, async (error, vclevel) => {
 						if (vclevel == null) vclevel = {}
@@ -5585,12 +5588,49 @@ mongo(database2).then(async mongoosee => {
 						})
 						Promise.all(promises).then(function () {
 							mongoose.connection.collection('vclevels').updateOne({ [newState.guild.id+'.id']: newState.guild.id }, { $set: { [newState.guild.id]: vclevel[newState.guild.id] } })
-
 							firstvcarray[newState.guild.id] = []
 						})
 					})
 				})
 			}
+			
+			setTimeout(() => {
+				if (firstvcarray[newState.guild.id].length !== 0) {
+					mongo(database2).then(async mongoose => {
+					mongoose.connection.collection('vclevels').findOne({ [newState.guild.id+'.id']: newState.guild.id }, async (error, vclevel) => {
+						if (vclevel == null) vclevel = {}
+						if (vclevel == undefined) vclevel = {}
+			  
+						if (!vclevel[newState.guild.id]) {
+							vclevel[newState.guild.id] = { id: newState.guild.id }
+							mongoose.connection.collection('vclevels').insertOne({ [newState.guild.id]: { id: newState.guild.id } })
+						}
+						var promises = firstvcarray[newState.guild.id].map(function (commander) {
+							let max = 13
+							let min = 3
+							let ran = parseInt(Math.floor(Math.random() * (max - min + 1)) + min)
+							if (!vclevel[newState.guild.id][commander]) {
+								vclevel[newState.guild.id][commander] = { voiceXp: ran, voice: 1, id: commander }
+							} else if (vclevel[newState.guild.id][commander]) {
+
+								const levels = vclevel[newState.guild.id][commander].voice
+								const xps = vclevel[newState.guild.id][commander].voiceXp + ran
+							  
+								if (parseInt(xps) >= parseInt(levels) * 400) {
+									vclevel[newState.guild.id][commander] = { voiceXp: 0, voice: levels + 1, id: commander }
+								} else {
+									vclevel[newState.guild.id][commander] = { voiceXp: xps, voice: levels, id: commander }
+								}
+							}
+						})
+						Promise.all(promises).then(function () {
+							mongoose.connection.collection('vclevels').updateOne({ [newState.guild.id+'.id']: newState.guild.id }, { $set: { [newState.guild.id]: vclevel[newState.guild.id] } })
+							firstvcarray[newState.guild.id] = []
+						})
+					})
+				})
+				}
+			}, 10000)
 		})
 		
 		client.on('message', async message => {
@@ -5726,7 +5766,7 @@ mongo(database2).then(async mongoosee => {
 			firstarray[message.guild.id].push(message.author.id)
       
 			// leveling peopole and cleaning arrays
-			if (firstarray[message.guild.id].length >= 20) {
+			if (firstarray[message.guild.id].length >= 50) {
 				mongo(database2).then(async mongoose => {
 					mongoose.connection.collection('levels').findOne({ [message.guild.id+'.id']: message.guild.id }, async (error, level) => {
 						if (level == null) level = {}
@@ -5764,44 +5804,44 @@ mongo(database2).then(async mongoosee => {
 				})
 			}
 			
-			// setTimeout(() => {
-				// if (firstarray[message.guild.id].length !== 0) {
-					// mongo(database2).then(async mongoose => {
-						// mongoose.connection.collection('levels').findOne({ [message.guild.id+'.id']: message.guild.id }, async (error, level) => {
-							// if (level == null) level = {}
-							// if (level == undefined) level = {}
+			setTimeout(() => {
+				if (firstarray[message.guild.id].length !== 0) {
+					mongo(database2).then(async mongoose => {
+						mongoose.connection.collection('levels').findOne({ [message.guild.id+'.id']: message.guild.id }, async (error, level) => {
+							if (level == null) level = {}
+							if (level == undefined) level = {}
 
-							// if (!level[message.guild.id]) {
-								// level[message.guild.id] = { id: message.guild.id }
-								// mongoose.connection.collection('levels').insertOne({ [message.guild.id]: { id: message.guild.id } })
-							// }
-							// var promises = firstarray[message.guild.id].map(function (commander) {
-								// let max = 13
-								// let min = 3
-								// let ran = parseInt(Math.floor(Math.random() * (max - min + 1)) + min)
-								// if (!level[message.guild.id][commander]) {
-									// level[message.guild.id][commander] = { xp: ran, level: 1, id: commander }
-								// } else if (level[message.guild.id][commander]) {
+							if (!level[message.guild.id]) {
+								level[message.guild.id] = { id: message.guild.id }
+								mongoose.connection.collection('levels').insertOne({ [message.guild.id]: { id: message.guild.id } })
+							}
+							var promises = firstarray[message.guild.id].map(function (commander) {
+								let max = 13
+								let min = 3
+								let ran = parseInt(Math.floor(Math.random() * (max - min + 1)) + min)
+								if (!level[message.guild.id][commander]) {
+									level[message.guild.id][commander] = { xp: ran, level: 1, id: commander }
+								} else if (level[message.guild.id][commander]) {
 
-									// const levels = level[message.guild.id][commander].level
-									// const xps = level[message.guild.id][commander].xp + ran
+									const levels = level[message.guild.id][commander].level
+									const xps = level[message.guild.id][commander].xp + ran
 
-									// if (parseInt(xps) >= parseInt(levels) * 400) {
-										// level[message.guild.id][commander] = { xp: 0, level: levels + 1, id: commander }
-										// leveled.push([ level[message.guild.id][commander], { channel: message.channel, guild: message.guild } ])
-									// } else {
-										// level[message.guild.id][commander] = { xp: xps, level: levels, id: commander }
-									// }
-								// }
-							// })
-							// Promise.all(promises).then(function () {
-								// mongoose.connection.collection('levels').updateOne({ [message.guild.id+'.id']: message.guild.id }, { $set: { [message.guild.id]: level[message.guild.id] } })
-								// firstarray[message.guild.id] = []
-							// })
-						// })
-					// })
-				// }
-			// }, 6000)
+									if (parseInt(xps) >= parseInt(levels) * 400) {
+										level[message.guild.id][commander] = { xp: 0, level: levels + 1, id: commander }
+										leveled.push([ level[message.guild.id][commander], { channel: message.channel, guild: message.guild } ])
+									} else {
+										level[message.guild.id][commander] = { xp: xps, level: levels, id: commander }
+									}
+								}
+							})
+							Promise.all(promises).then(function () {
+								mongoose.connection.collection('levels').updateOne({ [message.guild.id+'.id']: message.guild.id }, { $set: { [message.guild.id]: level[message.guild.id] } })
+								firstarray[message.guild.id] = []
+							})
+						})
+					})
+				}
+			}, 10000)
 			
 			commanderwait[message.guild.id][message.author.id] = true
 			setTimeout(() => { delete commanderwait[message.guild.id][message.author.id] }, 6000)
