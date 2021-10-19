@@ -1236,9 +1236,10 @@ client.on('ready', function() {
 	command(client, mentionsnipe, async message => {
 		await waiting(message)
 		if (!message.channel.permissionsFor(message.guild.me).has('EMBED_LINKS')) return message.channel.send('**'+message.author.username+'** I must have embed links permission')
-		if (mentionsnipes[message.author.id] && !mentionsnipes[message.author.id][message.guild.id]) return message.channel.send('**'+message.author.username+'** no targeted mentions in (**#'+message.channel.name+'**)')
+		if (!mentionsnipes[message.author.id]) return message.channel.send('**'+message.author.username+'** no targeted mentions in (**#'+message.guild.name+'**)')
+		if (!mentionsnipes[message.author.id][message.guild.id]) return message.channel.send('**'+message.author.username+'** no targeted mentions in (**#'+message.guild.name+'**)')
 		let counter = 0
-		let maxpage = mentionsnipes[message.author.id][message.guild.id].length
+		let maxpage = mentionsnipes[message.author.id][message.guild.id]?.length
 		let result = mentionsnipes[message.author.id][message.guild.id][counter]
 		let user = client.users.cache.get(result['author'])
 		let linko = result['url']
@@ -5878,7 +5879,7 @@ client.on('clickButton', b => {
 				if (blacklist == null) blacklist = {}
 				if (blacklist == undefined) blacklist = {}
 			
-				if (blacklist[b.clicker.user.id]) return message.channel.send('**'+b.clicker.user.username+'** you are blacklisted so you can not stop a button listener!')
+				if (blacklist[b.clicker.user.id]) return b.message.channel.send('**'+b.clicker.user.username+'** you are blacklisted so you can not stop a button listener!')
 				b.message.channel.send('**'+b.clicker.user.username+'** you just stopped buttons listeners!')
 				return b.message.edit({ buttons: null, embed: new MessageEmbed(b.message.embeds[0]) })
 			})
@@ -5954,9 +5955,9 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
 	let advertises = oldMessage.content.replace(oldMessage.content.split('discord.gg/')[1] ? oldMessage.content.split('discord.gg/')[1].split(' ')[0] : '', '').replace(/discord.gg\//g, '').replace(/https:\/\//g, '')
 	
 	let content = {
-		oldMsg: advertises !== '' ? trim(advertises, 1024) : 'Discord invite!',
+		oldMsg: advertises !== '' ? trim(advertises, 1024) : '\u200b',
 		author: oldMessage.author.id,
-		newMsg: advertise !== '' ? trim(advertise, 1024) : 'Discord invite!'
+		newMsg: advertise !== '' ? trim(advertise, 1024) : '\u200b'
 	}
 	if (editsnipes[oldMessage.channel.id].length >= 10) {
 		if (ecounter[oldMessage.channel.id] >= 10) ecounter[oldMessage.channel.id] = 0
@@ -5968,13 +5969,15 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
 })
 
 client.on('messageDelete', message => {
+	if (message.embeds[0]) return
+	
 	if (!dcounter[message.channel.id]) dcounter[message.channel.id] = 0
 	if (!deletesnipes[message.channel.id]) deletesnipes[message.channel.id] = []
 	
 	let advertise = message.content.replace(message.content.split('discord.gg/')[1] ? message.content.split('discord.gg/')[1].split(' ')[0] : '', '').replace(/discord.gg\//g, '').replace(/https:\/\//g, '')
 	
 	let content = {
-		message: advertise !== '' ? trim(advertise, 1024) : 'Discord invite!',
+		message: advertise !== '' ? trim(advertise, 1024) : '\u200b',
 		author: message.author.id,
 		img: message.attachments.first() ? message.attachments.first().proxyURL : empty
 	}
