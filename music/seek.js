@@ -2,7 +2,7 @@ const { MessageEmbed } = require('discord.js')
 const usetube = require('usetube')
 
 module.exports = {
-	name: 'search',
+	name: 'seek',
 	description: 'Search and select videos to play',
 	async execute(message, args, client) {
 		if (!args.length) return message.channel.send('**'+message.author.username+'** you must include a valid arguments!')
@@ -35,6 +35,7 @@ module.exports = {
 
 			message.channel.activeCollector = false
 			message.client.commands.get('play').execute(message, [choice])
+			response.first().delete().catch(console.error)
 			resultsMessage.delete().catch(console.error)
 		} catch (error) {
 			console.error(error)
