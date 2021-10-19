@@ -1239,7 +1239,7 @@ client.on('ready', function() {
 		if (!mentionsnipes[message.author.id]) return message.channel.send('**'+message.author.username+'** no targeted mentions in (**#'+message.guild.name+'**)')
 		if (!mentionsnipes[message.author.id][message.guild.id]) return message.channel.send('**'+message.author.username+'** no targeted mentions in (**#'+message.guild.name+'**)')
 		let counter = 0
-		let maxpage = mentionsnipes[message.author.id][message.guild.id]?.length
+		let maxpage = mentionsnipes[message.author.id][message.guild.id].length
 		let result = mentionsnipes[message.author.id][message.guild.id][counter]
 		let user = client.users.cache.get(result['author'])
 		let linko = result['url']
