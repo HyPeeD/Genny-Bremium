@@ -1147,7 +1147,7 @@ client.on('ready', function() {
 		.addField('Deleted Message', result['message'])
 		.setThumbnail(message.author.avatarURL({ dynamic: true }))
 		.setFooter('Requested by '+message.author.username, message.author.avatarURL({ dynamic: true }))
-		.setImage('https://cdn.discordapp.com/attachments/634854460102803456/754317681703911504/Untitled-1.png')
+		.setImage(resultt['img'])
 		.setFooter(`Page ${counter + 1}/${maxpage}`)
 		.setTimestamp()
 		
@@ -1168,7 +1168,7 @@ client.on('ready', function() {
 					.addField('Deleted Message', resultt['message'])
 					.setThumbnail(message.author.avatarURL({ dynamic: true }))
 					.setFooter('Requested by '+message.author.username, message.author.avatarURL({ dynamic: true }))
-					.setImage('https://cdn.discordapp.com/attachments/634854460102803456/754317681703911504/Untitled-1.png')
+					.setImage(resultt['img'])
 					.setFooter(`Page ${counter + 1}/${maxpage}`)
 					.setTimestamp()
 					infoo.edit({ buttons: [maxleft.setStyle('blurple').setDisabled(false), left.setStyle('blurple').setDisabled(false), right.setStyle('blurple').setDisabled(true), maxright.setStyle('blurple').setDisabled(true), deletee], embed: emb })
@@ -1184,7 +1184,7 @@ client.on('ready', function() {
 					.addField('Deleted Message', resultt['message'])
 					.setThumbnail(message.author.avatarURL({ dynamic: true }))
 					.setFooter('Requested by '+message.author.username, message.author.avatarURL({ dynamic: true }))
-					.setImage('https://cdn.discordapp.com/attachments/634854460102803456/754317681703911504/Untitled-1.png')
+					.setImage(resultt['img'])
 					.setFooter(`Page ${counter + 1}/${maxpage}`)
 					.setTimestamp()
 					infoo.edit({ buttons: [maxleft.setStyle('blurple').setDisabled(true), left.setStyle('blurple').setDisabled(true), right.setStyle('blurple').setDisabled(false), maxright.setStyle('blurple').setDisabled(false), deletee], embed: emb })
@@ -1201,7 +1201,7 @@ client.on('ready', function() {
 					.addField('Deleted Message', resultt['message'])
 					.setThumbnail(message.author.avatarURL({ dynamic: true }))
 					.setFooter('Requested by '+message.author.username, message.author.avatarURL({ dynamic: true }))
-					.setImage('https://cdn.discordapp.com/attachments/634854460102803456/754317681703911504/Untitled-1.png')
+					.setImage(resultt['img'])
 					.setFooter(`Page ${counter + 1}/${maxpage}`)
 					.setTimestamp()
 					if (counter <= 0) return infoo.edit({ buttons: [maxleft.setStyle('blurple').setDisabled(true), left.setStyle('blurple').setDisabled(true), right.setStyle('blurple').setDisabled(false), maxright.setStyle('blurple').setDisabled(false), deletee], embed: emb })
@@ -1219,7 +1219,7 @@ client.on('ready', function() {
 					.addField('Deleted Message', resultt['message'])
 					.setThumbnail(message.author.avatarURL({ dynamic: true }))
 					.setFooter('Requested by '+message.author.username, message.author.avatarURL({ dynamic: true }))
-					.setImage('https://cdn.discordapp.com/attachments/634854460102803456/754317681703911504/Untitled-1.png')
+					.setImage(resultt['img'])
 					.setFooter(`Page ${counter + 1}/${maxpage}`)
 					.setTimestamp()
 					if ((counter + 1) >= maxpage) return infoo.edit({ buttons: [maxleft.setDisabled(false), left.setDisabled(false), right.setDisabled(true), maxright.setStyle('blurple').setDisabled(true), deletee], embed: emb })
@@ -5873,8 +5873,16 @@ client.on('clickButton', b => {
 		})
 	}
 	if (b.id === 'deletee') {
-		b.message.channel.send('**'+b.clicker.user.username+'** you just stopped buttons listeners!')
-		return b.message.edit({ buttons: null, embed: new MessageEmbed(b.message.embeds[0]) })
+		mongo(database1).then(async mongoose => {
+			mongoose.connection.collection('blacklists').findOne({ [b.clicker.user.id+'.id']: b.clicker.user.id }, async (error, blacklist) => {
+				if (blacklist == null) blacklist = {}
+				if (blacklist == undefined) blacklist = {}
+			
+				if (blacklist[b.clicker.user.id]) return message.channel.send('**'+b.clicker.user.username+'** you are blacklisted so you can not stop a button listener!')
+				b.message.channel.send('**'+b.clicker.user.username+'** you just stopped buttons listeners!')
+				return b.message.edit({ buttons: null, embed: new MessageEmbed(b.message.embeds[0]) })
+			})
+		})
 	}
 	if (b.id === 'premium') {
 		b.reply.defer()
@@ -5968,6 +5976,7 @@ client.on('messageDelete', message => {
 	let content = {
 		message: advertise !== '' ? trim(advertise, 1024) : 'Discord invite!',
 		author: message.author.id
+		img: message.attachments.first() ? message.attachments.first()?.proxyURL : empty
 	}
 	
 	if (deletesnipes[message.channel.id].length >= 10) {
