@@ -5976,7 +5976,7 @@ client.on('messageDelete', message => {
 	let content = {
 		message: advertise !== '' ? trim(advertise, 1024) : 'Discord invite!',
 		author: message.author.id,
-		img: message.attachments.first() ? message.attachments.first()?.proxyURL : empty
+		img: message.attachments.first() ? message.attachments.first().proxyURL : empty
 	}
 	
 	if (deletesnipes[message.channel.id].length >= 10) {
