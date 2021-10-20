@@ -32,6 +32,7 @@ const fs = require('fs')
 client.queue = new Map()
 client.radio = new Map()
 client.music = new Map()
+client.volum = new Map()
 client.prefix = prefix
 let position
 
@@ -5991,9 +5992,9 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
 	let advertises = oldMessage.content.replace(oldMessage.content.split('discord.gg/')[1] ? oldMessage.content.split('discord.gg/')[1].split(' ')[0] : '', '').replace(/discord.gg\//g, '').replace(/https:\/\//g, '')
 	
 	let content = {
-		oldMsg: advertises !== '' ? trim(advertises, 1024) : '\u200b',
+		oldMsg: oldMessage.content.includes('discord.gg/') ? trim(advertises, 1024) : trim(oldMessage.content, 1024),
 		author: oldMessage.author.id,
-		newMsg: advertise !== '' ? trim(advertise, 1024) : '\u200b'
+		newMsg: newMessage.content.includes('discord.gg/') ? trim(advertise, 1024) : trim(newMessage.content, 1024)
 	}
 	if (editsnipes[oldMessage.channel.id].length >= 10) {
 		if (ecounter[oldMessage.channel.id] >= 10) ecounter[oldMessage.channel.id] = 0
@@ -6014,7 +6015,7 @@ client.on('messageDelete', message => {
 	let advertise = message.content.replace(message.content.split('discord.gg/')[1] ? message.content.split('discord.gg/')[1].split(' ')[0] : '', '').replace(/discord.gg\//g, '').replace(/https:\/\//g, '')
 	
 	let content = {
-		message: trim(advertise, 1024),
+		message: message.content.includes('discord.gg/') ? trim(advertise, 1024) : trim(message.content, 1024),
 		author: message.author.id,
 		img: message.attachments.first() ? message.attachments.first().proxyURL : empty
 	}
