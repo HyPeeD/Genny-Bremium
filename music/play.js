@@ -55,13 +55,14 @@ module.exports = {
 			// return message.client.commands.get('playlist').execute(message, args)
 		}
 
+		let volume = message.client.volum.get(message.guild.id)
 		const queueConstruct = {
 			textChannel: message.channel,
 			channel,
 			connection: null,
 			songs: [],
 			loop: false,
-			volume: serverQueue && serverQueue.volume ? serverQueue.volume : 100,
+			volume: volume ? volume : 100,
 			playing: true
 		}
 
