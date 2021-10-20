@@ -22,6 +22,7 @@ module.exports = {
 		queue.textChannel.send((emote == null ? '<:none:873257085448650812>' : emote)+` volume has been **changed** from (\`${queue.volume}\`) to (\`${args}\`)`).then(() => {
 			queue.volume = args[0]
 			queue.connection.dispatcher.setVolumeLogarithmic(args[0] / 150)
+			message.client.volum.set(message.guild.id, queue.volume)
 			message.client.queue.set(message.guild.id, queue)
 		})
 	}
