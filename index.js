@@ -1107,8 +1107,8 @@ client.on('ready', function() {
 					if ((counter + 1) >= maxpage) return infoo.edit({ buttons: [maxleft.setDisabled(false), left.setDisabled(false), right.setDisabled(true), maxright.setDisabled(true), deletee], embed: emb })
 					infoo.edit({ buttons: [maxleft.setDisabled(false), left.setDisabled(false), right.setDisabled(false), maxright.setDisabled(false), deletee], embed: emb })
 				}
-				if (b.id === 'deletee') {
-					b.message.channel.send('**'+b.clicker.user.username+'** you just stopped buttons listeners!')
+				if (button.id === 'deletee') {
+					button.message.channel.send('**'+button.clicker.user.username+'** you just stopped buttons listeners!')
 					return collector.stop()
 				}
 			})
@@ -1229,8 +1229,8 @@ client.on('ready', function() {
 					if ((counter + 1) >= maxpage) return infoo.edit({ buttons: [maxleft.setDisabled(false), left.setDisabled(false), right.setDisabled(true), maxright.setStyle('blurple').setDisabled(true), deletee], embed: emb })
 					infoo.edit({ buttons: [maxleft.setStyle('blurple').setDisabled(false), left.setStyle('blurple').setDisabled(false), right.setStyle('blurple').setDisabled(false), maxright.setStyle('blurple').setDisabled(false), deletee], embed: emb })
 				}
-				if (b.id === 'deletee') {
-					b.message.channel.send('**'+b.clicker.user.username+'** you just stopped buttons listeners!')
+				if (button.id === 'deletee') {
+					button.message.channel.send('**'+button.clicker.user.username+'** you just stopped buttons listeners!')
 					return collector.stop()
 				}
 			})
