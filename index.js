@@ -5980,6 +5980,7 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
 
 client.on('messageDelete', message => {
 	if (message.embeds[0]) return
+	if (message.author.bot) return
 	if (message.content == '' && !message.attachments.first()) return
 	
 	if (!dcounter[message.channel.id]) dcounter[message.channel.id] = 0
