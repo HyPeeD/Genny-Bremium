@@ -1036,7 +1036,6 @@ client.on('ready', function() {
 			const collector = infoo.createButtonCollector(filter, { time: 120000 })
 			collector.on('collect', async button => {
 				if (button.id === 'maxright') {
-					button.reply.defer()
 					counter = editsnipes[message.channel.id].length - 1
 					let resultt = editsnipes[message.channel.id][editsnipes[message.channel.id].length - 1]
 					let user = client.users.cache.get(resultt['author'])
@@ -1053,7 +1052,7 @@ client.on('ready', function() {
 					.setTimestamp()
 					infoo.edit({ buttons: [maxleft.setDisabled(false), left.setDisabled(false), right.setDisabled(true), maxright.setDisabled(true), deletee], embed: emb })
 				} else if (button.id === 'maxleft') {
-					button.reply.defer()
+					
 					counter = 0
 					let resultt = editsnipes[message.channel.id][0]
 					let user = client.users.cache.get(resultt['author'])
@@ -1070,7 +1069,7 @@ client.on('ready', function() {
 					.setTimestamp()
 					infoo.edit({ buttons: [maxleft.setDisabled(true), left.setDisabled(true), right.setDisabled(false), maxright.setDisabled(false), deletee], embed: emb })
 				} else if (button.id === 'left') {
-					button.reply.defer()
+					
 					counter--
 					if (counter <= 0) counter = 0
 					let resultt = editsnipes[message.channel.id][counter]
@@ -1089,7 +1088,7 @@ client.on('ready', function() {
 					if (counter <= 0) return infoo.edit({ buttons: [maxleft.setDisabled(true), left.setDisabled(true), right.setDisabled(false), maxright.setDisabled(false), deletee], embed: emb })
 					infoo.edit({ buttons: [maxleft.setDisabled(false), left.setDisabled(false), right.setDisabled(false), maxright.setDisabled(false), deletee], embed: emb })
 				} else if (button.id === 'right') {
-					button.reply.defer()
+					
 					counter++
 					if ((counter + 1) >= maxpage) counter = maxpage - 1
 					let resultt = editsnipes[message.channel.id][counter]
@@ -1107,6 +1106,10 @@ client.on('ready', function() {
 					.setTimestamp()
 					if ((counter + 1) >= maxpage) return infoo.edit({ buttons: [maxleft.setDisabled(false), left.setDisabled(false), right.setDisabled(true), maxright.setDisabled(true), deletee], embed: emb })
 					infoo.edit({ buttons: [maxleft.setDisabled(false), left.setDisabled(false), right.setDisabled(false), maxright.setDisabled(false), deletee], embed: emb })
+				}
+				if (b.id === 'deletee') {
+					b.message.channel.send('**'+b.clicker.user.username+'** you just stopped buttons listeners!')
+					return collector.stop()
 				}
 			})
 			collector.on('end', () => {
@@ -1158,7 +1161,7 @@ client.on('ready', function() {
 			const collector = infoo.createButtonCollector(filter, { time: 120000 })
 			collector.on('collect', async button => {
 				if (button.id === 'maxright') {
-					button.reply.defer()
+					
 					counter = deletesnipes[message.channel.id].length - 1
 					let resultt = deletesnipes[message.channel.id][deletesnipes[message.channel.id].length - 1]
 					let user = client.users.cache.get(resultt['author'])
@@ -1174,7 +1177,7 @@ client.on('ready', function() {
 					.setTimestamp()
 					infoo.edit({ buttons: [maxleft.setStyle('blurple').setDisabled(false), left.setStyle('blurple').setDisabled(false), right.setStyle('blurple').setDisabled(true), maxright.setStyle('blurple').setDisabled(true), deletee], embed: emb })
 				} else if (button.id === 'maxleft') {
-					button.reply.defer()
+					
 					counter = 0
 					let resultt = deletesnipes[message.channel.id][0]
 					let user = client.users.cache.get(resultt['author'])
@@ -1190,7 +1193,7 @@ client.on('ready', function() {
 					.setTimestamp()
 					infoo.edit({ buttons: [maxleft.setStyle('blurple').setDisabled(true), left.setStyle('blurple').setDisabled(true), right.setStyle('blurple').setDisabled(false), maxright.setStyle('blurple').setDisabled(false), deletee], embed: emb })
 				} else if (button.id === 'left') {
-					button.reply.defer()
+					
 					counter--
 					if (counter <= 0) counter = 0
 					let resultt = deletesnipes[message.channel.id][counter]
@@ -1208,7 +1211,7 @@ client.on('ready', function() {
 					if (counter <= 0) return infoo.edit({ buttons: [maxleft.setStyle('blurple').setDisabled(true), left.setStyle('blurple').setDisabled(true), right.setStyle('blurple').setDisabled(false), maxright.setStyle('blurple').setDisabled(false), deletee], embed: emb })
 					infoo.edit({ buttons: [maxleft.setStyle('blurple').setDisabled(false), left.setStyle('blurple').setDisabled(false), right.setStyle('blurple').setDisabled(false), maxright.setStyle('blurple').setDisabled(false), deletee], embed: emb })
 				} else if (button.id === 'right') {
-					button.reply.defer()
+					
 					counter++
 					if ((counter + 1) >= maxpage) counter = maxpage - 1
 					let resultt = deletesnipes[message.channel.id][counter]
@@ -1225,6 +1228,10 @@ client.on('ready', function() {
 					.setTimestamp()
 					if ((counter + 1) >= maxpage) return infoo.edit({ buttons: [maxleft.setDisabled(false), left.setDisabled(false), right.setDisabled(true), maxright.setStyle('blurple').setDisabled(true), deletee], embed: emb })
 					infoo.edit({ buttons: [maxleft.setStyle('blurple').setDisabled(false), left.setStyle('blurple').setDisabled(false), right.setStyle('blurple').setDisabled(false), maxright.setStyle('blurple').setDisabled(false), deletee], embed: emb })
+				}
+				if (b.id === 'deletee') {
+					b.message.channel.send('**'+b.clicker.user.username+'** you just stopped buttons listeners!')
+					return collector.stop()
 				}
 			})
 			collector.on('end', () => {
@@ -1261,10 +1268,6 @@ client.on('ready', function() {
 		const maxleft = new MessageButton()
 		.setID('maxleft')
 		.setEmoji('871500441920339998')
-		const deletee = new MessageButton()
-		.setID('deletee')
-		.setEmoji('871500443019247656')
-		.setStyle('red')
 		
 		let emb = new MessageEmbed()
 		.setAuthor(user.tag, user.avatarURL({ dynamic: true }))
@@ -1282,7 +1285,7 @@ client.on('ready', function() {
 			const collector = infoo.createButtonCollector(filter, { time: 120000 })
 			collector.on('collect', async button => {
 				if (button.id === 'maxright') {
-					button.reply.defer()
+					
 					counter = mentionsnipes[message.author.id][message.guild.id].length - 1
 					let resultt = mentionsnipes[message.author.id][message.guild.id][mentionsnipes[message.author.id][message.guild.id].length - 1]
 					let user = client.users.cache.get(resultt['author'])
@@ -1304,7 +1307,7 @@ client.on('ready', function() {
 					.setTimestamp()
 					infoo.edit({ buttons: [maxleft.setStyle('blurple').setDisabled(false), left.setStyle('blurple').setDisabled(false), upto, right.setStyle('blurple').setDisabled(true), maxright.setStyle('blurple').setDisabled(true)], embed: emb })
 				} else if (button.id === 'maxleft') {
-					button.reply.defer()
+					
 					counter = 0
 					let resultt = mentionsnipes[message.author.id][message.guild.id][0]
 					let user = client.users.cache.get(resultt['author'])
@@ -1326,7 +1329,7 @@ client.on('ready', function() {
 					.setTimestamp()
 					infoo.edit({ buttons: [maxleft.setStyle('blurple').setDisabled(true), left.setStyle('blurple').setDisabled(true), upto, right.setStyle('blurple').setDisabled(false), maxright.setStyle('blurple').setDisabled(false)], embed: emb })
 				} else if (button.id === 'left') {
-					button.reply.defer()
+					
 					counter--
 					if (counter <= 0) counter = 0
 					let resultt = mentionsnipes[message.author.id][message.guild.id][counter]
@@ -1350,7 +1353,7 @@ client.on('ready', function() {
 					if (counter <= 0) return infoo.edit({ buttons: [maxleft.setStyle('blurple').setDisabled(true), left.setStyle('blurple').setDisabled(true), upto, right.setStyle('blurple').setDisabled(false), maxright.setStyle('blurple').setDisabled(false)], embed: emb })
 					infoo.edit({ buttons: [maxleft.setStyle('blurple').setDisabled(false), left.setStyle('blurple').setDisabled(false), upto, right.setStyle('blurple').setDisabled(false), maxright.setStyle('blurple').setDisabled(false)], embed: emb })
 				} else if (button.id === 'right') {
-					button.reply.defer()
+					
 					counter++
 					if ((counter + 1) >= maxpage) counter = maxpage - 1
 					let resultt = mentionsnipes[message.author.id][message.guild.id][counter]
@@ -1481,15 +1484,15 @@ client.on('ready', function() {
 						if (button.id === 'acceptmarry') {
 							mongoose.connection.collection('marry-couples').insertMany([{ [message.author.id]: { marry: proposed.id, times: Datie, id: message.author.id } }, { [proposed.id]: { marry: message.author.id, times: Datie, id: proposed.id } }])
 							collector.stop()
-							button.reply.defer()
+							
 							return message.channel.send('<a:Heart:678372637231284234> **Happily married** \n Congratulations, **' +message.author.username +'** and **' +proposed.username +'** are now bound by marriage!')
 						} else if (button.id === 'declinemarry') {
 							collector.stop()
-							button.reply.defer()
+							
 							return message.channel.send('**' +message.author.tag +'** your proposal has been declined... <:cutie:675727723624136715>')
 						} else if (button.id === 'letmethink') {
 							collector.stop()
-							button.reply.defer()
+							
 							return message.channel.send('**'+message.author.username+'** so you have to let **' +proposed.tag +'** think about you proposal! give her/he more time!')
 						}
 					})
@@ -1558,11 +1561,11 @@ client.on('ready', function() {
 							m.inlineReply({ embed: divorced })
 							mongoose.connection.collection('marry-couples').deleteOne({ [marry[message.author.id].marry+'.id']: marry[message.author.id].marry })
 							mongoose.connection.collection('marry-couples').deleteOne({ [author+'.id']: author })
-							button.reply.defer()
+							
 							return collector.stop()
 						} else if (button.id === 'declinedivorce') {
 							collector.stop()
-							button.reply.defer()
+							
 							return m.inlineReply({ embed: decdivorced })
 						}
 					})
@@ -2764,6 +2767,7 @@ client.on('ready', function() {
 		}
 		if (message.content.split(' ')[1] == 'volume') {
 			if ((isNaN(message.content.split(' ').slice(2).join(' '))) || (parseInt(message.content.split(' ').slice(2).join(' ')) > 100) || (parseInt(message.content.split(' ').slice(2).join(' ')) < 0)) return message.channel.send('**'+message.author.username+'**, please choose a number between (\`0\`) and (\`100\`)')
+			if (!message.content.split(' ').slice(2).join(' ')) return message.channel.send(`<:none:873257085448650812> **${message.author.username}**, current **volume** is (\`${guildvolume[message.guild.id] ? guildvolume[message.guild.id] : 70}\`)`)
 			message.member.voice.channel.join().then(connection => {
 				connection.dispatcher.setVolumeLogarithmic(parseInt(message.content.split(' ')[2]) / 100)
 				guildvolume[message.guild.id] = parseInt(message.content.split(' ')[2]) / 100
@@ -2856,7 +2860,6 @@ client.on('ready', function() {
 		
 		collector.on('collect', async button => {
 			if (button.id === 'middloo' && x[message.guild.id] !== 0) {
-				button.reply.defer()
 				m.edit(`**${message.author.username}**, You hit the the ball into the goal and the goalkeeper didn't capt it!\n:goal::goal::goal:\n${goalkeeper[x[message.guild.id]]}\n<:space:817796102761611264>:soccer:`, { buttons: [left.setDisabled(true), middle.setDisabled(true), right.setDisabled(true)] })
 				message.channel.send(`**Soccer coach** says **${message.author.username}** well done! well done ma man! You got **$200** BONUS!`)
 				delete penalcool[message.guild.id]
@@ -2867,7 +2870,6 @@ client.on('ready', function() {
 				collector.stop()
 				return
 			} else if (button.id === 'middloo' && x[message.guild.id] == 0) {
-				button.reply.defer()
 				m.edit(`**${message.author.username}**, You hit the the ball into the goal and the goalkeeper capted it! <:oops:765590003694305351>\n:goal::goal::goal:\n<:space:817796102761611264>:levitate:<:space:817796102761611264>\n<:space:817796102761611264>:soccer:`, { buttons: [left.setDisabled(true), middle.setDisabled(true), right.setDisabled(true)] })
 				message.channel.send(`**Soccer coach** says **${message.author.username}** bad work! the goal keeper capt it and we lose the match because of you! bad work man!`)
 				stop[message.guild.id] = true
@@ -2877,7 +2879,6 @@ client.on('ready', function() {
 				collector.stop()
 				return
 			} else if (button.id === 'rightoo' && x[message.guild.id] !== 1) {
-				button.reply.defer()
 				m.edit(`**${message.author.username}**, You hit the the ball into the goal and the goalkeeper didn't capt it!\n:goal::goal::goal:\n${goalkeeper[x[message.guild.id]]}\n<:space:817796102761611264><:space:817796102761611264>:soccer:`, { buttons: [left.setDisabled(true), middle.setDisabled(true), right.setDisabled(true)] })
 				message.channel.send(`**Soccer coach** says **${message.author.username}** well done! well done ma man! You got **$200** BONUS!`)
 				delete penalcool[message.guild.id]
@@ -2888,7 +2889,6 @@ client.on('ready', function() {
 				collector.stop()
 				return
 			} else if (button.id === 'rightoo' && x[message.guild.id] == 1) {
-				button.reply.defer()
 				m.edit(`**${message.author.username}**, You hit the the ball into the goal and the goalkeeper capted it! <:oops:765590003694305351>\n:goal::goal::goal:\n<:space:817796102761611264><:space:817796102761611264>:levitate:\n<:space:817796102761611264><:space:817796102761611264>:soccer:`, { buttons: [left.setDisabled(true), middle.setDisabled(true), right.setDisabled(true)] })
 				message.channel.send(`**Soccer coach** says **${message.author.username}** bad work! the goal keeper capt it and we lose the match because of you! bad work man!`)
 				stop[message.guild.id] = true
@@ -2898,7 +2898,6 @@ client.on('ready', function() {
 				collector.stop()
 				return
 			} else if (button.id === 'leftoo' && x[message.guild.id] !== 2) {
-				button.reply.defer()
 				m.edit(`**${message.author.username}**, You hit the the ball into the goal and the goalkeeper didn't capt it!\n:goal::goal::goal:\n${goalkeeper[x[message.guild.id]]}\n:soccer:<:space:817796102761611264><:space:817796102761611264>`, { buttons: [left.setDisabled(true), middle.setDisabled(true), right.setDisabled(true)] })
 				message.channel.send(`**Soccer coach** says **${message.author.username}** well done! well done ma man! You got **$200** BONUS!`)
 				delete penalcool[message.guild.id]
@@ -2909,7 +2908,6 @@ client.on('ready', function() {
 				collector.stop()
 				return
 			} else if (button.id === 'leftoo' && x[message.guild.id] == 2) {
-				button.reply.defer()
 				m.edit(`**${message.author.username}**, You hit the the ball into the goal and the goalkeeper capted it! <:oops:765590003694305351>\n:goal::goal::goal:\n:levitate:<:space:817796102761611264><:space:817796102761611264>\n:soccer:<:space:817796102761611264><:space:817796102761611264>`, { buttons: [left.setDisabled(true), middle.setDisabled(true), right.setDisabled(true)] })
 				message.channel.send(`**Soccer coach** says **${message.author.username}** bad work! the goal keeper capt it and we lose the match because of you! bad work man!`)
 				stop[message.guild.id] = true
@@ -4444,7 +4442,6 @@ client.on('ready', function() {
 		collector.on('collect', async button => {
 			if (button.id === 'accept') {
 				collector.stop()
-				button.reply.defer()
 				let author = button.clicker.user.id
 				mongo(database1).then(async mongoose => {
 					mongoose.connection.collection('premiums').findOne({ [author+'.id']: author }, async (error, premium) => {
@@ -4468,7 +4465,6 @@ client.on('ready', function() {
 			} else if (button.id === 'decline') {
 				m.delete()
 				collector.stop()
-				button.reply.defer()
 				channel.send('**'+button.clicker.user.username+'**, declined the gift promotion <:drinking:750050072707727371>')
 			}
 		})
@@ -4503,7 +4499,6 @@ client.on('ready', function() {
 		collector.on('collect', async button => {
 			if (button.id === 'accept') {
 				collector.stop()
-				button.reply.defer()
 				let author = button.clicker.user.id
 				mongo(database1).then(async mongoose => {
 					mongoose.connection.collection('premiums').findOne({ [mention.id+'.id']: mention.id }, async (error, premium) => {
@@ -4519,7 +4514,6 @@ client.on('ready', function() {
 			} else if (button.id === 'decline') {
 				m.delete()
 				collector.stop()
-				button.reply.defer()
 				channel.send('**'+button.clicker.user.username+'**, you cancelled the demote for **'+message.mentions.users.first().tag+'** and he thanking you for forgiveness!')
 			}
 		})
@@ -5150,12 +5144,10 @@ client.on('ready', function() {
 					if (button.id === 'accept') {
 						mongoose.connection.collection('setups').insertOne({ [message.guild.id]: { id: message.guild.id, text: 'off' } })
 						collector.stop()
-						button.reply.defer()
 						setup[message.guild.id] = { text: 'off' }
 						return message.channel.send('**'+message.author.username+'** thank for using our level system! we wish that our system make your server greater! **(don\'t forget to use text notify when levels up!)**')
 					} else if (button.id === 'decline') {
 						collector.stop()
-						button.reply.defer()
 						return message.channel.send('**'+message.author.username+'** thank you anyway! we wish you use our level system in an other time!')
 					}
 				})
@@ -5239,7 +5231,7 @@ client.on('ready', function() {
 				if (Object.values(level).length !== 0) {
 					ranks = parseInt(currentPage == 0 ? currentPage + 1 : (currentPage == 1 ? (currentPage * 10) + 1 : currentPage * 10))
 					levels = Object.values(level[guild]).sort((a, b) => b.level - a.level)
-					levels.sort((a, b) => b.xp - a.xp).slice(currentPage == 0 ? currentPage : currentPage * 10, currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10)
+					levels.sort((a, b) => b.xp - a.xp).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
 					for (const dataa of levels) {
 						let user = await client.users.fetch(dataa.id)
 						nocontent += '**#'+(ranks++)+'**. '+user.username+' ( **Level**: '+level[guild][dataa.id].level+', **XP**: '+level[guild][dataa.id].xp+' ) \n'
@@ -5260,10 +5252,9 @@ client.on('ready', function() {
 				const collector = infoo.createButtonCollector(filter, { time: 120000 })
 				collector.on('collect', async button => {
 					if (button.id === 'maxright') {
-						button.reply.defer()
 						currentPage = maxPage - 1
 						let content = ''
-				  
+					
 						ranks = parseInt(currentPage == 0 ? currentPage + 1 : (currentPage == 1 ? (currentPage * 10) + 1 : currentPage * 10))
 						let vv
 						let vv2
@@ -5279,13 +5270,13 @@ client.on('ready', function() {
 						if (!type) type = level
 						if (type == level) {
 							levels = Object.values(level[guild]).sort((a, b) => b.level - a.level)
-							levels.sort((a, b) => b.xp - a.xp).slice(currentPage == 0 ? currentPage : currentPage * 10, currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10)
+							levels.sort((a, b) => b.xp - a.xp).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
 							for (const dataa of levels) {
 								let user = await client.users.fetch(dataa.id)
 								content += '**#'+(ranks++)+'**. '+user.username+' ( **Level**: '+level[guild][dataa.id].level+', **XP**: '+level[guild][dataa.id].xp+' ) \n'
 							}
 						} else if (type == voice_level) {
-							levels = Object.values(voice_level[guild]).sort((a, b) => b.voice - a.voice).sort((a, b) => b.voiceXp - a.voiceXp).slice(currentPage == 0 ? currentPage : currentPage * 10, currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10)
+							levels = Object.values(voice_level[guild]).sort((a, b) => b.voice - a.voice).sort((a, b) => b.voiceXp - a.voiceXp).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
 							for (const dataa of levels) {
 								let user = await client.users.fetch(dataa.id)
 								content += '**#'+(ranks++)+'**. '+user.username+' ( **Level**: '+voice_level[guild][dataa.id].voice+', **XP**: '+voice_level[guild][dataa.id].voiceXp+' ) \n'
@@ -5297,7 +5288,6 @@ client.on('ready', function() {
 						
 						infoo.edit({ embed: embed, buttons: [maxleft.setStyle('blurple').setDisabled(false), left.setStyle('blurple').setDisabled(false), bu, right.setStyle('blurple').setDisabled(true), maxright.setStyle('blurple').setDisabled(true)] })
 					} else if (button.id === 'maxleft') {
-						button.reply.defer()
 						currentPage = 0
 						
 						let content = ''
@@ -5316,14 +5306,14 @@ client.on('ready', function() {
 				  
 						if (!type) type = level
 						if (type == level) { 
-							levels = Object.values(level[guild]).sort((a, b) => b.level - a.level).sort((a, b) => b.xp - a.xp).slice(currentPage == 0 ? currentPage : currentPage * 10, currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10)
+							levels = Object.values(level[guild]).sort((a, b) => b.level - a.level).sort((a, b) => b.xp - a.xp).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
 							for (const dataa of levels) {
 								let user = await client.users.fetch(dataa.id)
 								content += '**#'+(ranks++)+'**. '+user.username+' ( **Level**: '+level[guild][dataa.id].level+', **XP**: '+level[guild][dataa.id].xp+' ) \n'
 							}
 						} else if (type == voice_level) {
 							levels = Object.values(voice_level[guild]).sort((a, b) => b.voice - a.voice)
-							levels.sort((a, b) => b.voiceXp - a.voiceXp).slice(currentPage == 0 ? currentPage : currentPage * 10, currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10)
+							levels.sort((a, b) => b.voiceXp - a.voiceXp).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
 							for (const dataa of levels) {
 								let user = await client.users.fetch(dataa.id)
 								content += '**#'+(ranks++)+'**. '+user.username+' ( **Level**: '+voice_level[guild][dataa.id].voice+', **XP**: '+voice_level[guild][dataa.id].voiceXp+' ) \n'
@@ -5335,7 +5325,6 @@ client.on('ready', function() {
 				  
 						infoo.edit({ buttons: [maxleft.setStyle('blurple').setDisabled(true), left.setStyle('blurple').setDisabled(true), bu, right.setStyle('blurple').setDisabled(false), maxright.setStyle('blurple').setDisabled(false)], embed: embed })
 					} else if (button.id === 'left') {
-						button.reply.defer()
 						currentPage--
 						if (currentPage <= 0) currentPage = 0
 
@@ -5356,14 +5345,14 @@ client.on('ready', function() {
 						if (!type) type = level
 						if (type == level) { 
 							levels = Object.values(level[guild]).sort((a, b) => b.level - a.level)
-							levels.sort((a, b) => b.xp - a.xp).slice(currentPage == 0 ? currentPage : currentPage * 10, currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10)
+							levels.sort((a, b) => b.xp - a.xp).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
 							for (const dataa of levels) {
 								let user = await client.users.fetch(dataa.id)
 								content += '**#'+(ranks++)+'**. '+user.username+' ( **Level**: '+level[guild][dataa.id].level+', **XP**: '+level[guild][dataa.id].xp+' ) \n'
 							}
 						} else if (type == voice_level) {
 							levels = Object.values(voice_level[guild]).sort((a, b) => b.voice - a.voice)
-							levels.sort((a, b) => b.voiceXp - a.voiceXp).slice(currentPage == 0 ? currentPage : currentPage * 10, currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10)
+							levels.sort((a, b) => b.voiceXp - a.voiceXp).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
 							for (const dataa of levels) {
 								let user = await client.users.fetch(dataa.id)
 								content += '**#'+(ranks++)+'**. '+user.username+' ( **Level**: '+voice_level[guild][dataa.id].voice+', **XP**: '+voice_level[guild][dataa.id].voiceXp+' ) \n'
@@ -5376,7 +5365,6 @@ client.on('ready', function() {
 						if (currentPage <= 0) return infoo.edit({ buttons: [maxleft.setStyle('blurple').setDisabled(true), left.setStyle('blurple').setDisabled(true), bu, right.setStyle('blurple').setDisabled(false), maxright.setStyle('blurple').setDisabled(false)], embed: embed })
 						infoo.edit({ buttons: [maxleft.setStyle('blurple').setDisabled(false), left.setStyle('blurple').setDisabled(false), bu, right.setStyle('blurple').setDisabled(false), maxright.setStyle('blurple').setDisabled(false)], embed: embed })
 					} else if (button.id === 'right') {
-						button.reply.defer()
 						currentPage++
 						if ((currentPage + 1) >= maxPage) currentPage = maxPage - 1
 
@@ -5397,14 +5385,14 @@ client.on('ready', function() {
 						if (!type) type = level
 						if (type == level) { 
 							levels = Object.values(level[guild]).sort((a, b) => b.level - a.level)
-							levels.sort((a, b) => b.xp - a.xp).slice(currentPage == 0 ? currentPage : currentPage * 10, currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10)
+							levels.sort((a, b) => b.xp - a.xp).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
 							for (const dataa of levels) {
 								let user = await client.users.fetch(dataa.id)
 								content += '**#'+(ranks++)+'**. '+user.username+' ( **Level**: '+level[guild][dataa.id].level+', **XP**: '+level[guild][dataa.id].xp+' ) \n'
 							}
 						} else if (type == voice_level) {
 							levels = Object.values(voice_level[guild]).sort((a, b) => b.voice - a.voice)
-							levels.sort((a, b) => b.voiceXp - a.voiceXp).slice(currentPage == 0 ? currentPage : currentPage * 10, currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10)
+							levels.sort((a, b) => b.voiceXp - a.voiceXp).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
 							for (const dataa of levels) {
 								let user = await client.users.fetch(dataa.id)
 								content += '**#'+(ranks++)+'**. '+user.username+' ( **Level**: '+voice_level[guild][dataa.id].voice+', **XP**: '+voice_level[guild][dataa.id].voiceXp+' ) \n'
@@ -5417,7 +5405,6 @@ client.on('ready', function() {
 						if ((currentPage + 1) >= maxPage) return infoo.edit({ buttons: [maxleft.setDisabled(false), left.setDisabled(false), bu, right.setDisabled(true), maxright.setStyle('blurple').setDisabled(true)], embed: embed })
 						infoo.edit({ buttons: [maxleft.setStyle('blurple').setDisabled(false), left.setStyle('blurple').setDisabled(false), bu, right.setStyle('blurple').setDisabled(false), maxright.setStyle('blurple').setDisabled(false)], embed: embed })
 					} else if (button.id === 'voice') {
-						button.reply.defer()
 						currentPage = 0
 				  
 						type = voice_level
@@ -5439,14 +5426,14 @@ client.on('ready', function() {
 				  
 						if (type == level) { 
 							levels = Object.values(level[guild]).sort((a, b) => b.level - a.level)
-							levels.sort((a, b) => b.xp - a.xp).slice(currentPage == 0 ? currentPage : currentPage * 10, currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10)
+							levels.sort((a, b) => b.xp - a.xp).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
 							for (const dataa of levels) {
 								let user = await client.users.fetch(dataa.id)
 								content += '**#'+(ranks++)+'**. '+user.username+' ( **Level**: '+level[guild][dataa.id].level+', **XP**: '+level[guild][dataa.id].xp+' ) \n'
 							}
 						} else if (type == voice_level) {
 							levels = Object.values(voice_level[guild]).sort((a, b) => b.voice - a.voice)
-							levels.sort((a, b) => b.voiceXp - a.voiceXp).slice(currentPage == 0 ? currentPage : currentPage * 10, currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10)
+							levels.sort((a, b) => b.voiceXp - a.voiceXp).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
 							for (const dataa of levels) {
 								let user = await client.users.fetch(dataa.id)
 								content += '**#'+(ranks++)+'**. '+user.username+' ( **Level**: '+voice_level[guild][dataa.id].voice+', **XP**: '+voice_level[guild][dataa.id].voiceXp+' ) \n'
@@ -5458,7 +5445,6 @@ client.on('ready', function() {
 						
 						infoo.edit({ buttons: [maxleft.setStyle('blurple').setDisabled(true), left.setStyle('blurple').setDisabled(true), bu, right.setStyle('blurple').setDisabled(false), maxright.setStyle('blurple').setDisabled(false)], embed: embed })
 					} else if (button.id === 'text') {
-						button.reply.defer()
 						currentPage = 0
 				  
 						type = level
@@ -5480,14 +5466,14 @@ client.on('ready', function() {
 						
 						if (type == level) { 
 							levels = Object.values(level[guild]).sort((a, b) => b.level - a.level)
-							levels.sort((a, b) => b.xp - a.xp).slice(currentPage == 0 ? currentPage : currentPage * 10, currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10)
+							levels.sort((a, b) => b.xp - a.xp).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
 							for (const dataa of levels) {
 								let user = await client.users.fetch(dataa.id)
 								content += '**#'+(ranks++)+'**. '+user.username+' ( **Level**: '+level[guild][dataa.id].level+', **XP**: '+level[guild][dataa.id].xp+' ) \n'
 							}
 						} else if (type == voice_level) {
 							levels = Object.values(voice_level[guild]).sort((a, b) => b.voice - a.voice)
-							levels.sort((a, b) => b.voiceXp - a.voiceXp).slice(currentPage == 0 ? currentPage : currentPage * 10, currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10)
+							levels.sort((a, b) => b.voiceXp - a.voiceXp).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
 							for (const dataa of levels) {
 								let user = await client.users.fetch(dataa.id)
 								content += '**#'+(ranks++)+'**. '+user.username+' ( **Level**: '+voice_level[guild][dataa.id].voice+', **XP**: '+voice_level[guild][dataa.id].voiceXp+' ) \n'
@@ -5886,8 +5872,8 @@ client.on('message', async message => {
 })
 
 client.on('clickButton', b => {
+	b.reply.defer()
 	if (b.id == 'show time') {
-		b.reply.defer()
 		let author = b.clicker.user.id
 		mongo(database1).then(async mongoose => {
 			mongoose.connection.collection('marry-couples').findOne({ [author+'.id']: author }, async (error, marry) => {
@@ -5909,20 +5895,7 @@ client.on('clickButton', b => {
 			})
 		})
 	}
-	if (b.id === 'deletee') {
-		mongo(database1).then(async mongoose => {
-			mongoose.connection.collection('blacklists').findOne({ [b.clicker.user.id+'.id']: b.clicker.user.id }, async (error, blacklist) => {
-				if (blacklist == null) blacklist = {}
-				if (blacklist == undefined) blacklist = {}
-			
-				if (blacklist[b.clicker.user.id]) return b.message.channel.send('**'+b.clicker.user.username+'** you are blacklisted so you can not stop a button listener!')
-				b.message.channel.send('**'+b.clicker.user.username+'** you just stopped buttons listeners!')
-				return b.message.edit({ buttons: null, embed: new MessageEmbed(b.message.embeds[0]) })
-			})
-		})
-	}
 	if (b.id === 'premium') {
-		b.reply.defer()
 		return b.message.channel.send('<:shop:872911855570526258> **'+b.clicker.user.username+'** for premium plans! please contact **'+hypedoo+'** if you wanna get some!')
 	}
 })
