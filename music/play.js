@@ -20,7 +20,10 @@ module.exports = {
 		.setImage(empty)
 		.setTimestamp()
 		const isRadio = message.client.radio.get(message.guild.id)
-		if (isRadio) return message.channel.send(eemb)
+		if (isRadio) {
+			if (queue) message.client.queue.delete(message.guild.id)
+			return message.channel.send(eemb)
+		}
 		
 		const { channel } = message.member.voice
 		const serverQueue = message.client.queue.get(message.guild.id)
@@ -117,8 +120,7 @@ module.exports = {
 		message.client.queue.set(message.guild.id, queueConstruct)
 
 		try {
-			queueConstruct.connection = await channel.join()
-			queueConstruct.connection.voice.setSelfDeaf(true)
+			queueConstruct.connection = await channel.join().then(connection => { connection.voice.setSelfDeaf(true) })
 			play(queueConstruct.songs[0], message)
 		} catch (error) {
 			console.error(error)
