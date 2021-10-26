@@ -1,5 +1,6 @@
 const { canModifyQueue } = require('../util/music-modify')
 const { MessageEmbed } = require('discord.js')
+const { empty } = require('../config.json')
 
 module.exports = {
 	name: 'join',
