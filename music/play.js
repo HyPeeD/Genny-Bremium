@@ -123,7 +123,7 @@ module.exports = {
 
 		try {
 			connection = await channel.join()
-			await queueConstruct.connection.voice.setSelfDeaf(true)
+			queueConstruct.connection.voice.setSelfDeaf(true)
 			play(queueConstruct.songs[0], message)
 		} catch (error) {
 			console.error(error)
