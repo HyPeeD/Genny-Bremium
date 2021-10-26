@@ -122,7 +122,8 @@ module.exports = {
 		message.client.queue.set(message.guild.id, queueConstruct)
 
 		try {
-			queueConstruct.connection = await channel.join().then(connection => { connection.voice.setSelfDeaf(true) })
+			connection = await channel.join()
+			await queueConstruct.connection.voice.setSelfDeaf(true)
 			play(queueConstruct.songs[0], message)
 		} catch (error) {
 			console.error(error)
