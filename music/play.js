@@ -29,8 +29,8 @@ module.exports = {
 		const { channel } = message.member.voice
 		const serverQueue = message.client.queue.get(message.guild.id)
 		if (!channel) return message.channel.send('<:attention:872878815523799040> **'+message.author.username+'** you must be in a voice channel to use this command!')
-			
-		if (serverQueue && !canModifyQueue(message.member, message.channel)) return message.channel.send('<:attention:872878815523799040> **'+message.author.username+'** You must be listening in **'+message.guild.me.voice.channel.name+'** to use that!')
+		
+		if (serverQueue && !canModifyQueue(message.member, message.channel) && serverQueue.channel.members.length !== 0) return message.channel.send('<:attention:872878815523799040> **'+message.author.username+'** You must be listening in **'+message.guild.me?.voice?.channel?.name+'** to use that!')
 		
 		let demo = new MessageEmbed()
         .setAuthor(message.client.user.username, message.client.user.avatarURL(), 'https://youtube.com/')
