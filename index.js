@@ -177,6 +177,36 @@ client.on('ready', function() {
 	// ************************************************************************************************ IMAGES ************************************************************************************************  \\
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+	let whodidthis = 'whodidthis'
+	command(client, whodidthis, async message => {
+		await waiting(message)
+		if (!message.channel.permissionsFor(message.guild.me).has('ATTACH_FILES')) return message.channel.send('**'+message.author.username+'** I must have attach files permission')
+		
+		var commander
+		if (message.mentions.users.first()) commander = message.mentions.users.first()
+		else if (!message.mentions.users.first() && !message.content.split(' ').slice(1).join(' ')) commander = message.author
+		else if (!message.mentions.users.first() && message.content.split(' ').slice(1).join(' ')) {
+			if (isNaN(message.content.split(' ').slice(1).join(' '))) return message.channel.send('**'+message.author.username+'** oops didn\'t find him <:oops:765590003694305351>')
+			if (!client.users.cache.get(message.content.split(' ').slice(1).join(' '))) return message.channel.send('**'+message.author.username+'** oops didn\'t find him <:oops:765590003694305351>')
+			commander = client.users.cache.get(message.content.split(' ').slice(1).join(' '))
+		}
+		let m = await message.channel.send('<:service:872512824923013190> **'+message.author.username+'** creating jpg whodidthis picture for you..')
+		try {
+			let image = await jimp.read('https://cdn.glitch.com/a251574f-138b-4148-87c3-6522174a3c0c%2Fwhodidthis.png')
+			let avatar = await jimp.read(commander.avatarURL({ dynamic: true, format: 'png' }))
+			let outputName = 'whodidthis.png'
+			
+			avatar.resize(350, 350)
+			avatar.composite(image, 0, 0)
+
+			let error, res = await avatar.getBufferAsync(jimp.MIME_PNG)
+			await message.channel.send({ files: [{ attachment: res, name: outputName }] })
+			return m.delete()
+		} catch (e) {
+			await m.edit('<:service:872512824923013190> **'+message.author.username+'** sorry there was an error..')
+		}
+	})
+
 	let pixelate = 'pixelate'
 	command(client, pixelate, async message => {
 		await waiting(message)
@@ -981,8 +1011,9 @@ client.on('ready', function() {
 			emb.addField('On server', secparser(new Date() - commander.joinedAt) +' old', false)
 			emb.addField('Highest role', commander.roles.highest.name, true)
 			emb.addField('Display color', commander.displayHexColor, true)
-			emb.addField('Joined', timereworker(commander.joinedAt.toUTCString()))
+			emb.addField('Joined', timereworker(commander.joinedAt.toUTCString()), false)
 		}
+		if (message.member.voice) emb.addField('Voice', '<#'+message.member.voice.channel.id+'>', false)
 		message.inlineReply(emb)
 	  } catch (e) {}
 	})
@@ -5499,6 +5530,11 @@ client.on('ready', function() {
 			let error, res = await base.getBufferAsync(jimp.MIME_PNG)
 			return message.channel.send({ files: [{ attachment: res, name: `HyPeD.png` }] })
 		} else message.channel.send('**'+message.author.username+'** please the type must be (**profile**) or (**rank**)')
+	})
+	
+	let ttt = ['ttt','xo','tictactoe']
+	command(client, ttt, async message => {
+		
 	})
 	
 })
