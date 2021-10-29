@@ -29,9 +29,10 @@ module.exports = {
 		if (!permissions.has('CONNECT')) return message.channel.send('**'+message.author.username+'** I must have connect permission <:wut_:688867208402829333>')
 		if (!permissions.has('SPEAK')) return message.channel.send('**'+message.author.username+'** I must have speak permission <:wut_:688867208402829333>')
 		
-		await channel.leave()
+		if (message.guild.me.voice.channel) await message.guild.me.voice.channel.leave()
 		
 		if (queue) message.client.queue.delete(message.guild.id)
-		message.channel.send('<:twitter:872911855822209085> **'+message.author.username+'** I have just leaved successfully to (**#'+channel.name+'**)')
+		if (message.guild.me.voice.channel) message.channel.send('<:twitter:872911855822209085> **'+message.author.username+'** I have just leaved successfully to (**#'+message.guild.me.voice.channel.name+'**)')
+			else message.channel.send('<:twitter:872911855822209085> **'+message.author.username+'** I am able to join your channel (**#'+channel.name+'**)')
 	}
 }
