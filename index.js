@@ -971,55 +971,55 @@ client.on('ready', function() {
 	  })
 	})
 
-	let whois = 'whois'
+	let whois = ['whois', 'user']
 	command(client, whois, async message => {
 		await waiting(message)
 		if (!message.channel.permissionsFor(message.guild.me).has('EMBED_LINKS')) return message.channel.send('**'+message.author.username+'** I must have embed links permission')
 		try {
-		var commander
-		if (message.mentions.users.first()) commander = message.mentions.users.first()
-		else if (!message.mentions.users.first() && !message.content.split(' ').slice(1).join(' ')) commander = message.author
-		else if (!message.mentions.users.first() && message.content.split(' ').slice(1).join(' ')) {
-			if (isNaN(message.content.split(' ').slice(1).join(' '))) return message.channel.send('**'+message.author.username+'** oops didn\'t find him <:oops:765590003694305351>')
-			if (!client.users.cache.get(message.content.split(' ').slice(1).join(' '))) return message.channel.send('**'+message.author.username+'** oops didn\'t find him <:oops:765590003694305351>')
-			commander = client.users.cache.get(message.content.split(' ').slice(1).join(' '))
-		}
+			var commander
+			if (message.mentions.members.first()) commander = message.mentions.members.first()
+			else if (!message.mentions.members.first() && !message.content.split(' ').slice(1).join(' ')) commander = message.author
+			else if (!message.mentions.members.first() && message.content.split(' ').slice(1).join(' ')) {
+				if (isNaN(message.content.split(' ').slice(1).join(' '))) return message.channel.send('**'+message.author.username+'** oops didn\'t find him <:oops:765590003694305351>')
+				if (!message.guild.members.cache.get(message.content.split(' ').slice(1).join(' '))) return message.channel.send('**'+message.author.username+'** oops didn\'t find him <:oops:765590003694305351>')
+				commander = message.guild.members.cache.get(message.content.split(' ').slice(1).join(' '))
+			}
 
-		const badges = commander.user.flags ? commander.user.flags.toArray() : []
-		let badges_emotes = ''
-		if (badges.includes('DISCORD_EMPLOYEE')) badges_emotes = badges_emotes + '<:Staff:803985380008263702> Discord Staff'
-		if (badges.includes('DISCORD_PARTNER')) badges_emotes === '' ? badges_emotes = badges_emotes + '<:partner:803988221670195210> Discord Partner' : badges_emotes = badges_emotes + '\n<:partner:803988221670195210> Discord Partner'
-		if (badges.includes('HYPESQUAD_EVENTS')) badges_emotes === '' ? badges_emotes = badges_emotes + '<:HypeSquad:804014674667372555> Discord HypeSquad Events' : badges_emotes = badges_emotes + '\n<:HypeSquad:804014674667372555> Discord HypeSquad Events'
-		if (badges.includes('BUGHUNTER_LEVEL_1') || badges.includes('BUGHUNTER_LEVEL_2')) badges_emotes === '' ? badges_emotes = badges_emotes + '<:BugHunter:803950445734789140> Bug Hunter' : badges_emotes = badges_emotes + '\n<:BugHunter:803950445734789140> Bug Hunter'
-		if (badges.includes('HOUSE_BRAVERY')) badges_emotes === '' ? badges_emotes = badges_emotes + '<:Discord_bravery:803950623379947560> Discord HypeSquad Bravery' : badges_emotes = badges_emotes + '\n<:Discord_bravery:803950623379947560> Discord HypeSquad Bravery'
-		if (badges.includes('HOUSE_BRILLIANCE')) badges_emotes === '' ? badges_emotes = badges_emotes + '<:Discord_brilliance:803950570586767380> Discord HypeSquad Brilliance' : badges_emotes = badges_emotes + '\n<:Discord_brilliance:803950570586767380> Discord HypeSquad Brilliance'
-		if (badges.includes('HOUSE_BALANCE')) badges_emotes === '' ? badges_emotes = badges_emotes + '<:Discord_ballance:803950598373769247> Discord HypeSquad Balance' : badges_emotes = badges_emotes + '\n<:Discord_ballance:803950598373769247> Discord HypeSquad Balance'
-		if (badges.includes('EARLY_SUPPORTER')) badges_emotes === '' ? badges_emotes = badges_emotes + '<:EarlySupport:803951079737917512> Early Supporter' : badges_emotes = badges_emotes + '\n<:EarlySupport:803951079737917512> Early Supporter'
-		if (badges.includes('VERIFIED_DEVELOPER')) badges_emotes === '' ? badges_emotes = badges_emotes + '<:Verified_dev:803950480602169405> Verified Developer' : badges_emotes = badges_emotes + '\n<:Verified_dev:803950480602169405> Verified Developer'
-		  
-		const createAccount = commander.user.createdAt.toUTCString()
-		if (badges.length === 0) badges_emotes = 'None'
-		let emb = new MessageEmbed()
-		emb.setColor('#2f3136')
-		emb.setTimestamp()
-		emb.setAuthor(commander.user.tag, commander.user.displayAvatarURL({ format: 'png', dynamic: true, }))
-		emb.setThumbnail(commander.user.displayAvatarURL({ format: 'png', dynamic: true, }), true)
-		emb.addField('Registered', timereworker(createAccount), true)
-		emb.addField('Acount age', timeparser(Date.now() - commander.user.createdTimestamp)+' old', false)
-		emb.addField('Badges', badges_emotes, false)
-		emb.setFooter('ID: ' + commander.id)
-		emb.setImage('https://media.discordapp.net/attachments/634854460102803456/803970383761244201/Genny_style.png')
-		if (commander.member && commander.joinedAt.toUTCString()) {
-			let roles = (commander.member.roles.cache.size > 10 ? `${commander.member.roles.cache.sort(function compareNombres(a, b) { return b.position - a.position }).map((r) => r).slice(0, 9).join(', ').replace('@everyone', '')} etc..` : (commander.member.roles.cache.size == 0) ? `empty..` : `${commander.member.roles.cache.sort(function compareNombres(a, b) { return b.position - a.position }).map((r) => r).join(' ').replace('@everyone', '')}`)
-			emb.addField('Roles ['+(commander.member.roles.cache.size - 1 || '0')+']', roles !== '' ? roles : 'Only default role!', false)
-			emb.addField('On server', secparser(new Date() - commander.member.joinedAt) +' old', false)
-			emb.addField('Highest role', commander.member.roles.highest.name, true)
-			emb.addField('Display color', commander.member.displayHexColor, true)
-			if (commander.member.voice) emb.addField('Voice', '<#'+commander.member.voice.channel.id+'>', true)
-			emb.addField('Joined', timereworker(commander.member.joinedAt.toUTCString()), false)
-		}
-		message.inlineReply(emb)
-	  } catch (e) {}
+			const badges = commander.user.flags ? commander.user.flags.toArray() : []
+			let badges_emotes = ''
+			if (badges.includes('DISCORD_EMPLOYEE')) badges_emotes = badges_emotes + '<:Staff:803985380008263702> Discord Staff'
+			if (badges.includes('DISCORD_PARTNER')) badges_emotes === '' ? badges_emotes = badges_emotes + '<:partner:803988221670195210> Discord Partner' : badges_emotes = badges_emotes + '\n<:partner:803988221670195210> Discord Partner'
+			if (badges.includes('HYPESQUAD_EVENTS')) badges_emotes === '' ? badges_emotes = badges_emotes + '<:HypeSquad:804014674667372555> Discord HypeSquad Events' : badges_emotes = badges_emotes + '\n<:HypeSquad:804014674667372555> Discord HypeSquad Events'
+			if (badges.includes('BUGHUNTER_LEVEL_1') || badges.includes('BUGHUNTER_LEVEL_2')) badges_emotes === '' ? badges_emotes = badges_emotes + '<:BugHunter:803950445734789140> Bug Hunter' : badges_emotes = badges_emotes + '\n<:BugHunter:803950445734789140> Bug Hunter'
+			if (badges.includes('HOUSE_BRAVERY')) badges_emotes === '' ? badges_emotes = badges_emotes + '<:Discord_bravery:803950623379947560> Discord HypeSquad Bravery' : badges_emotes = badges_emotes + '\n<:Discord_bravery:803950623379947560> Discord HypeSquad Bravery'
+			if (badges.includes('HOUSE_BRILLIANCE')) badges_emotes === '' ? badges_emotes = badges_emotes + '<:Discord_brilliance:803950570586767380> Discord HypeSquad Brilliance' : badges_emotes = badges_emotes + '\n<:Discord_brilliance:803950570586767380> Discord HypeSquad Brilliance'
+			if (badges.includes('HOUSE_BALANCE')) badges_emotes === '' ? badges_emotes = badges_emotes + '<:Discord_ballance:803950598373769247> Discord HypeSquad Balance' : badges_emotes = badges_emotes + '\n<:Discord_ballance:803950598373769247> Discord HypeSquad Balance'
+			if (badges.includes('EARLY_SUPPORTER')) badges_emotes === '' ? badges_emotes = badges_emotes + '<:EarlySupport:803951079737917512> Early Supporter' : badges_emotes = badges_emotes + '\n<:EarlySupport:803951079737917512> Early Supporter'
+			if (badges.includes('VERIFIED_DEVELOPER')) badges_emotes === '' ? badges_emotes = badges_emotes + '<:Verified_dev:803950480602169405> Verified Developer' : badges_emotes = badges_emotes + '\n<:Verified_dev:803950480602169405> Verified Developer'
+			
+			const createAccount = commander.user.createdAt.toUTCString()
+			if (badges.length === 0) badges_emotes = 'None'
+			let emb = new MessageEmbed()
+			emb.setColor('#2f3136')
+			emb.setTimestamp()
+			emb.setAuthor(commander.user.tag, commander.user.displayAvatarURL({ format: 'png', dynamic: true, }))
+			emb.setThumbnail(commander.user.displayAvatarURL({ format: 'png', dynamic: true, }), true)
+			emb.addField('Registered', timereworker(createAccount), true)
+			emb.addField('Acount age', timeparser(Date.now() - commander.user.createdTimestamp)+' old', false)
+			emb.addField('Badges', badges_emotes, false)
+			emb.setFooter('ID: ' + commander.id)
+			emb.setImage('https://media.discordapp.net/attachments/634854460102803456/803970383761244201/Genny_style.png')
+			if (commander && commander.joinedAt.toUTCString()) {
+				let roles = (commander.roles.cache.size > 10 ? `${commander.roles.cache.sort(function compareNombres(a, b) { return b.position - a.position }).map((r) => r).slice(0, 9).join(', ').replace('@everyone', '')} etc..` : (commander.roles.cache.size == 0) ? `empty..` : `${commander.roles.cache.sort(function compareNombres(a, b) { return b.position - a.position }).map((r) => r).join(' ').replace('@everyone', '')}`)
+				emb.addField('Roles ['+(commander.roles.cache.size - 1 || '0')+']', roles !== '' ? roles : 'Only default role!', false)
+				emb.addField('On server', secparser(new Date() - commander.joinedAt) +' old', false)
+				emb.addField('Highest role', commander.roles.highest.name, true)
+				emb.addField('Display color', commander.displayHexColor, true)
+				if (commander.voice) emb.addField('Voice', '<#'+commander.voice.channel.id+'>', true)
+				emb.addField('Joined', timereworker(commander.joinedAt.toUTCString()), false)
+			}
+			message.inlineReply(emb)
+		} catch (e) {}
 	})
 
 	let editsnipe = ['editsnipe', 'es']
