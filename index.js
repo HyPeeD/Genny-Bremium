@@ -1019,7 +1019,10 @@ client.on('ready', function() {
 				emb.addField('Joined', timereworker(commander.joinedAt.toUTCString()), false)
 			}
 			message.inlineReply(emb)
-		} catch (e) {}
+		} catch (e) {
+			console.log(e)
+			message.channel.send('**'+message.author.username+'** I am sorry there was an error!')
+		}
 	})
 
 	let editsnipe = ['editsnipe', 'es']
