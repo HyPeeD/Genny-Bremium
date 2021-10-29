@@ -978,7 +978,7 @@ client.on('ready', function() {
 		try {
 			var commander
 			if (message.mentions.members.first()) commander = message.mentions.members.first()
-			else if (!message.mentions.members.first() && !message.content.split(' ').slice(1).join(' ')) commander = message.author
+			else if (!message.mentions.members.first() && !message.content.split(' ').slice(1).join(' ')) commander = message.member
 			else if (!message.mentions.members.first() && message.content.split(' ').slice(1).join(' ')) {
 				if (isNaN(message.content.split(' ').slice(1).join(' '))) return message.channel.send('**'+message.author.username+'** oops didn\'t find him <:oops:765590003694305351>')
 				if (!message.guild.members.cache.get(message.content.split(' ').slice(1).join(' '))) return message.channel.send('**'+message.author.username+'** oops didn\'t find him <:oops:765590003694305351>')
