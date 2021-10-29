@@ -23,15 +23,15 @@ module.exports = {
 		const { channel } = message.member.voice
 		if (!channel) return message.channel.send('<:attention:872878815523799040> **'+message.author.username+'** you must be in a voice channel to use this command!')
 		
-		if (queue && queue.channel.members.length !== 0) return message.channel.send('<:attention:872878815523799040> **'+message.author.username+'** I am sorry there is some one using me in (**#'+channel.name+'**)')
+		if (queue && queue.channel.members.length !== 0) return message.channel.send('<:attention:872878815523799040> **'+message.author.username+'** I am sorry there is some one using me in (**#'+queue.channel.name+'**)')
 		
 		const permissions = channel.permissionsFor(message.client.user)
 		if (!permissions.has('CONNECT')) return message.channel.send('**'+message.author.username+'** I must have connect permission <:wut_:688867208402829333>')
 		if (!permissions.has('SPEAK')) return message.channel.send('**'+message.author.username+'** I must have speak permission <:wut_:688867208402829333>')
 		
-		channel.join().then(connection => {
-			connection.voice.setSelfDeaf(true)
-		})
+		chann.connection = await channel.join()
+		chann.connection.voice.setSelfDeaf(true)
+		
 		message.channel.send('<:twitter:872911855822209085> **'+message.author.username+'** I have just connected successfully to (**#'+channel.name+'**)')
 	}
 }
