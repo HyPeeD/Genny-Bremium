@@ -838,9 +838,9 @@ client.on('ready', function() {
 		if (message.mentions.users.first()) commander = message.mentions.users.first()
 		else if (!message.mentions.users.first() && !message.content.split(' ').slice(1).join(' ')) commander = message.author
 		else if (!message.mentions.users.first() && message.content.split(' ').slice(1).join(' ')) {
-		  if (isNaN(message.content.split(' ').slice(1).join(' '))) return message.channel.send('**'+message.author.username+'** oops didn\'t find him <:oops:765590003694305351>')
-		  if (!client.users.cache.get(message.content.split(' ').slice(1).join(' '))) return message.channel.send('**'+message.author.username+'** oops didn\'t find him <:oops:765590003694305351>')
-		commander = client.users.cache.get(message.content.split(' ').slice(1).join(' '))
+			if (isNaN(message.content.split(' ').slice(1).join(' '))) return message.channel.send('**'+message.author.username+'** oops didn\'t find him <:oops:765590003694305351>')
+			if (!client.users.cache.get(message.content.split(' ').slice(1).join(' '))) return message.channel.send('**'+message.author.username+'** oops didn\'t find him <:oops:765590003694305351>')
+			commander = client.users.cache.get(message.content.split(' ').slice(1).join(' '))
 		}
 		let m = await message.channel.send('<:service:872512824923013190> **'+message.author.username+'** creating jpg blurpify picture you..')
 		try {
@@ -977,9 +977,13 @@ client.on('ready', function() {
 		if (!message.channel.permissionsFor(message.guild.me).has('EMBED_LINKS')) return message.channel.send('**'+message.author.username+'** I must have embed links permission')
 		try {
 		var commander
-		if (message.mentions.members.first()) commander = message.mentions.members.first()
-		else if (!message.mentions.members.first() && !message.content.split(' ').slice(1).join(' ')) commander = message.member
-		else if (!message.mentions.members.first() && message.content.split(' ').slice(1).join(' ')) return message.channel.send('**'+message.author.username+'** oops im sorry but you can get informations only for guild members <:oops:765590003694305351>')
+		if (message.mentions.users.first()) commander = message.mentions.users.first()
+		else if (!message.mentions.users.first() && !message.content.split(' ').slice(1).join(' ')) commander = message.author
+		else if (!message.mentions.users.first() && message.content.split(' ').slice(1).join(' ')) {
+			if (isNaN(message.content.split(' ').slice(1).join(' '))) return message.channel.send('**'+message.author.username+'** oops didn\'t find him <:oops:765590003694305351>')
+			if (!client.users.cache.get(message.content.split(' ').slice(1).join(' '))) return message.channel.send('**'+message.author.username+'** oops didn\'t find him <:oops:765590003694305351>')
+			commander = client.users.cache.get(message.content.split(' ').slice(1).join(' '))
+		}
 
 		const badges = commander.user.flags ? commander.user.flags.toArray() : []
 		let badges_emotes = ''
@@ -1005,15 +1009,15 @@ client.on('ready', function() {
 		emb.addField('Badges', badges_emotes, false)
 		emb.setFooter('ID: ' + commander.id)
 		emb.setImage('https://media.discordapp.net/attachments/634854460102803456/803970383761244201/Genny_style.png')
-		if (commander.joinedAt.toUTCString()) {
-			let roles = (commander.roles.cache.size > 10 ? `${commander.roles.cache.sort(function compareNombres(a, b) { return b.position - a.position }).map((r) => r).slice(0, 9).join(', ').replace('@everyone', '')} etc..` : (commander.roles.cache.size == 0) ? `empty..` : `${commander.roles.cache.sort(function compareNombres(a, b) { return b.position - a.position }).map((r) => r).join(' ').replace('@everyone', '')}`)
-			emb.addField('Roles ['+(commander.roles.cache.size - 1 || '0')+']', roles !== '' ? roles : 'Only default role!', false)
-			emb.addField('On server', secparser(new Date() - commander.joinedAt) +' old', false)
-			emb.addField('Highest role', commander.roles.highest.name, true)
-			emb.addField('Display color', commander.displayHexColor, true)
-			emb.addField('Joined', timereworker(commander.joinedAt.toUTCString()), false)
+		if (commander.member && commander.joinedAt.toUTCString()) {
+			let roles = (commander.member.roles.cache.size > 10 ? `${commander.member.roles.cache.sort(function compareNombres(a, b) { return b.position - a.position }).map((r) => r).slice(0, 9).join(', ').replace('@everyone', '')} etc..` : (commander.member.roles.cache.size == 0) ? `empty..` : `${commander.member.roles.cache.sort(function compareNombres(a, b) { return b.position - a.position }).map((r) => r).join(' ').replace('@everyone', '')}`)
+			emb.addField('Roles ['+(commander.member.roles.cache.size - 1 || '0')+']', roles !== '' ? roles : 'Only default role!', false)
+			emb.addField('On server', secparser(new Date() - commander.member.joinedAt) +' old', false)
+			emb.addField('Highest role', commander.member.roles.highest.name, true)
+			emb.addField('Display color', commander.member.displayHexColor, true)
+			if (commander.member.voice) emb.addField('Voice', '<#'+commander.member.voice.channel.id+'>', true)
+			emb.addField('Joined', timereworker(commander.member.joinedAt.toUTCString()), false)
 		}
-		if (message.member.voice) emb.addField('Voice', '<#'+message.member.voice.channel.id+'>', false)
 		message.inlineReply(emb)
 	  } catch (e) {}
 	})
