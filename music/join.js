@@ -29,8 +29,9 @@ module.exports = {
 		if (!permissions.has('CONNECT')) return message.channel.send('**'+message.author.username+'** I must have connect permission <:wut_:688867208402829333>')
 		if (!permissions.has('SPEAK')) return message.channel.send('**'+message.author.username+'** I must have speak permission <:wut_:688867208402829333>')
 		
-		chann.connection = await channel.join()
-		chann.connection.voice.setSelfDeaf(true)
+		await channel.join().then(connection => {
+			connection.voice.setSelfDeaf(true)
+		})
 		
 		message.channel.send('<:twitter:872911855822209085> **'+message.author.username+'** I have just connected successfully to (**#'+channel.name+'**)')
 	}
