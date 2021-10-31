@@ -1015,7 +1015,7 @@ client.on('ready', function() {
 				emb.addField('On server', secparser(new Date() - commander.joinedAt) +' old', false)
 				emb.addField('Highest role', commander.roles.highest.name, true)
 				emb.addField('Display color', commander.displayHexColor, true)
-				if (commander.voice) emb.addField('Voice', '<#'+commander.voice.channel.id+'>', true)
+				if (commander.voice.channel) emb.addField('Voice', '<#'+commander.voice.channel.id+'>', true)
 				emb.addField('Joined', timereworker(commander.joinedAt.toUTCString()), false)
 			}
 			message.inlineReply(emb)
@@ -3767,9 +3767,10 @@ client.on('ready', function() {
 				if (profile == null) profile = {}
 				if (profile == undefined) profile = {}
 
+				let prize = ammount[Math.floor(Math.random() * ammount.length)]
 				if (!profile[author]) {
-					mongoose.connection.collection('profiles').insertOne({ [author]: { credits: parseInt(ammount[parseInt(Math.random() * 10)]), id: author, time: Math.floor(sec(pretty(Date.now(), {colonNotation: true})) * 1000) } }) 
-					return message.channel.send(`<:gennycard:802865130232479754>  **${message.author.username}**, your card was charged by **`+ parseInt(ammount[parseInt(Math.random() * 10)]) +`** daily credits!`)
+					mongoose.connection.collection('profiles').insertOne({ [author]: { credits: prize, id: author, time: Math.floor(sec(pretty(Date.now(), {colonNotation: true})) * 1000) } }) 
+					return message.channel.send(`<:gennycard:802865130232479754>  **${message.author.username}**, your card was charged by **`+ prize +`** daily credits!`)
 				} else if(profile[author]) {
 					let Daily = profile[message.author.id].time ? profile[message.author.id].time : null
 		
@@ -3777,13 +3778,12 @@ client.on('ready', function() {
 						let times = cooldown - ((sec(pretty(Date.now(), {colonNotation: true})) * 1000) - Daily)
 						message.channel.send(`<:watchs:872878816706568222> **${ message.author.username }**, be pation your daily credits refreshes in **${pretty(times, { verbose: true })}**!`)
 					} else {
-						let value = parseInt(ammount[parseInt(Math.random() * 10)])
-						mongoose.connection.collection('profiles').updateOne({ [author+'.id']: author }, { $set: { [author+'.time']: Math.floor(sec(pretty(Date.now(), {colonNotation: true})) * 1000), [author+'.credits']: (profile[author].credits ? profile[author].credits : 0) + value } })
-						return message.channel.send(`<:gennycard:802865130232479754>  **${message.author.username}**, your card was charged by **`+ value +`** daily credits!`)
+						mongoose.connection.collection('profiles').updateOne({ [author+'.id']: author }, { $set: { [author+'.time']: Math.floor(sec(pretty(Date.now(), {colonNotation: true})) * 1000), [author+'.credits']: (profile[author].credits ? profile[author].credits : 0) + prize } })
+						return message.channel.send(`<:gennycard:802865130232479754>  **${message.author.username}**, your card was charged by **`+ prize +`** daily credits!`)
 					}
 				} else {
-					mongoose.connection.collection('profiles').insertOne({ [author]: { credits: parseInt(ammount[parseInt(Math.random() * 10)]), id: author, time: Math.floor(sec(pretty(Date.now(), {colonNotation: true})) * 1000) } }) 
-					return message.channel.send(`<:gennycard:802865130232479754>  **${message.author.username}**, your card was charged by **`+ parseInt(ammount[parseInt(Math.random() * 10)]) +`** daily credits!`)
+					mongoose.connection.collection('profiles').insertOne({ [author]: { credits: prize, id: author, time: Math.floor(sec(pretty(Date.now(), {colonNotation: true})) * 1000) } }) 
+					return message.channel.send(`<:gennycard:802865130232479754>  **${message.author.username}**, your card was charged by **`+ prize +`** daily credits!`)
 				}
 			})
 		})
@@ -4121,7 +4121,7 @@ client.on('ready', function() {
 		.setColor('#2f3136')
 		.setAuthor('📣  List of all available commands', '', link)
 		.setDescription(`<:space:817796102761611264>
-		<:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:queue:873258930845933608> **Fun commands**`, true)
+		<:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:queue:873258930845933608> **Fun commands**`, true)
 		.addField('\u200B', `**[rate](${link})** \n<:reply:880430755338149899> get a random rate (**23 positive and 15 negative**)`, true)
 		.addField('\u200B', `**[howlove](${link})** \n<:reply:880430755338149899> get how much pinged one is in love with you.`, true)
 		.addField('\u200B', `**[ascii](${link})** \n<:reply:880430755338149899> convert any content to a cool ascii message.`, true)
@@ -4139,7 +4139,7 @@ client.on('ready', function() {
 		.setColor('#2f3136')
 		.setAuthor('📣  List of all available commands', '', link)
 		.setDescription(`<:space:817796102761611264>
-		<:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:queue:873258930845933608> **Economy commands**`, true)
+		<:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:queue:873258930845933608> **Economy commands**`, true)
 		.addField('\u200B', `**[coinflip](${link})** \n<:reply:880430755338149899> play a cool coinflip game and win an amout of credits.`, true)
 		.addField('\u200B', `**[penalty](${link})** \n<:reply:880430755338149899> play a cool penalty game and win an amout of credits.`, true)
 		.addField('\u200B', `**[hangman](${link})** \n<:reply:880430755338149899> play a cool hangman game and win an amout of credits.`, true)
@@ -4156,7 +4156,7 @@ client.on('ready', function() {
 		.setColor('#2f3136')
 		.setAuthor('📣  List of all available commands', '', link)
 		.setDescription(`<:space:817796102761611264>
-		<:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:queue:873258930845933608> **Actions commands**`, true)
+		<:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:queue:873258930845933608> **Actions commands**`, true)
 		.addField('\u200B', `**[nekoavatar](${link})** \n<:reply:880430755338149899> get a neko attachement picture for a neko girl.`, true)
 		.addField('\u200B', `**[tickle](${link})** \n<:reply:880430755338149899> get an embed gif/picture tickling the pinged one.`, true)
 		.addField('\u200B', `**[cuddle](${link})** \n<:reply:880430755338149899> get an embed gif/picture cuddling the pinged one.`, true)
@@ -4177,7 +4177,7 @@ client.on('ready', function() {
 		.setColor('#2f3136')
 		.setAuthor('📣  List of all available commands', '', link)
 		.setDescription(`<:space:817796102761611264>
-		<:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:queue:873258930845933608> **Music commands**`, true)
+		<:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:queue:873258930845933608> **Music commands**`, true)
 		.addField('\u200B', `**[nowplaying](${link})** \n<:reply:880430755338149899> get all information about the current playing song.`, true)
 		.addField('\u200B', `**[playlist](${link})** \n<:reply:880430755338149899> to add all of tracks in the playlist to the queue.`, true)
 		.addField('\u200B', `**[shuffle](${link})** \n<:reply:880430755338149899> to shuffle the queue (**reverse songs order**)`, true)
@@ -4192,7 +4192,9 @@ client.on('ready', function() {
 		.addField('\u200B', `**[skip](${link})** \n<:reply:880430755338149899> to skip the current playing song.`, true)
 		.addField('\u200B', `**[loop](${link})** \n<:reply:880430755338149899> to loop all songs of the queue.`, true)
 		.addField('\u200B', `**[skipto](${link})** \n<:reply:880430755338149899> to skip to gived number song.`, true)
+		.addField('\u200B', `**[leave](${link})** \n<:reply:880430755338149899> to leave your voice channel.`, true)
 		.addField('\u200B', `**[volume](${link})** \n<:reply:880430755338149899> to change/show the volume.`, true)
+		.addField('\u200B', `**[join](${link})** \n<:reply:880430755338149899> to join your voice channel.`, true)
 		.addField('\u200B', `**[stop](${link})** \n<:reply:880430755338149899> to stop all of the queue.`, true)
 		if (args == 'music') return message.channel.send(music)
 		
@@ -4200,7 +4202,7 @@ client.on('ready', function() {
 		.setColor('#2f3136')
 		.setAuthor('📣  List of all available commands', '', link)
 		.setDescription(`<:space:817796102761611264>
-		<:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:queue:873258930845933608> **Moderation commands**`, true)
+		<:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:queue:873258930845933608> **Moderation commands**`, true)
 		.addField('\u200B', `**[move all](${link})** \n<:reply:880430755338149899> to move all members who's in a voice channel to your voice channel.`, true)
 		.addField('\u200B', `**[unlock](${link})** \n<:reply:880430755338149899> to unlock the current channel (**can be for specific role**)`, true)
 		.addField('\u200B', `**[lock](${link})** \n<:reply:880430755338149899> to lock the current channel (**can be for specific role**)`, true)
@@ -4219,7 +4221,7 @@ client.on('ready', function() {
 		.setColor('#2f3136')
 		.setAuthor('📣  List of all available commands', '', link)
 		.setDescription(`<:space:817796102761611264>
-		<:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:queue:873258930845933608> **Social commands**`, true)
+		<:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:queue:873258930845933608> **Social commands**`, true)
 		.addField('\u200B', `**[discrim](${link})** \n<:reply:880430755338149899> to get a bunch of members who has same as your discriminator.`, true)
 		.addField('\u200B', `**[activities](${link})** \n<:reply:880430755338149899> to get a hyperlink and play one of 5 activities.`, true)
 		.addField('\u200B', `**[marry](${link})** \n<:reply:880430755338149899> to marry pinged one or know who is married with you.`, true)
@@ -4247,7 +4249,7 @@ client.on('ready', function() {
 		.setColor('#2f3136')
 		.setAuthor('📣  List of all available commands', '', link)
 		.setDescription(`<:space:817796102761611264>
-		<:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:queue:873258930845933608> **Radio commands**`, true)
+		<:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:queue:873258930845933608> **Radio commands**`, true)
 		.addField('\u200B', `**[radio stations](${link})** \n<:reply:880430755338149899> to get all of radio stations names.`, true)
 		.addField('\u200B', `**[radio volume](${link})** \n<:reply:880430755338149899> to control the volume of radio.`, true)
 		.addField('\u200B', `**[radio stop](${link})** \n<:reply:880430755338149899> to stop the broadcast of radio.`, true)
@@ -4260,7 +4262,7 @@ client.on('ready', function() {
 		.setColor('#2f3136')
 		.setAuthor('📣  List of all available commands', '', link)
 		.setDescription(`<:space:817796102761611264>
-		<:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:queue:873258930845933608> **Nsfw commands**`, true)
+		<:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:queue:873258930845933608> **Nsfw commands**`, true)
 		.addField('\u200B', `**[lesbian](${link})** \n<:reply:880430755338149899> show an embed picture/gifs of lesbians.`, true)
 		.addField('\u200B', `**[blowjob](${link})** \n<:reply:880430755338149899> show an embed picture/gifs of blowjobs.`, true)
 		.addField('\u200B', `**[nekogif](${link})** \n<:reply:880430755338149899> show an embed picture/gifs of nekos.`, true)
@@ -4283,7 +4285,7 @@ client.on('ready', function() {
 		.setColor('#2f3136')
 		.setAuthor('📣  List of all available commands', '', link)
 		.setDescription(`<:space:817796102761611264>
-		<:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:queue:873258930845933608> **Images commands**`, true)
+		<:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:queue:873258930845933608> **Images commands**`, true)
 		.addField('\u200B', `**[whodidthis](${link})** \n<:reply:880430755338149899> get a funny created whodidthis picture.`, true)
 		.addField('\u200B', `**[blurpify](${link})** \n<:reply:880430755338149899> get a funny created blurpify picture.`, true)
 		.addField('\u200B', `**[retarded](${link})** \n<:reply:880430755338149899> get a funny created retarded picture.`, true)
@@ -4938,10 +4940,10 @@ client.on('ready', function() {
 			if (args.slice(1).join(' ') == 'server') {
 				if (!message.guild.iconURL()) return message.channel.send('**'+message.author.username+'** this server doesn\'t have a icon!')
 				const embed = new MessageEmbed()
-				.setAuthor(message.guild.name, message.guild.iconURL({ dynamic: true, size: 1024 }), message.guild.iconURL({ dynamic: true, size: 1024 }))
-				.setDescription('**[Icon link]('+message.guild.iconURL({ dynamic: true, size: 1024 })+')** \n <:reply:880430755338149899>click to get **'+message.guild.name+'**\'s icon link!')
+				.setAuthor(message.guild.name, message.guild.iconURL({ dynamic: true, size: 1024, format: 'png' }), message.guild.iconURL({ dynamic: true, size: 1024, format: 'png' }))
+				.setDescription('**[Icon link]('+message.guild.iconURL({ dynamic: true, size: 1024, format: 'png' })+')** \n <:reply:880430755338149899>click to get **'+message.guild.name+'**\'s icon link!')
 				.setColor('#51545b')
-				.setImage(`${message.guild.iconURL({ dynamic: true, size: 1024 })}`)
+				.setImage(`${message.guild.iconURL({ dynamic: true, size: 1024, format: 'png' })}`)
 				.setFooter('Requested by '+message.author.tag, message.author.avatarURL())
 				return message.channel.send(embed)
 			}
@@ -4951,11 +4953,11 @@ client.on('ready', function() {
 			else if(args.slice(1).join(' ') && !member) commander = await client.users.fetch(args.slice(1).join(' '))
 			
 			const emb = new MessageEmbed()
-				.setAuthor(commander.tag, commander.displayAvatarURL({ dynamic: true, size: 1024 }), commander.displayAvatarURL({ dynamic: true, size: 1024 }))
-				.setDescription('**[Avatar link]('+commander.displayAvatarURL({ dynamic: true, size: 1024 })+')** \n <:reply:880430755338149899>click to get **'+commander.username+'**\'s avatar link!')
+				.setAuthor(commander.tag, commander.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }), commander.displayAvatarURL({ dynamic: true, size: 1024 }))
+				.setDescription('**[Avatar link]('+commander.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' })+')** \n <:reply:880430755338149899>click to get **'+commander.username+'**\'s avatar link!')
 				.setColor('#51545b')
-				.setImage(`${commander.avatarURL({ dynamic: true, size: 1024 }) || commander.displayAvatarURL({ dynamic: true, size: 1024 })}`)
-				.setFooter('Requested by '+message.author.tag, message.author.displayAvatarURL({ dynamic: true, size: 1024 }))
+				.setImage(`${commander.avatarURL({ dynamic: true, size: 1024, format: 'png' }) || commander.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' })}`)
+				.setFooter('Requested by '+message.author.tag, message.author.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))
 				return message.channel.send(emb)
 		} catch (e) {
 			message.channel.send(`**${message.author.username}** couldn't find **${args.slice(1).join(' ')}** in discord <:drinking:750050072707727371>`)
@@ -5989,6 +5991,8 @@ let dcounter = {}
 client.on('messageUpdate', (oldMessage, newMessage) => {
 	if (oldMessage.embeds[0]) return
 	if (newMessage.embeds[0]) return
+	if (newMessage.author.bot) return
+	if (oldMessage.author.bot) return
 	if (newMessage.content == oldMessage.content) return
 	if (!ecounter[oldMessage.channel.id]) ecounter[oldMessage.channel.id] = 0
 	if (!editsnipes[oldMessage.channel.id]) editsnipes[oldMessage.channel.id] = []
