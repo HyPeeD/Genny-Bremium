@@ -5557,7 +5557,7 @@ client.on('voiceStateUpdate', async function(oldState, newState) {
 				queue.playing = false
 				queue.connection.dispatcher.pause(true)
 				return queue.textChannel.send('<:pause:873241808883294230> Paused **'+queue.songs[0].title+'**')
-			} else if (newState.guild.me.voice && newState.guild.me.voice.mute) {
+			} else if (newState.guild.me.voice && !newState.guild.me.voice.mute) {
 				if (!queue.playing) {
 					queue.playing = true
 					queue.connection.dispatcher.resume()
