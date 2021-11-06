@@ -33,6 +33,7 @@ client.queue = new Map()
 client.radio = new Map()
 client.music = new Map()
 client.volum = new Map()
+client.paus = new Map()
 client.prefix = prefix
 let position
 
@@ -5551,22 +5552,20 @@ client.on('ready', function() {
 client.on('voiceStateUpdate', async function(oldState, newState) {
 	let queue = client.queue.get(newState.guild.id)
 	if (!queue) return
-	try {
-		if (newState.guild.me.voice && newState.guild.me.voice.mute) {
-			if (queue.playing) {
-				queue.playing = false
-				queue.connection.dispatcher.pause(true)
-				return queue.textChannel.send('<:pause:873241808883294230> Paused **'+queue.songs[0].title+'**')
-			}
-		} else if (newState.guild.me.voice && !newState.guild.me.voice.mute) {
-			if (!queue.playing) {
-				queue.playing = true
-				queue.connection.dispatcher.resume()
-				return queue.textChannel.send('<:resume:873242561723121795> Resuming **'+queue.songs[0].title+'**')
-			}
+	if (newState.guild.me.voice && newState.guild.me.voice.mute) {
+		if (queue.playing) {
+			queue.playing = false
+			queue.connection.dispatcher.pause(true)
+			return queue.textChannel.send('<:pause:873241808883294230> Paused **'+queue.songs[0].title+'**')
 		}
-	} catch (e) {
-		
+	} else if (newState.guild.me.voice && !newState.guild.me.voice.mute) {
+		let pause = client.paus.get(newState.guild.id)
+		if (pause) return client.paus.delete(newState.guild.id)
+		if (!queue.playing) {
+			queue.playing = true
+			queue.connection.dispatcher.resume()
+			return queue.textChannel.send('<:resume:873242561723121795> Resuming **'+queue.songs[0].title+'**')
+		}
 	}
 })
 
