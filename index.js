@@ -5549,10 +5549,10 @@ client.on('ready', function() {
 })
 
 client.on('voiceStateUpdate', async function(oldState, newState) {
-	let queue = client.queue.get(message.guild.id)
+	let queue = client.queue.get(newState.guild.id)
 	if (!queue) return
 	try {
-		if (message.guild.me.voice && message.guild.me.voice.mute) {
+		if (newState.guild.me.voice && newState.guild.me.voice.mute) {
 			if (queue.playing) {
 				queue.playing = false
 				queue.connection.dispatcher.pause(true)
