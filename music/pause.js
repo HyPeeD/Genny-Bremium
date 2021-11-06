@@ -11,8 +11,9 @@ module.exports = {
 
 		if (queue.playing) {
 			queue.playing = false
+			message.client.paus.set(message.guild.id, true)
 			queue.connection.dispatcher.pause(true)
-			queue.textChannel.send('<:pause:873241808883294230> Paused **'+queue.songs[0].title+'**')
+			return queue.textChannel.send('<:pause:873241808883294230> Paused **'+queue.songs[0].title+'**')
 		}
 	}
 }
