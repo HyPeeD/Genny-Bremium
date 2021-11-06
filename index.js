@@ -5550,6 +5550,8 @@ client.on('ready', function() {
 })
 
 client.on('voiceStateUpdate', async function(oldState, newState) {
+	if (newState.member.user.id !== client.user.id) return
+	if (oldState.member.user.id !== client.user.id) return
 	let queue = client.queue.get(newState.guild.id)
 	if (!queue) return
 	if (newState.guild.me.voice && newState.guild.me.voice.mute) {
