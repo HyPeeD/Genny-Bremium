@@ -5548,6 +5548,18 @@ client.on('ready', function() {
 	
 })
 
+client.on('voiceStateUpdate', async function(oldState, newState) {
+	let queue = client.queue.get(message.guild.id)
+	if (!queue) return
+	if (message.guild.me.voice && message.guild.me.voice.mute) {
+		if (queue.playing) {
+			queue.playing = false
+			queue.connection.dispatcher.pause(true)
+			queue.textChannel.send('<:pause:873241808883294230> Paused **'+queue.songs[0].title+'**')
+		}
+	}
+})
+
 mongo(database1).then(async mongoose => {
 	mongoose.connection.collection('setups').find({}, async (error, setups) => {
 		if (setups == null) setups = {}
@@ -5656,10 +5668,8 @@ mongo(database1).then(async mongoose => {
 			
 			// shit things
 			
-			let advertise = message.content.replace(message.content.split('discord.gg/')[1] ? message.content.split('discord.gg/')[1].split(' ')[0] : '', '').replace(/discord.gg\//g, '').replace(/https:\/\//g, '')
-	
 			let content = {
-				message: advertise !== '' ? trim(advertise, 1024) : 'Discord invite!',
+				message: trim(message.content, 1024),
 				author: message.author.id,
 				url: message.url
 			}
@@ -5997,13 +6007,10 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
 	if (!ecounter[oldMessage.channel.id]) ecounter[oldMessage.channel.id] = 0
 	if (!editsnipes[oldMessage.channel.id]) editsnipes[oldMessage.channel.id] = []
 	
-	let advertise = newMessage.content.replace(newMessage.content.split('discord.gg/')[1] ? newMessage.content.split('discord.gg/')[1].split(' ')[0] : '', '').replace(/discord.gg\//g, '').replace(/https:\/\//g, '')
-	let advertises = oldMessage.content.replace(oldMessage.content.split('discord.gg/')[1] ? oldMessage.content.split('discord.gg/')[1].split(' ')[0] : '', '').replace(/discord.gg\//g, '').replace(/https:\/\//g, '')
-	
 	let content = {
-		oldMsg: oldMessage.content.includes('discord.gg/') ? trim(advertises, 1024) : trim(oldMessage.content, 1024),
+		oldMsg: trim(oldMessage.content, 1024),
 		author: oldMessage.author.id,
-		newMsg: newMessage.content.includes('discord.gg/') ? trim(advertise, 1024) : trim(newMessage.content, 1024)
+		newMsg: trim(newMessage.content, 1024)
 	}
 	if (editsnipes[oldMessage.channel.id].length >= 10) {
 		if (ecounter[oldMessage.channel.id] >= 10) ecounter[oldMessage.channel.id] = 0
@@ -6022,10 +6029,8 @@ client.on('messageDelete', message => {
 	if (!dcounter[message.channel.id]) dcounter[message.channel.id] = 0
 	if (!deletesnipes[message.channel.id]) deletesnipes[message.channel.id] = []
 	
-	let advertise = message.content.replace(message.content.split('discord.gg/')[1] ? message.content.split('discord.gg/')[1].split(' ')[0] : '', '').replace(/discord.gg\//g, '').replace(/https:\/\//g, '')
-	
 	let content = {
-		message: message.content.includes('discord.gg/') ? trim(advertise, 1024) : trim(message.content, 1024),
+		message: trim(message.content, 1024),
 		author: message.author.id,
 		img: message.attachments.first() ? message.attachments.first().proxyURL : empty
 	}
