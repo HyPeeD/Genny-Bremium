@@ -5551,12 +5551,16 @@ client.on('ready', function() {
 client.on('voiceStateUpdate', async function(oldState, newState) {
 	let queue = client.queue.get(message.guild.id)
 	if (!queue) return
-	if (message.guild.me.voice && message.guild.me.voice.mute) {
-		if (queue.playing) {
-			queue.playing = false
-			queue.connection.dispatcher.pause(true)
-			queue.textChannel.send('<:pause:873241808883294230> Paused **'+queue.songs[0].title+'**')
+	try {
+		if (message.guild.me.voice && message.guild.me.voice.mute) {
+			if (queue.playing) {
+				queue.playing = false
+				queue.connection.dispatcher.pause(true)
+				queue.textChannel.send('<:pause:873241808883294230> Paused **'+queue.songs[0].title+'**')
+			}
 		}
+	} catch (e) {
+		
 	}
 })
 
