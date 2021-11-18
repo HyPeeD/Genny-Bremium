@@ -4224,7 +4224,6 @@ client.on('ready', function() {
 		.setDescription(`<:space:817796102761611264>
 		<:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:queue:873258930845933608> **Social commands**`, true)
 		.addField('\u200B', `**[discrim](${link})** \n<:reply:880430755338149899> to get a bunch of members who has same as your discriminator.`, true)
-		.addField('\u200B', `**[activities](${link})** \n<:reply:880430755338149899> to get a hyperlink and play one of 5 activities.`, true)
 		.addField('\u200B', `**[marry](${link})** \n<:reply:880430755338149899> to marry pinged one or know who is married with you.`, true)
 		.addField('\u200B', `**[afk](${link})** \n<:reply:880430755338149899> to set a message sends to author when he mentions yo.`, true)
 		.addField('\u200B', `**[mentionsnipe](${link})** \n<:reply:880430755338149899> to get all your mentionsnipes in channel.`, true)
@@ -4546,8 +4545,8 @@ client.on('ready', function() {
 						if (premium == null) premium = {}
 						if (premium == undefined) premium = {}
 		  
-						if (!premium[author]) return
-						mongoose.connection.collection('premiums').deleteOne({ [mention.id+'.id']: mention.id }) 
+						if (!premium[mention.id]) return message.channel.send('**'+mention.username+'** is not promoted to be demoted!')
+						mongoose.connection.collection('premiums').deleteOne({ [mention.id+'.id']: mention.id })
 					})
 				})
 				m.edit(m.content, { buttons: [accept.setStyle('grey').setDisabled(true), decline.setStyle('grey').setDisabled(true)] })
@@ -4726,170 +4725,6 @@ client.on('ready', function() {
 	// command(client, drop, async message => {
 		
 	// })
-
-	let activities = 'activities'
-	command(client, activities, async message => {
-		await waiting(message)
-		let args = message.content.split(' ').slice(1).join(' ')
-		if (!args) return message.channel.send('<:activities:872911855784456242> **'+message.author.username+'** use one of those (**YouTube**, **PokerNight**, **Betrayal**, **Fishington**, **Chess**)')
-		if (!message.member.voice.channel) return message.channel.send('<:activities:872911855784456242> **'+message.author.username+'**, you must in a voice channel to use this!')
-		const embed = new MessageEmbed()
-		if (args.toLowerCase() == 'youtube') {
-			fetch(`https://discord.com/api/v8/channels/${message.member.voice.channel.id}/invites`, {
-						method: 'POST',
-						body: JSON.stringify({
-							max_age: 86400,
-							max_uses: 0,
-							target_application_id: '755600276941176913',
-							target_type: 2,
-							temporary: false,
-							validate: null
-						}),
-						headers: {
-							'Authorization': `Bot ${client.token}`,
-							'Content-Type': 'application/json'
-						}
-					})
-					.then(res => res.json())
-					.then(invite => {
-						embed.setAuthor('Activity was added to '+message.guild.name+'!', message.guild.iconURL({ dynamic: true, format: 'png' }), 'https://discord.gg/gWw6zBm79J')
-						embed.setDescription(`Added **YouTube Together** to [${message.member.voice.channel.name}](https://discord.gg/${invite.code})
-						> Click on the hyperlink to join.
-						
-						Make **sure** you joined [Genny Support](https://discord.gg/gWw6zBm79J) because that **support** us a lot! <3
-						`)
-						embed.setFooter(message.author.username, message.author.avatarURL({ dynamic: true, format: 'png' }))
-						embed.setColor('#7289DA')
-						embed.setTimestamp()
-						message.inlineReply(embed)
-						message.channel.send('<:activities:872911855784456242> https://discord.gg/'+invite.code)
-					})
-		}
-		if (args.toLowerCase() == 'pokernight') {
-			fetch(`https://discord.com/api/v8/channels/${message.member.voice.channel.id}/invites`, {
-						method: 'POST',
-						body: JSON.stringify({
-							max_age: 86400,
-							max_uses: 0,
-							target_application_id: '755827207812677713',
-							target_type: 2,
-							temporary: false,
-							validate: null
-						}),
-						headers: {
-							'Authorization': `Bot ${client.token}`,
-							'Content-Type': 'application/json'
-						}
-					})
-					.then(res => res.json())
-					.then(invite => {
-						embed.setAuthor('Activity was added to '+message.guild.name+'!', message.guild.iconURL({ dynamic: true, format: 'png' }), 'https://discord.gg/gWw6zBm79J')
-						embed.setDescription(`Added **Poker Night** to [${message.member.voice.channel.name}](https://discord.gg/${invite.code})
-						> Click on the hyperlink to join.
-						
-						Make **sure** you joined [Genny Support](https://discord.gg/gWw6zBm79J) because that **support** us a lot! <3
-						`)
-						embed.setFooter(message.author.username, message.author.avatarURL({ dynamic: true, format: 'png' }))
-						embed.setColor('#7289DA')
-						embed.setTimestamp()
-						message.inlineReply(embed)
-						message.channel.send('<:activities:872911855784456242> https://discord.gg/'+invite.code)
-					})
-		}
-		if (args.toLowerCase() == 'betrayal') {
-			fetch(`https://discord.com/api/v8/channels/${message.member.voice.channel.id}/invites`, {
-						method: 'POST',
-						body: JSON.stringify({
-							max_age: 86400,
-							max_uses: 0,
-							target_application_id: '773336526917861400',
-							target_type: 2,
-							temporary: false,
-							validate: null
-						}),
-						headers: {
-							'Authorization': `Bot ${client.token}`,
-							'Content-Type': 'application/json'
-						}
-					})
-					.then(res => res.json())
-					.then(invite => {
-						embed.setAuthor('Activity was added to '+message.guild.name+'!', message.guild.iconURL({ dynamic: true, format: 'png' }), 'https://discord.gg/gWw6zBm79J')
-						embed.setDescription(`Added **Betrayal.io** to [${message.member.voice.channel.name}](https://discord.gg/${invite.code})
-						> Click on the hyperlink to join.
-						
-						Make **sure** you joined [Genny Support](https://discord.gg/gWw6zBm79J) because that **support** us a lot! <3
-						`)
-						embed.setFooter(message.author.username, message.author.avatarURL({ dynamic: true, format: 'png' }))
-						embed.setColor('#7289DA')
-						embed.setTimestamp()
-						message.inlineReply(embed)
-						message.channel.send('<:activities:872911855784456242> https://discord.gg/'+invite.code)
-					})
-		}
-		if (args.toLowerCase() == 'fishington') {
-			fetch(`https://discord.com/api/v8/channels/${message.member.voice.channel.id}/invites`, {
-						method: 'POST',
-						body: JSON.stringify({
-							max_age: 86400,
-							max_uses: 0,
-							target_application_id: '814288819477020702',
-							target_type: 2,
-							temporary: false,
-							validate: null
-						}),
-						headers: {
-							'Authorization': `Bot ${client.token}`,
-							'Content-Type': 'application/json'
-						}
-					})
-					.then(res => res.json())
-					.then(invite => {
-						embed.setAuthor('Activity was added to '+message.guild.name+'!', message.guild.iconURL({ dynamic: true, format: 'png' }), 'https://discord.gg/gWw6zBm79J')
-						embed.setDescription(`Added **Fishington.io** to [${message.member.voice.channel.name}](https://discord.gg/${invite.code})
-						> Click on the hyperlink to join.
-						
-						Make **sure** you joined [Genny Support](https://discord.gg/gWw6zBm79J) because that **support** us a lot! <3
-						`)
-						embed.setFooter(message.author.username, message.author.avatarURL({ dynamic: true, format: 'png' }))
-						embed.setColor('#7289DA')
-						embed.setTimestamp()
-						message.inlineReply(embed)
-						message.channel.send('<:activities:872911855784456242> https://discord.gg/'+invite.code)
-					})
-		}
-		if (args.toLowerCase() == 'chess') {
-			fetch(`https://discord.com/api/v8/channels/${message.member.voice.channel.id}/invites`, {
-						method: 'POST',
-						body: JSON.stringify({
-							max_age: 86400,
-							max_uses: 0,
-							target_application_id: '832012586023256104',
-							target_type: 2,
-							temporary: false,
-							validate: null
-						}),
-						headers: {
-							'Authorization': `Bot ${client.token}`,
-							'Content-Type': 'application/json'
-						}
-					})
-					.then(res => res.json())
-					.then(invite => {
-						embed.setAuthor('Activity was added to '+message.guild.name+'!', message.guild.iconURL({ dynamic: true, format: 'png' }), 'https://discord.gg/gWw6zBm79J')
-						embed.setDescription(`Added **Chess** to [${message.member.voice.channel.name}](https://discord.gg/${invite.code})
-						> Click on the hyperlink to join.
-						
-						Make **sure** you joined [Genny Support](https://discord.gg/gWw6zBm79J) because that **support** us a lot! <3
-						`)
-						embed.setFooter(message.author.username, message.author.avatarURL({ dynamic: true, format: 'png' }))
-						embed.setColor('#7289DA')
-						embed.setTimestamp()
-						message.inlineReply(embed)
-						message.channel.send('<:activities:872911855784456242> https://discord.gg/'+invite.code)
-					})
-		}
-	})
 
 	let banner = 'banner'
 	command(client, banner, async message => {
@@ -5561,8 +5396,6 @@ client.on('voiceStateUpdate', async function(oldState, newState) {
 			return queue.textChannel.send('<:pause:873241808883294230> Paused **'+queue.songs[0].title+'**')
 		}
 	} else if (newState.guild.me.voice && !newState.guild.me.voice.mute) {
-		let pause = client.paus.get(newState.guild.id)
-		if (pause) return client.paus.delete(newState.guild.id)
 		if (!queue.playing) {
 			queue.playing = true
 			queue.connection.dispatcher.resume()
