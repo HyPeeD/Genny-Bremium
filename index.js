@@ -3821,18 +3821,18 @@ client.on('ready', function() {
 		
 				if (!profile[message.author.id]) return message.channel.send('**'+message.author.username+'**, you must go get some coins to play this game!')
 				if (profile[message.author.id] && !profile[message.author.id].credits) return message.channel.send('**'+message.author.username+'**, you must go get some coins to play this game!')
-				if (!message.content.split(' ').slice(2).join(' ')) return message.channel.send('**'+message.author.username+'**, please follow the option ranking (**amount**) then (**option**)')
+				if (!message.content.split(' ').slice(2).join(' ')) return message.channel.send('**'+message.author.username+'**, please follow the option ranking (**option**) then (**amount**)')
 				if (parseInt(message.content.split(' ').slice(2).join(' ')) > profile[message.author.id].credits) return message.channel.send(`**${message.author.username}**, your balance does not include this amount of coins!`)
 				let color
 				let prize
 				let loswin
 				
-				if (isNaN(message.content.split(' ').slice(2).join(' '))) return message.channel.send(`**${message.author.username}**, please follow the option ranking (**amount**) then (**option**)`)
-				if (parseInt(message.content.split(' ').slice(2).join(' ')) < 1) return message.channel.send(`**${message.author.username}**, please follow the option ranking (**amount**) then (**option**)`)
+				if (isNaN(message.content.split(' ').slice(2).join(' '))) return message.channel.send(`**${message.author.username}**, please follow the option ranking (**option**) then (**amount**)`)
+				if (parseInt(message.content.split(' ').slice(2).join(' ')) < 1) return message.channel.send(`**${message.author.username}**, please follow the option ranking (**option**) then (**amount**)`)
 				if (value.toLowerCase() == message.content.split(' ')[1].toLowerCase()) {
 					color = 'GREEN'
 					loswin = '$'
-					prize = (parseInt(profile[message.author.id].credits) * 2) + 1
+					prize = (parseInt(message.content.split(' ')[2]) * 2) + 1
 					addMoney(author, prize)
 				} else {
 					removeMoney(author, parseInt(message.content.split(' ')[2]))
