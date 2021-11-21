@@ -1794,7 +1794,7 @@ client.on('ready', function() {
 	command(client, ban, async message => {
 		let args = message.content.split(' ')
 		if (!message.member.hasPermission('BAN_MEMBERS') && message.guild.owner !== message.author) return
-		let commanded = message.mentions.users.first()
+		let commanded = message.mentions.members.first()
 		if (!args.slice(1).join(' ')) return message.channel.send('**'+message.author.username+'** Woaaah **Slow Down**, who are we banning >:3')
 		if (commanded) {
 			if (message.author.id == commanded.id) return message.channel.send(`**${message.author.username}** why do you wanna ban yourself <a:Flyyy:770262976749633576> ?`)
@@ -1802,20 +1802,13 @@ client.on('ready', function() {
 			
 			if (commanded.id == message.guild.owner.id) return message.channel.send('**'+message.author.username+'** I can\'t he is server owner!')
 			
-			if (message.guild.member(commanded).roles.highest.position > message.guild.me.roles.highest.position) return message.channel.send('**'+message.author.username+'** I can\'t his highest role is **higher** than me!')
-			if (message.guild.member(commanded).roles.highest.position == message.guild.me.roles.highest.position) return message.channel.send('**'+message.author.username+'** he has my same role :(')
+			if (commanded.roles.highest.position > message.guild.me.roles.highest.position) return message.channel.send('**'+message.author.username+'** I can\'t his highest role is **higher** than me!')
+			if (commanded.roles.highest.position == message.guild.me.roles.highest.position) return message.channel.send('**'+message.author.username+'** he has my same role :(')
 
-			if (message.guild.member(commanded).roles.highest.position > message.member.roles.highest.position) return message.channel.send('**'+message.author.username+'**, his highest role is **higher** than you run!')
-			if (message.guild.member(commanded).roles.highest.position == message.member.roles.highest.position) return message.channel.send('**'+message.author.username+'**, he has ur same role :(')
+			if (commanded.roles.highest.position > message.member.roles.highest.position) return message.channel.send('**'+message.author.username+'**, his highest role is **higher** than you run!')
+			if (commanded.roles.highest.position == message.member.roles.highest.position) return message.channel.send('**'+message.author.username+'**, he has ur same role :(')
 
-			if (!message.guild.member(commanded)) {
-				client.users.fetch(args.slice(1).join(' ')).then(uuser => {
-					message.guild.members.ban(uuser, { reason: `By: ${message.author.username}` })
-					return message.channel.send(`**${message.author.username}** done **${uuser.username}** has been banned from the server! <a:Flyyy:770262976749633576>`)
-				})
-			}
-
-			message.guild.member(commanded).ban({ reason: `By: ${message.author.username}` })
+			commanded.ban({ reason: `By: ${message.author.username}` })
 			return message.channel.send(`**${message.author.username}** done **${commanded.username}** has been banned from the server! <a:Flyyy:770262976749633576>`)
 		} else if (!commanded && message.content.split(' ').slice(1).join(' ')) {
 			try {
@@ -5375,6 +5368,34 @@ client.on('ready', function() {
 			let error, res = await base.getBufferAsync(jimp.MIME_PNG)
 			return message.channel.send({ files: [{ attachment: res, name: `HyPeD.png` }] })
 		} else message.channel.send('**'+message.author.username+'** please the type must be (**profile**) or (**rank**)')
+	})
+	
+	let maki = ['maki']
+	command(client, maki, async message => {
+		if (!args) return message.channel.send('**'+message.author.username+'** please specify the type (**level**), (**voice**), (**balance**), (**reputation**)')
+		
+		if (args[1] == 'level') {
+			let base = await jimp.read('https://maki.gg/leaderboard/'+message.guild.id+'/level.png')
+			let error, res = await base.getBufferAsync(jimp.MIME_PNG)
+			if (error) return message.channel.send('**'+message.author.username+'** maki.gg must be in this server!')
+			return message.channel.send({ files: [{ attachment: res, name: `HyPeD.png` }] })
+		} else if (args[1] == 'voice') {
+			let base = await jimp.read('https://maki.gg/leaderboard/'+message.guild.id+'/voice.png')
+			let error, res = await base.getBufferAsync(jimp.MIME_PNG)
+			if (error) return message.channel.send('**'+message.author.username+'** maki.gg must be in this server!')
+			return message.channel.send({ files: [{ attachment: res, name: `HyPeD.png` }] })
+		} else if (args[1] == 'balance') {
+			let base = await jimp.read('https://maki.gg/leaderboard/'+message.guild.id+'/balance.png')
+			let error, res = await base.getBufferAsync(jimp.MIME_PNG)
+			if (error) return message.channel.send('**'+message.author.username+'** maki.gg must be in this server!')
+			return message.channel.send({ files: [{ attachment: res, name: `HyPeD.png` }] })
+		} else if (args[1] == 'reputation') {
+			let base = await jimp.read('https://maki.gg/leaderboard/'+message.guild.id+'/reputation.png')
+			let error, res = await base.getBufferAsync(jimp.MIME_PNG)
+			if (error) return message.channel.send('**'+message.author.username+'** maki.gg must be in this server!')
+			return message.channel.send({ files: [{ attachment: res, name: `HyPeD.png` }] })
+		}
+		else message.channel.send('**'+message.author.username+'** please the type must be (**level**), (**voice**), (**balance**), (**reputation**)')
 	})
 	
 	let ttt = ['ttt','xo','tictactoe']
