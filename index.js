@@ -5372,6 +5372,7 @@ client.on('ready', function() {
 	
 	let maki = ['maki']
 	command(client, maki, async message => {
+		let args = message.content.split(' ')
 		if (!args) return message.channel.send('**'+message.author.username+'** please specify the type (**level**), (**voice**), (**balance**), (**reputation**)')
 		
 		if (args[1] == 'level') {
