@@ -3864,7 +3864,7 @@ client.on('ready', function() {
 						removeMoney(author, parseInt(message.content.split(' ')[2].toLowerCase() == 'all' ? profile[author].credits : message.content.split(' ')[2]))
 						color = 'RED'
 						loswin = ''
-						prize = 'Sorry you just losed $'+parseInt(message.content.split(' ')[2].toLowerCase() == 'all' ? profile[author].credits : message.content.split(' ')[2]))
+						prize = 'Sorry you just losed $'+parseInt(message.content.split(' ')[2].toLowerCase() == 'all' ? profile[author].credits : message.content.split(' ')[2])
 					}
 					let embed = new MessageEmbed()
 					.setTitle('Coinflip Results')
@@ -3894,7 +3894,7 @@ client.on('ready', function() {
 					removeMoney(author, parseInt(message.content.split(' ')[2].toLowerCase() == 'all' ? profile[author].credits : message.content.split(' ')[2]))
 					color = 'RED'
 					loswin = ''
-					prize = 'Sorry you just losed $'+parseInt(message.content.split(' ')[2].toLowerCase() == 'all' ? profile[author].credits : message.content.split(' ')[2]))
+					prize = 'Sorry you just losed $'+parseInt(message.content.split(' ')[2].toLowerCase() == 'all' ? profile[author].credits : message.content.split(' ')[2])
 				}
 				let embed = new MessageEmbed()
 				.setTitle('Coinflip Results')
