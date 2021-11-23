@@ -60,6 +60,7 @@ let pilanty = {}
 let clicker = {}
 let leveled = []
 let sermap = {}
+let coinsa = {}
 let blakli = {}
 let recent = {}
 let gotans = {}
@@ -1797,10 +1798,10 @@ client.on('ready', function() {
 		let commanded = message.mentions.members.first()
 		if (!args.slice(1).join(' ')) return message.channel.send('**'+message.author.username+'** Woaaah **Slow Down**, who are we banning >:3')
 		if (commanded) {
-			if (message.author.id == commanded.id) return message.channel.send(`**${message.author.username}** why do you wanna ban yourself <a:Flyyy:770262976749633576> ?`)
-			if (commanded.id == client.user.id) return message.channel.send(`**${message.author.username}** okay I am leaving now <:crying:750050074578649220>`)
+			if (message.author.id == commanded.user.id) return message.channel.send(`**${message.author.username}** why do you wanna ban yourself <a:Flyyy:770262976749633576> ?`)
+			if (commanded.user.id == client.user.id) return message.channel.send(`**${message.author.username}** okay I am leaving now <:crying:750050074578649220>`)
 			
-			if (commanded.id == message.guild.owner.id) return message.channel.send('**'+message.author.username+'** I can\'t he is server owner!')
+			if (commanded.user.id == message.guild.owner.id) return message.channel.send('**'+message.author.username+'** I can\'t he is server owner!')
 			
 			if (commanded.roles.highest.position > message.guild.me.roles.highest.position) return message.channel.send('**'+message.author.username+'** I can\'t his highest role is **higher** than me!')
 			if (commanded.roles.highest.position == message.guild.me.roles.highest.position) return message.channel.send('**'+message.author.username+'** he has my same role :(')
@@ -1809,8 +1810,8 @@ client.on('ready', function() {
 			if (commanded.roles.highest.position == message.member.roles.highest.position) return message.channel.send('**'+message.author.username+'**, he has ur same role :(')
 
 			commanded.ban({ reason: `By: ${message.author.username}` })
-			return message.channel.send(`**${message.author.username}** done **${commanded.username}** has been banned from the server! <a:Flyyy:770262976749633576>`)
-		} else if (!commanded && message.content.split(' ').slice(1).join(' ')) {
+			return message.channel.send(`**${message.author.username}** done **${commanded.user.username}** has been banned from the server! <a:Flyyy:770262976749633576>`)
+		} else if (!commanded && args.slice(1).join(' ')) {
 			try {
 				let userr = await client.users.fetch(args.slice(1).join(' '))
 				if (!userr) return message.channel.send(`**${message.author.username}** couldn't find **${args.slice(1).join(' ')}** in discord <:drinking:750050072707727371>`)
@@ -2835,10 +2836,10 @@ client.on('ready', function() {
 	// ************************************************************************************************* G & A *************************************************************************************************  \\
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-	let penalty = 'penalty'
-	command(client, penalty, async message => {
+	let penaltyy = 'penalty'
+	command(client, penaltyy, async message => {
 		await waiting(message)
-		let cooldown = 3600000
+		let cooldown = 180000
 		if (pilanty[message.author.id] && pilanty[message.author.id].time) {
 		   let Daily = pilanty[message.author.id].time
 		   if (Daily !== null && cooldown - ((sec(pretty(Date.now(), { colonNotation: true })) * 1000) - Daily) > 0) return message.channel.send(`<:watchs:872878816706568222> **${message.author.username}**, you can play more **Penalty's game** in **${pretty(cooldown - ((sec(pretty(Date.now(), {colonNotation: true})) * 1000) - Daily), { verbose: true })}**!`)
@@ -3749,19 +3750,44 @@ client.on('ready', function() {
 			}, 130000)
 		}
 	})
+	
+	let crime = ['crime']
+	command(client, crime, async message => {
+		await waiting(message)
+		return message.channel.send('**'+message.author.username+'** please wait until the developer finish working on it!')
+		let cooldown = 18000000
+		if (crimesa[message.author.id] && crimesa[message.author.id].time) {
+		   let Daily = crimesa[message.author.id].time
+		   if (Daily !== null && cooldown - ((sec(pretty(Date.now(), { colonNotation: true })) * 1000) - Daily) > 0) return message.channel.send(`<:watchs:872878816706568222> **${message.author.username}**, you can play more **coinflip's game** in **${pretty(cooldown - ((sec(pretty(Date.now(), {colonNotation: true})) * 1000) - Daily), { verbose: true })}**!`)
+		}
+		let max = 650
+		let min = 250
+		let prize = parseInt(Math.floor(Math.random() * (max - min + 1)) + min)
+		
+		if (!profile[author]) {
+			mongoose.connection.collection('profiles').insertOne({ [author]: { credits: prize, id: author, time: Math.floor(sec(pretty(Date.now(), {colonNotation: true})) * 1000) } }) 
+			return message.channel.send(`<:gennycard:802865130232479754>  **${message.author.username}**, your card was charged by **`+ prize +`** daily credits!`)
+		} else if(profile[author]) {
+			mongoose.connection.collection('profiles').updateOne({ [author+'.id']: author }, { $set: { [author+'.time']: Math.floor(sec(pretty(Date.now(), {colonNotation: true})) * 1000), [author+'.credits']: (profile[author].credits ? profile[author].credits : 0) + prize } })
+			return message.channel.send(`<:gennycard:802865130232479754>  **${message.author.username}**, your card was charged by **`+ prize +`** daily credits!`)
+		} else {
+			mongoose.connection.collection('profiles').insertOne({ [author]: { credits: prize, id: author, time: Math.floor(sec(pretty(Date.now(), {colonNotation: true})) * 1000) } }) 
+			return message.channel.send(`<:gennycard:802865130232479754>  **${message.author.username}**, your card was charged by **`+ prize +`** daily credits!`)
+		}
+	})
 
 	let daily = ['daily', 'work']
 	command(client, daily, async message => {
 		await waiting(message)
 		let author = message.author.id
-		let ammount = [445, 521, 368, 601, 721, 584, 675, 691, 888, 911, 252]
+		let max = 900
+		let min = 300
+		let prize = parseInt(Math.floor(Math.random() * (max - min + 1)) + min)
 		let cooldown = 8.64e7
 		mongo(database1).then(async mongoose => {
 			mongoose.connection.collection('profiles').findOne({ [author+'.id']: author }, async (error, profile) => {
 				if (profile == null) profile = {}
 				if (profile == undefined) profile = {}
-
-				let prize = ammount[Math.floor(Math.random() * ammount.length)]
 				if (!profile[author]) {
 					mongoose.connection.collection('profiles').insertOne({ [author]: { credits: prize, id: author, time: Math.floor(sec(pretty(Date.now(), {colonNotation: true})) * 1000) } }) 
 					return message.channel.send(`<:gennycard:802865130232479754>  **${message.author.username}**, your card was charged by **`+ prize +`** daily credits!`)
@@ -3812,6 +3838,11 @@ client.on('ready', function() {
 		await waiting(message)
 		if (!message.channel.permissionsFor(message.guild.me).has('EMBED_LINKS')) return message.channel.send('**'+message.author.username+'**, I must have embed links permission')
 		let author = message.author.id
+		let cooldown = 180000
+		if (coinsa[message.author.id] && coinsa[message.author.id].time) {
+		   let Daily = coinsa[message.author.id].time
+		   if (Daily !== null && cooldown - ((sec(pretty(Date.now(), { colonNotation: true })) * 1000) - Daily) > 0) return message.channel.send(`<:watchs:872878816706568222> **${message.author.username}**, you can play more **coinflip's game** in **${pretty(cooldown - ((sec(pretty(Date.now(), {colonNotation: true})) * 1000) - Daily), { verbose: true })}**!`)
+		}
 		let coinflip = ['Head', 'Tails']
 		let value = coinflip[Math.floor(Math.random() * coinflip.length)]
 		mongo(database1).then(async mongoose => {
@@ -3821,7 +3852,32 @@ client.on('ready', function() {
 		
 				if (!profile[message.author.id]) return message.channel.send('**'+message.author.username+'**, you must go get some coins to play this game!')
 				if (profile[message.author.id] && !profile[message.author.id].credits) return message.channel.send('**'+message.author.username+'**, you must go get some coins to play this game!')
+				if (profile[message.author.id].credits == 0) return message.channel.send('**'+message.author.username+'**, you must go get some coins to play this game!')
 				if (!message.content.split(' ').slice(2).join(' ')) return message.channel.send('**'+message.author.username+'**, please follow the option ranking (**option**) then (**amount**)')
+				if (message.content.split(' ')[2].toLowerCase() == 'all') {
+					if (value.toLowerCase() == message.content.split(' ')[1].toLowerCase()) {
+						color = 'GREEN'
+						loswin = '$'
+						prize = (parseInt(message.content.split(' ')[2].toLowerCase() == 'all' ? profile[author].credits : message.content.split(' ')[2]) * 2) + 1
+						addMoney(author, prize)
+					} else {
+						removeMoney(author, parseInt(message.content.split(' ')[2].toLowerCase() == 'all' ? profile[author].credits : message.content.split(' ')[2]))
+						color = 'RED'
+						loswin = ''
+						prize = 'Sorry you just losed $'+parseInt(message.content.split(' ')[2].toLowerCase() == 'all' ? profile[author].credits : message.content.split(' ')[2]))
+					}
+					let embed = new MessageEmbed()
+					.setTitle('Coinflip Results')
+					.setDescription(`${message.author.tag} | you threw a coin and you got **${value}**`)
+					.addField('Prize', loswin + prize, true)
+					.addField('Your option', message.content.split(' ')[1].split(' ')[0], true).setImage('https://cdn.discordapp.com/attachments/634854460102803456/754317681703911504/Untitled-1.png')
+					.setColor(color)
+					message.channel.send(embed)
+					coinsa[message.author.id] = {
+						time: Math.floor(sec(pretty(Date.now(), {colonNotation: true})) * 1000)
+					}
+					return
+				}
 				if (parseInt(message.content.split(' ').slice(2).join(' ')) > profile[message.author.id].credits) return message.channel.send(`**${message.author.username}**, your balance does not include this amount of coins!`)
 				let color
 				let prize
@@ -3832,13 +3888,13 @@ client.on('ready', function() {
 				if (value.toLowerCase() == message.content.split(' ')[1].toLowerCase()) {
 					color = 'GREEN'
 					loswin = '$'
-					prize = (parseInt(message.content.split(' ')[2]) * 2) + 1
+					prize = (parseInt(message.content.split(' ')[2] == 'all' ? profile[author].credits : message.content.split(' ')[2]) * 2) + 1
 					addMoney(author, prize)
 				} else {
-					removeMoney(author, parseInt(message.content.split(' ')[2]))
+					removeMoney(author, parseInt(message.content.split(' ')[2].toLowerCase() == 'all' ? profile[author].credits : message.content.split(' ')[2]))
 					color = 'RED'
 					loswin = ''
-					prize = 'Sorry you just losed $'+parseInt(message.content.split(' ').slice(2).join(' '))
+					prize = 'Sorry you just losed $'+parseInt(message.content.split(' ')[2].toLowerCase() == 'all' ? profile[author].credits : message.content.split(' ')[2]))
 				}
 				let embed = new MessageEmbed()
 				.setTitle('Coinflip Results')
@@ -3847,8 +3903,11 @@ client.on('ready', function() {
 				.addField('Your option', message.content.split(' ')[1].split(' ')[0], true).setImage('https://cdn.discordapp.com/attachments/634854460102803456/754317681703911504/Untitled-1.png')
 				.setColor(color)
 				message.channel.send(embed)
+				coinsa[message.author.id] = {
+					time: Math.floor(sec(pretty(Date.now(), {colonNotation: true})) * 1000)
+				}
 			})
-	   })
+		})
 	})
 
 	let loot = ['loot']
