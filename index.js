@@ -1484,65 +1484,65 @@ client.on('ready', function() {
 						let userr = await client.users.fetch(pmarry[proposed.id].marry)
 						return message.channel.send('**'+message.author.username+'** Sorry **'+proposed.username+'** is already married to **'+userr.username+'** <:cutie:675727723624136715>')
 					}
-				})
 		  
-				if (recent[message.author.id] && recent[message.author.id].status == true) return message.channel.send('<:watchs:872878816706568222> **'+message.author.username+'** you have already a proposal please wait for response!')
-				else if (recent[proposed.id] && recent[proposed.id].status == true) return message.channel.send('<:watchs:872878816706568222> **'+message.author.username+'** I\'m sorry but **'+proposed.username+'** you have already a proposal please wait for response!')
-				else {
-					recent[message.author.id] = {
-						status: true
-					}
-					recent[proposed.id] = {
-						status: true
-					}
-
-					const declinemarry = new MessageButton()
-					.setLabel('Decline')
-					.setID('declinemarry')
-					.setStyle('red')
-					const acceptmarry = new MessageButton()
-					.setLabel('Accept')
-					.setID('acceptmarry')
-					.setStyle('green')
-					const letmethink = new MessageButton()
-					.setLabel('Give me time!')
-					.setID('letmethink')
-					.setStyle('blurple')
-					
-					let sendmarry = new MessageEmbed()
-					.setAuthor(message.author.tag, message.author.avatarURL({ dynamic: true }), 'https://discord.gg/gWw6zBm79J')
-					.setDescription(`<:ringo:867371656598257685> Hey **[${message.author.username}](https://discord.gg/gWw6zBm79J)** you just proposed to **${proposed.username}**!
-					<:space:817796102761611264> <:reply:880430755338149899> You have **120** seconds to click in **Accept** or **Decline**!`)
-					.setColor('#2f3136')
-					.setThumbnail('https://cdn.discordapp.com/emojis/867371656598257685.png?v=1')
-			
-					let m = await message.channel.send({ embed: sendmarry, buttons: [acceptmarry, declinemarry, letmethink] })
-					const filter = me => me.clicker.user.id == proposed.id
-					const collector = m.createButtonCollector(filter, { time: 120000 })
-					
-					collector.on('collect', async button => {
-						if (button.id === 'acceptmarry') {
-							mongoose.connection.collection('marry-couples').insertMany([{ [message.author.id]: { marry: proposed.id, times: Datie, id: message.author.id } }, { [proposed.id]: { marry: message.author.id, times: Datie, id: proposed.id } }])
-							collector.stop()
-							
-							return message.channel.send('<a:Heart:678372637231284234> **Happily married** \n Congratulations, **' +message.author.username +'** and **' +proposed.username +'** are now bound by marriage!')
-						} else if (button.id === 'declinemarry') {
-							collector.stop()
-							
-							return message.channel.send('**' +message.author.tag +'** your proposal has been declined... <:cutie:675727723624136715>')
-						} else if (button.id === 'letmethink') {
-							collector.stop()
-							
-							return message.channel.send('**'+message.author.username+'** so you have to let **' +proposed.tag +'** think about you proposal! give her/he more time!')
+					if (recent[message.author.id] && recent[message.author.id].status == true) return message.channel.send('<:watchs:872878816706568222> **'+message.author.username+'** you have already a proposal please wait for response!')
+					else if (recent[proposed.id] && recent[proposed.id].status == true) return message.channel.send('<:watchs:872878816706568222> **'+message.author.username+'** I\'m sorry but **'+proposed.username+'** you have already a proposal please wait for response!')
+					else {
+						recent[message.author.id] = {
+							status: true
 						}
-					})
+						recent[proposed.id] = {
+							status: true
+						}
 
-					collector.on('end', collected => {
-						delete recent[message.author.id]
-						delete recent[proposed.id]
-						m.edit({ embed: sendmarry, buttons: [acceptmarry.setDisabled(true), declinemarry.setDisabled(true), letmethink.setDisabled(true)] })
-					})
-				}
+						const declinemarry = new MessageButton()
+						.setLabel('Decline')
+						.setID('declinemarry')
+						.setStyle('red')
+						const acceptmarry = new MessageButton()
+						.setLabel('Accept')
+						.setID('acceptmarry')
+						.setStyle('green')
+						const letmethink = new MessageButton()
+						.setLabel('Give me time!')
+						.setID('letmethink')
+						.setStyle('blurple')
+						
+						let sendmarry = new MessageEmbed()
+						.setAuthor(message.author.tag, message.author.avatarURL({ dynamic: true }), 'https://discord.gg/gWw6zBm79J')
+						.setDescription(`<:ringo:867371656598257685> Hey **[${message.author.username}](https://discord.gg/gWw6zBm79J)** you just proposed to **${proposed.username}**!
+						<:space:817796102761611264> <:reply:880430755338149899> You have **120** seconds to click in **Accept** or **Decline**!`)
+						.setColor('#2f3136')
+						.setThumbnail('https://cdn.discordapp.com/emojis/867371656598257685.png?v=1')
+				
+						let m = await message.channel.send({ embed: sendmarry, buttons: [acceptmarry, declinemarry, letmethink] })
+						const filter = me => me.clicker.user.id == proposed.id
+						const collector = m.createButtonCollector(filter, { time: 120000 })
+						
+						collector.on('collect', async button => {
+							if (button.id === 'acceptmarry') {
+								mongoose.connection.collection('marry-couples').insertMany([{ [message.author.id]: { marry: proposed.id, times: Datie, id: message.author.id } }, { [proposed.id]: { marry: message.author.id, times: Datie, id: proposed.id } }])
+								collector.stop()
+								
+								return message.channel.send('<a:Heart:678372637231284234> **Happily married** \n Congratulations, **' +message.author.username +'** and **' +proposed.username +'** are now bound by marriage!')
+							} else if (button.id === 'declinemarry') {
+								collector.stop()
+								
+								return message.channel.send('**' +message.author.tag +'** your proposal has been declined... <:cutie:675727723624136715>')
+							} else if (button.id === 'letmethink') {
+								collector.stop()
+								
+								return message.channel.send('**'+message.author.username+'** so you have to let **' +proposed.tag +'** think about you proposal! give her/he more time!')
+							}
+						})
+
+						collector.on('end', collected => {
+							delete recent[message.author.id]
+							delete recent[proposed.id]
+							m.edit({ embed: sendmarry, buttons: [acceptmarry.setDisabled(true), declinemarry.setDisabled(true), letmethink.setDisabled(true)] })
+						})
+					}
+				})
 			})
 		})
 	})
@@ -1769,7 +1769,6 @@ client.on('ready', function() {
 		if (!message.member.hasPermission('KICK_MEMBERS')) return
 		let reason = message.content.split(' ').slice(2).join(' ')
 		const u = message.guild.me
-		let user = message.mentions.members.first()
 		let args = message.content.split(' ')
 		const member = message.guild.member(message.mentions.members.first() || message.guild.members.cache.get(args.slice(1).join(' ')))
 		if (!args.slice(1).join(' ')) return message.channel.send('**'+message.author.username+'** Woaaah **Slow Down**, who are we kicking >:3')
