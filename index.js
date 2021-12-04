@@ -1764,6 +1764,46 @@ client.on('ready', function() {
 	// ********************************************************************************************** MODERATION **********************************************************************************************  \\
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+	let rolecmd = ['role']
+	command(client, rolecmd, async message => {
+		let args = message.content.split(' ')
+		let member = message.mentions.members.first() || message.guild.members.cache.get(args[1])
+		if (!member) return message.channel.send('**'+message.author.username+'** you must mention a member in this server!')
+		var args2 = message.content.split(' ').slice(2).join(' ').toLowerCase()
+		var roleGetted = message.guild.roles.cache.find(r => r.name.toLowerCase().includes(args2.toLowerCase())) || message.guild.roles.cache.get(args[2])
+		let invalid = []
+		let array = []
+		if (args2.includes(',') && args2.split(',').length !== 0) {
+			for (var rolee of args2.split(',')) {
+				var rolee1 = message.guild.roles.cache.find(r => r.name.toLowerCase().includes(rolee.toLowerCase())) || message.guild.roles.cache.get(rolee)
+				if (rolee1) return array.push(rolee1)
+				invalid.push(rolee)
+			}
+		}
+		if (invalid.length !== 0) message.channel.send('**'+message.author.username+'** those upcoming roles is invalid **"'+invalid.join('**, **')+'"**')
+		
+		if (array.length !== 0) {
+			let roles = []
+			array.forEach(rolex => {
+				if (member.roles.cache.get(rolex.id)) {
+					member.roles.remove(rolex.id)
+					return roles.push('-'+rolex.name)
+				}
+				member.roles.add(rolex.id)
+				roles.push('+'+rolex.name)
+			})
+			return message.channel.send('**'+message.author.username+'** I have successfully updated **'+member.user.username+'**\'s roles "**'+roles.join(', ')+'**"')
+		}
+		if (!roleGetted) return message.channel.send('**'+message.author.username+'** please you have to enter a valid role name or id!')
+		if (roleGetted.position >= message.member.roles.highest.position && message.guild.owner.id !== message.author.id) return message.channel.send('**'+message.author.username+'** you can not give roles highest than yours!')
+		if (member.roles.cache.get(roleGetted.id)) {
+			member.roles.remove(roleGetted)
+			return message.channel.send('**'+message.author.username+'** I have successfully updated **'+member.user.username+'**\'s roles "**-'+roleGetted.name+'**"')
+		} 
+		member.roles.add(roleGetted)
+		return message.channel.send('**'+message.author.username+'** I have successfully updated **'+member.user.username+'**\'s roles "**+'+roleGetted.name+'**"')
+	})
+
 	let kick = 'kick'
 	command(client, kick, async message => {
 		if (!message.member.hasPermission('KICK_MEMBERS')) return
@@ -4255,6 +4295,7 @@ client.on('ready', function() {
 		.setAuthor('📣  List of all available commands', '', link)
 		.setDescription(`<:space:817796102761611264>
 		<:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:space:817796102761611264><:queue:873258930845933608> **Moderation commands**`, true)
+		.addField('\u200B', `**[role](${link})** \n<:reply:880430755338149899> to update any of mentioned member roles (**upcome with remove and add**)`, true)
 		.addField('\u200B', `**[move all](${link})** \n<:reply:880430755338149899> to move all members who's in a voice channel to your voice channel.`, true)
 		.addField('\u200B', `**[unlock](${link})** \n<:reply:880430755338149899> to unlock the current channel (**can be for specific role**)`, true)
 		.addField('\u200B', `**[lock](${link})** \n<:reply:880430755338149899> to lock the current channel (**can be for specific role**)`, true)
@@ -4364,7 +4405,7 @@ client.on('ready', function() {
 		
 		const emb = new MessageEmbed()
 		.setAuthor('📣  List of all available commands', '', link)
-	.setDescription(`<:space:817796102761611264>\n<:space:817796102761611264><:space:817796102761611264><:shop:872911855570526258> Premium ? contact **${hypedoo}** for premium subscription!`, false)
+		.setDescription(`<:space:817796102761611264>\n<:space:817796102761611264><:space:817796102761611264><:shop:872911855570526258> Premium ? contact **${hypedoo}** for premium subscription!`, false)
 		.addField('\u200B', `**[help economy](${link})** \n<:reply:880430755338149899> show all of economy commands.`, true)
 		.addField('\u200B', `**[help social](${link})** \n<:reply:880430755338149899> show all of social commands.`, true)
 		.addField('\u200B', `**[help protection](${link})** \n<:reply:880430755338149899> show all of protection commands (**Soon**) <:protection:872911854391930942>`, true)
@@ -4415,7 +4456,7 @@ client.on('ready', function() {
 		})
 	})
 	
-	let blacklisters = ['458997221170479124', '764067398507692063', '805216713935159306', '597630544720691202', '805552868391256094', '735876056656904236', '764447645673455616']
+	let blacklisters = ['902172403285774367', '541234063701442581', '458997221170479124', '764067398507692063', '805216713935159306', '597630544720691202', '805552868391256094', '735876056656904236', '764447645673455616']
 
 	let info = ['info', 'information']
 	command(client, info, async message => {
@@ -4426,7 +4467,7 @@ client.on('ready', function() {
 		.setColor('#2f3136')
 		.addField('Ping', `${Date.now() - message.createdTimestamp}` + ' ms', true)
 		.addField('Servers', `${client.guilds.cache.size}`, true)
-		.addField('Owner', `<@458997221170479124>`, true)
+		.addField('Owner', `<@458997221170479124>, <@902172403285774367>, <@541234063701442581>`, true)
 		.setImage(empty)
 		.setFooter(message.author.username, message.author.avatarURL())
 		.setTimestamp()
@@ -5094,6 +5135,117 @@ client.on('ready', function() {
 		if (!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return message.author.send('**'+message.author.username+'**, sorry i must have send messages permission in this server! (**'+message.guild.name+'**)');
 		if (!message.channel.permissionsFor(message.guild.me).has('EMBED_LINKS')) return message.channel.send('**'+message.author.username+'**, i must have embed links permission');
 		mongo(database1).then(async mongoose => {
+			if (message.content.split(' ')[1].toLowerCase() == 'credits' || message.content.split(' ')[1].toLowerCase() == 'balance'|| message.content.split(' ')[1].toLowerCase() == 'cash' || message.content.split(' ')[1].toLowerCase() == '-credits' || message.content.split(' ')[1].toLowerCase() == '-balance'|| message.content.split(' ')[1].toLowerCase() == '-cash') {
+				return message.channel.send('**'+message.author.username+'** this parameters is under work!')
+				const maxright = new MessageButton()
+				.setID('maxright')
+				.setEmoji('871500410060435507')
+				const right = new MessageButton()
+				.setID('right')
+				.setEmoji('871500441656127508')
+				const left = new MessageButton()
+				.setID('left')
+				.setEmoji('871500441509318656')
+				const maxleft = new MessageButton()
+				.setID('maxleft')
+				.setEmoji('871500441920339998')
+				const deletee = new MessageButton()
+				.setID('deletee')
+				.setEmoji('871500443019247656')
+				.setStyle('red')
+				
+				let emb = new MessageEmbed()
+				.setAuthor(user.tag, user.avatarURL({ dynamic: true }))
+				.setColor('#2f3136')
+				.addField('Deleted Message', (result['message'] == '' ? '\u200b' : result['message']))
+				.setThumbnail(message.author.avatarURL({ dynamic: true }))
+				.setFooter('Requested by '+message.author.username, message.author.avatarURL({ dynamic: true }))
+				.setImage(result['img'])
+				.setFooter(`Page ${counter + 1}/${maxpage}`)
+				.setTimestamp()
+			
+				let infoo = await message.channel.send({ buttons: [maxleft.setStyle('blurple').setDisabled(true), left.setStyle('blurple').setDisabled(true), deletee, right.setStyle('blurple'), maxright.setStyle('blurple')], embed: emb })
+				const filter = button => button.clicker.user.id == message.author.id
+				const collector = infoo.createButtonCollector(filter, { time: 120000 })
+				collector.on('collect', async button => {
+					if (button.id === 'maxright') {
+						
+						counter = deletesnipes[message.channel.id].length - 1
+						let resultt = deletesnipes[message.channel.id][deletesnipes[message.channel.id].length - 1]
+						let user = client.users.cache.get(resultt['author'])
+						
+						emb = new MessageEmbed()
+						.setAuthor(user.tag, user.avatarURL({ dynamic: true }))
+						.setColor('#2f3136')
+						.addField('Deleted Message', (resultt['message'] == '' ? '\u200b' : resultt['message']))
+						.setThumbnail(message.author.avatarURL({ dynamic: true }))
+						.setFooter('Requested by '+message.author.username, message.author.avatarURL({ dynamic: true }))
+						.setImage(resultt['img'])
+						.setFooter(`Page ${counter + 1}/${maxpage}`)
+						.setTimestamp()
+						infoo.edit({ buttons: [maxleft.setStyle('blurple').setDisabled(false), left.setStyle('blurple').setDisabled(false), deletee, right.setStyle('blurple').setDisabled(true), maxright.setStyle('blurple').setDisabled(true)], embed: emb })
+					} else if (button.id === 'maxleft') {
+						
+						counter = 0
+						let resultt = deletesnipes[message.channel.id][0]
+						let user = client.users.cache.get(resultt['author'])
+						
+						emb = new MessageEmbed()
+						.setAuthor(user.tag, user.avatarURL({ dynamic: true }))
+						.setColor('#2f3136')
+						.addField('Deleted Message', (resultt['message'] == '' ? '\u200b' : resultt['message']))
+						.setThumbnail(message.author.avatarURL({ dynamic: true }))
+						.setFooter('Requested by '+message.author.username, message.author.avatarURL({ dynamic: true }))
+						.setImage(resultt['img'])
+						.setFooter(`Page ${counter + 1}/${maxpage}`)
+						.setTimestamp()
+						infoo.edit({ buttons: [maxleft.setStyle('blurple').setDisabled(true), left.setStyle('blurple').setDisabled(true), deletee, right.setStyle('blurple').setDisabled(false), maxright.setStyle('blurple').setDisabled(false)], embed: emb })
+					} else if (button.id === 'left') {
+						
+						counter--
+						if (counter <= 0) counter = 0
+						let resultt = deletesnipes[message.channel.id][counter]
+						let user = client.users.cache.get(resultt['author'])
+						
+						emb = new MessageEmbed()
+						.setAuthor(user.tag, user.avatarURL({ dynamic: true }))
+						.setColor('#2f3136')
+						.addField('Deleted Message', (resultt['message'] == '' ? '\u200b' : resultt['message']))
+						.setThumbnail(message.author.avatarURL({ dynamic: true }))
+						.setFooter('Requested by '+message.author.username, message.author.avatarURL({ dynamic: true }))
+						.setImage(resultt['img'])
+						.setFooter(`Page ${counter + 1}/${maxpage}`)
+						.setTimestamp()
+						if (counter <= 0) return infoo.edit({ buttons: [maxleft.setStyle('blurple').setDisabled(true), left.setStyle('blurple').setDisabled(true), deletee, right.setStyle('blurple').setDisabled(false), maxright.setStyle('blurple').setDisabled(false)], embed: emb })
+						infoo.edit({ buttons: [maxleft.setStyle('blurple').setDisabled(false), left.setStyle('blurple').setDisabled(false), deletee, right.setStyle('blurple').setDisabled(false), maxright.setStyle('blurple').setDisabled(false)], embed: emb })
+					} else if (button.id === 'right') {
+						
+						counter++
+						if ((counter + 1) >= maxpage) counter = maxpage - 1
+						let resultt = deletesnipes[message.channel.id][counter]
+						let user = client.users.cache.get(resultt['author'])
+						
+						emb = new MessageEmbed()
+						.setAuthor(user.tag, user.avatarURL({ dynamic: true }))
+						.setColor('#2f3136')
+						.addField('Deleted Message', (resultt['message'] == '' ? '\u200b' : resultt['message']))
+						.setThumbnail(message.author.avatarURL({ dynamic: true }))
+						.setFooter('Requested by '+message.author.username, message.author.avatarURL({ dynamic: true }))
+						.setImage(resultt['img'])
+						.setFooter(`Page ${counter + 1}/${maxpage}`)
+						.setTimestamp()
+						if ((counter + 1) >= maxpage) return infoo.edit({ buttons: [maxleft.setDisabled(false), left.setDisabled(false), deletee, right.setDisabled(true), maxright.setStyle('blurple').setDisabled(true)], embed: emb })
+						infoo.edit({ buttons: [maxleft.setStyle('blurple').setDisabled(false), left.setStyle('blurple').setDisabled(false), deletee, right.setStyle('blurple').setDisabled(false), maxright.setStyle('blurple').setDisabled(false)], embed: emb })
+					}
+					if (button.id === 'deletee') {
+						button.message.channel.send('**'+button.clicker.user.username+'** you just stopped buttons listeners!')
+						return collector.stop()
+					}
+				})
+				collector.on('end', () => {
+					infoo.edit({ buttons: [maxleft.setStyle('blurple').setDisabled(true), left.setStyle('blurple').setDisabled(true), deletee.setDisabled(true), right.setStyle('blurple').setDisabled(true), maxright.setStyle('blurple').setDisabled(true)], embed: emb })
+				})
+			}
 			mongoose.connection.collection('levels').findOne({ [guild+'.id']: guild }, async (error, level) => {
 			mongoose.connection.collection('vclevels').findOne({ [guild+'.id']: guild }, async (error, voice_level) => {
 			mongoose.connection.collection('setups').findOne({ [message.guild.id+'.id']: message.guild.id }, async (error, setups) => {
