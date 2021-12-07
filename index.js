@@ -1785,6 +1785,7 @@ client.on('ready', function() {
 		if (array.length !== 0) {
 			let roles = []
 			array.forEach(rolex => {
+				if (rolex.position > message.member.roles.highest.position && message.guild.owner.id !== message.author.id) return
 				if (member.roles.cache.get(rolex.id)) {
 					member.roles.remove(rolex.id)
 					return roles.push('-'+rolex.name)
@@ -1795,11 +1796,11 @@ client.on('ready', function() {
 			return message.channel.send('**'+message.author.username+'** I have successfully updated **'+member.user.username+'**\'s roles "**'+roles.join(', ')+'**"')
 		}
 		if (!roleGetted) return message.channel.send('**'+message.author.username+'** please you have to enter a valid role name or id!')
-		if (roleGetted.position >= message.member.roles.highest.position && message.guild.owner.id !== message.author.id) return message.channel.send('**'+message.author.username+'** you can not give roles highest than yours!')
+		if (roleGetted.position > message.member.roles.highest.position && message.guild.owner.id !== message.author.id) return message.channel.send('**'+message.author.username+'** you can not give roles highest than yours!')
 		if (member.roles.cache.get(roleGetted.id)) {
 			member.roles.remove(roleGetted)
 			return message.channel.send('**'+message.author.username+'** I have successfully updated **'+member.user.username+'**\'s roles "**-'+roleGetted.name+'**"')
-		} 
+		}
 		member.roles.add(roleGetted)
 		return message.channel.send('**'+message.author.username+'** I have successfully updated **'+member.user.username+'**\'s roles "**+'+roleGetted.name+'**"')
 	})
@@ -5135,7 +5136,7 @@ client.on('ready', function() {
 		if (!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return message.author.send('**'+message.author.username+'**, sorry i must have send messages permission in this server! (**'+message.guild.name+'**)');
 		if (!message.channel.permissionsFor(message.guild.me).has('EMBED_LINKS')) return message.channel.send('**'+message.author.username+'**, i must have embed links permission');
 		mongo(database1).then(async mongoose => {
-			if (message.content.split(' ')[1].toLowerCase() == 'credits' || message.content.split(' ')[1].toLowerCase() == 'balance'|| message.content.split(' ')[1].toLowerCase() == 'cash' || message.content.split(' ')[1].toLowerCase() == '-credits' || message.content.split(' ')[1].toLowerCase() == '-balance'|| message.content.split(' ')[1].toLowerCase() == '-cash') {
+			if (message.content.split(' ')[1] && message.content.split(' ')[1].toLowerCase() == 'credits' || message.content.split(' ')[1].toLowerCase() == 'balance'|| message.content.split(' ')[1].toLowerCase() == 'cash' || message.content.split(' ')[1].toLowerCase() == '-credits' || message.content.split(' ')[1].toLowerCase() == '-balance'|| message.content.split(' ')[1].toLowerCase() == '-cash') {
 				return message.channel.send('**'+message.author.username+'** this parameters is under work!')
 				const maxright = new MessageButton()
 				.setID('maxright')
