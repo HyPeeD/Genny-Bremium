@@ -4457,7 +4457,7 @@ client.on('ready', function() {
 		})
 	})
 	
-	let blacklisters = ['716011596467404852', '902172403285774367', '541234063701442581', '458997221170479124', '764067398507692063', '805216713935159306', '597630544720691202', '805552868391256094', '735876056656904236', '764447645673455616']
+	let blacklisters = ['298230144357761032', '716011596467404852', '902172403285774367', '541234063701442581', '458997221170479124', '764067398507692063', '805216713935159306', '597630544720691202', '805552868391256094', '735876056656904236', '764447645673455616']
 
 	let info = ['info', 'information']
 	command(client, info, async message => {
@@ -4468,7 +4468,7 @@ client.on('ready', function() {
 		.setColor('#2f3136')
 		.addField('Ping', `${Date.now() - message.createdTimestamp}` + ' ms', true)
 		.addField('Servers', `${client.guilds.cache.size}`, true)
-		.addField('Owner', `<@458997221170479124>, <@902172403285774367>, <@541234063701442581>, <@716011596467404852>`, true)
+		.addField('Owner', `<@458997221170479124>, <@902172403285774367>, <@541234063701442581>, <@716011596467404852>, <@298230144357761032>`, true)
 		.setImage(empty)
 		.setFooter(message.author.username, message.author.avatarURL())
 		.setTimestamp()
@@ -4494,7 +4494,7 @@ client.on('ready', function() {
 		client.channels.cache.get('888434397085315143').send('**'+message.author.username+'** just blacklisted <@'+commander.id+'> **('+commander.username+')**')
 	})
 
-	let unblacklist = ['unb', 'unblacklist']
+	let unblacklist = ['w', 'whitelist']
 	command(client, unblacklist, async message => {
 		if (!blacklisters.includes(message.author.id)) return
 		let commander = message.mentions.users.first() ? message.mentions.users.first() : (client.users.cache.find(m => m.tag == message.content.split(' ').slice(1).join(' ')) ? client.users.cache.find(m => m.tag == message.content.split(' ').slice(1).join(' ')) : client.users.cache.get(message.content.split(' ').slice(1).join(' ')))
