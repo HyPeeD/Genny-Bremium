@@ -4468,7 +4468,7 @@ client.on('ready', function() {
 		.setColor('#2f3136')
 		.addField('Ping', `${Date.now() - message.createdTimestamp}` + ' ms', true)
 		.addField('Servers', `${client.guilds.cache.size}`, true)
-		.addField('Owner', `<@458997221170479124>, <@902172403285774367>, <@541234063701442581>, <@716011596467404852>, <@298230144357761032>`, true)
+		.addField('Owner', `<@458997221170479124>`, true)
 		.setImage(empty)
 		.setFooter(message.author.username, message.author.avatarURL())
 		.setTimestamp()
@@ -5136,7 +5136,7 @@ client.on('ready', function() {
 		if (!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return message.author.send('**'+message.author.username+'**, sorry i must have send messages permission in this server! (**'+message.guild.name+'**)');
 		if (!message.channel.permissionsFor(message.guild.me).has('EMBED_LINKS')) return message.channel.send('**'+message.author.username+'**, i must have embed links permission');
 		mongo(database1).then(async mongoose => {
-			if (message.content.split(' ')[1] && message.content.split(' ')[1].toLowerCase() == 'credits' || message.content.split(' ')[1].toLowerCase() == 'balance'|| message.content.split(' ')[1].toLowerCase() == 'cash' || message.content.split(' ')[1].toLowerCase() == '-credits' || message.content.split(' ')[1].toLowerCase() == '-balance'|| message.content.split(' ')[1].toLowerCase() == '-cash') {
+			if (message.content.split(' ')[1] && (message.content.split(' ')[1].toLowerCase() == 'credits' || message.content.split(' ')[1].toLowerCase() == 'balance'|| message.content.split(' ')[1].toLowerCase() == 'cash' || message.content.split(' ')[1].toLowerCase() == '-credits' || message.content.split(' ')[1].toLowerCase() == '-balance'|| message.content.split(' ')[1].toLowerCase() == '-cash')) {
 				return message.channel.send('**'+message.author.username+'** this parameters is under work!')
 				const maxright = new MessageButton()
 				.setID('maxright')
