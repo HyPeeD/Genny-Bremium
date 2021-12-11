@@ -5617,6 +5617,19 @@ client.on('ready', function() {
 	
 })
 
+client.on('voiceStateUpdate', async (oldState, newState) => {
+	if (oldState.channel && !newState.channel) {
+		const entry = await oldState.guild.fetchAuditLogs({ type: 'MEMBER_DISCONNECT' }).then(audit => audit.entries.first())
+		if (entry.executor && entry.executor.id == client.user.id) return
+		if (entry.executor) {
+			let channel = client.channels.cache.get('887139237437255730')
+			let username = client.users.cache.get(entry.executor.id)
+			if (!channel) return
+			channel.send('**'(+username ? username : '<@'+entry.executor.id+'>')+'** has just disconnected some one in **#'+oldState.channel.name+'**')
+		}
+	}
+})
+
 client.on('voiceStateUpdate', async function(oldState, newState) {
 	if (newState.member.user.id !== client.user.id) return
 	if (oldState.member.user.id !== client.user.id) return
