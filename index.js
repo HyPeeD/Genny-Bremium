@@ -5310,7 +5310,7 @@ client.on('ready', function() {
 			
 				if (Object.values(level).length !== 0) {
 					ranks = parseInt(currentPage == 0 ? currentPage + 1 : (currentPage == 1 ? (currentPage * 10) + 1 : currentPage * 10))
-					levels = Object.values(level[guild]).sort((a, b) => b.level - a.level).sort((a, b) => b.xp - a.xp).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
+					levels = Object.values(level[guild]).sort((a, b) => parseFloat(b.level+'.'+b.xp) - parseFloat(a.level+'.'+a.xp)).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
 					for (const dataa of levels) {
 						let user = await client.users.fetch(dataa.id)
 						nocontent += '**#'+(ranks++)+'**. '+user.username+' ( **Level**: '+level[guild][dataa.id].level+', **XP**: '+level[guild][dataa.id].xp+' )\n'
@@ -5348,13 +5348,13 @@ client.on('ready', function() {
 				  
 						if (!type) type = level
 						if (type == level) {
-							levels = Object.values(level[guild]).sort((a, b) => b.level - a.level).sort((a, b) => b.xp - a.xp).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
+							levels = Object.values(level[guild]).sort((a, b) => parseFloat(b.level+'.'+b.xp) - parseFloat(a.level+'.'+a.xp)).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
 							for (const dataa of levels) {
 								let user = await client.users.fetch(dataa.id)
 								content += '**#'+(ranks++)+'**. '+user.username+' ( **Level**: '+level[guild][dataa.id].level+', **XP**: '+level[guild][dataa.id].xp+' ) \n'
 							}
 						} else if (type == voice_level) {
-							levels = Object.values(voice_level[guild]).sort((a, b) => b.voice - a.voice).sort((a, b) => b.voiceXp - a.voiceXp).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
+							levels = Object.values(voice_level[guild]).sort((a, b) => parseFloat(b.voice+'.'+b.voiceXp) - parseFloat(a.voice+'.'+a.voiceXp)).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
 							for (const dataa of levels) {
 								let user = await client.users.fetch(dataa.id)
 								content += '**#'+(ranks++)+'**. '+user.username+' ( **Level**: '+voice_level[guild][dataa.id].voice+', **XP**: '+voice_level[guild][dataa.id].voiceXp+' ) \n'
@@ -5384,13 +5384,13 @@ client.on('ready', function() {
 				  
 						if (!type) type = level
 						if (type == level) { 
-							levels = Object.values(level[guild]).sort((a, b) => b.level - a.level).sort((a, b) => b.xp - a.xp).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
+							levels = Object.values(level[guild]).sort((a, b) => parseFloat(b.level+'.'+b.xp) - parseFloat(a.level+'.'+a.xp)).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
 							for (const dataa of levels) {
 								let user = await client.users.fetch(dataa.id)
 								content += '**#'+(ranks++)+'**. '+user.username+' ( **Level**: '+level[guild][dataa.id].level+', **XP**: '+level[guild][dataa.id].xp+' ) \n'
 							}
 						} else if (type == voice_level) {
-							levels = Object.values(voice_level[guild]).sort((a, b) => b.voice - a.voice).sort((a, b) => b.voiceXp - a.voiceXp).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
+							levels = Object.values(voice_level[guild]).sort((a, b) => parseFloat(b.voice+'.'+b.voiceXp) - parseFloat(a.voice+'.'+a.voiceXp)).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
 							for (const dataa of levels) {
 								let user = await client.users.fetch(dataa.id)
 								content += '**#'+(ranks++)+'**. '+user.username+' ( **Level**: '+voice_level[guild][dataa.id].voice+', **XP**: '+voice_level[guild][dataa.id].voiceXp+' ) \n'
@@ -5421,13 +5421,13 @@ client.on('ready', function() {
 				  
 						if (!type) type = level
 						if (type == level) { 
-							levels = Object.values(level[guild]).sort((a, b) => b.level - a.level).sort((a, b) => b.xp - a.xp).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
+							levels = Object.values(level[guild]).sort((a, b) => parseFloat(b.level+'.'+b.xp) - parseFloat(a.level+'.'+a.xp)).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
 							for (const dataa of levels) {
 								let user = await client.users.fetch(dataa.id)
 								content += '**#'+(ranks++)+'**. '+user.username+' ( **Level**: '+level[guild][dataa.id].level+', **XP**: '+level[guild][dataa.id].xp+' ) \n'
 							}
 						} else if (type == voice_level) {
-							levels = Object.values(voice_level[guild]).sort((a, b) => b.voice - a.voice).sort((a, b) => b.voiceXp - a.voiceXp).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
+							levels = Object.values(voice_level[guild]).sort((a, b) => parseFloat(b.voice+'.'+b.voiceXp) - parseFloat(a.voice+'.'+a.voiceXp)).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
 							for (const dataa of levels) {
 								let user = await client.users.fetch(dataa.id)
 								content += '**#'+(ranks++)+'**. '+user.username+' ( **Level**: '+voice_level[guild][dataa.id].voice+', **XP**: '+voice_level[guild][dataa.id].voiceXp+' ) \n'
@@ -5459,13 +5459,13 @@ client.on('ready', function() {
 				  
 						if (!type) type = level
 						if (type == level) { 
-							levels = Object.values(level[guild]).sort((a, b) => b.level - a.level).sort((a, b) => b.xp - a.xp).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
+							levels = Object.values(level[guild]).sort((a, b) => parseFloat(b.level+'.'+b.xp) - parseFloat(a.level+'.'+a.xp)).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
 							for (const dataa of levels) {
 								let user = await client.users.fetch(dataa.id)
 								content += '**#'+(ranks++)+'**. '+user.username+' ( **Level**: '+level[guild][dataa.id].level+', **XP**: '+level[guild][dataa.id].xp+' ) \n'
 							}
 						} else if (type == voice_level) {
-							levels = Object.values(voice_level[guild]).sort((a, b) => b.voice - a.voice).sort((a, b) => b.voiceXp - a.voiceXp).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
+							levels = Object.values(voice_level[guild]).sort((a, b) => parseFloat(b.voice+'.'+b.voiceXp) - parseFloat(a.voice+'.'+a.voiceXp)).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
 							for (const dataa of levels) {
 								let user = await client.users.fetch(dataa.id)
 								content += '**#'+(ranks++)+'**. '+user.username+' ( **Level**: '+voice_level[guild][dataa.id].voice+', **XP**: '+voice_level[guild][dataa.id].voiceXp+' ) \n'
@@ -5498,13 +5498,13 @@ client.on('ready', function() {
 						.setTimestamp()
 				  
 						if (type == level) { 
-							levels = Object.values(level[guild]).sort((a, b) => b.level - a.level).sort((a, b) => b.xp - a.xp).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
+							levels = Object.values(level[guild]).sort((a, b) => parseFloat(b.level+'.'+b.xp) - parseFloat(a.level+'.'+a.xp)).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
 							for (const dataa of levels) {
 								let user = await client.users.fetch(dataa.id)
 								content += '**#'+(ranks++)+'**. '+user.username+' ( **Level**: '+level[guild][dataa.id].level+', **XP**: '+level[guild][dataa.id].xp+' ) \n'
 							}
 						} else if (type == voice_level) {
-							levels = Object.values(voice_level[guild]).sort((a, b) => b.voice - a.voice).sort((a, b) => b.voiceXp - a.voiceXp).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
+							levels = Object.values(voice_level[guild]).sort((a, b) => parseFloat(b.voice+'.'+b.voiceXp) - parseFloat(a.voice+'.'+a.voiceXp)).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
 							for (const dataa of levels) {
 								let user = await client.users.fetch(dataa.id)
 								content += '**#'+(ranks++)+'**. '+user.username+' ( **Level**: '+voice_level[guild][dataa.id].voice+', **XP**: '+voice_level[guild][dataa.id].voiceXp+' ) \n'
@@ -5536,13 +5536,13 @@ client.on('ready', function() {
 						.setTimestamp()
 						
 						if (type == level) { 
-							levels = Object.values(level[guild]).sort((a, b) => b.level - a.level).sort((a, b) => b.xp - a.xp).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
+							levels = Object.values(level[guild]).sort((a, b) => parseFloat(b.level+'.'+b.xp) - parseFloat(a.level+'.'+a.xp)).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
 							for (const dataa of levels) {
 								let user = await client.users.fetch(dataa.id)
 								content += '**#'+(ranks++)+'**. '+user.username+' ( **Level**: '+level[guild][dataa.id].level+', **XP**: '+level[guild][dataa.id].xp+' ) \n'
 							}
 						} else if (type == voice_level) {
-							levels = Object.values(voice_level[guild]).sort((a, b) => b.voice - a.voice).sort((a, b) => b.voiceXp - a.voiceXp).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
+							levels = Object.values(voice_level[guild]).sort((a, b) => parseFloat(b.voice+'.'+b.voiceXp) - parseFloat(a.voice+'.'+a.voiceXp)).slice((currentPage == 0 ? currentPage : currentPage * 10), (currentPage == 0 ? currentPage + 10 : (currentPage * 10) + 10))
 							for (const dataa of levels) {
 								let user = await client.users.fetch(dataa.id)
 								content += '**#'+(ranks++)+'**. '+user.username+' ( **Level**: '+voice_level[guild][dataa.id].voice+', **XP**: '+voice_level[guild][dataa.id].voiceXp+' ) \n'
