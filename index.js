@@ -5625,7 +5625,7 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
 			let channel = client.channels.cache.get('887139237437255730')
 			let username = client.users.cache.get(entry.executor.id)
 			if (!channel) return
-			channel.send('**'(+username ? username : '<@'+entry.executor.id+'>')+'** has just disconnected some one in **#'+oldState.channel.name+'**')
+			channel.send('**'+(+username ? username : '<@'+entry.executor.id+'>')+'** has just disconnected some one in **#'+oldState.channel.name+'**')
 		}
 	}
 })
