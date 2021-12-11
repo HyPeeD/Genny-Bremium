@@ -5617,6 +5617,24 @@ client.on('ready', function() {
 	
 })
 
+let counter = {}
+client.on('voiceStateUpdate', async (oldState, newState) => {
+	if (oldState.channel && !newState.channel) {
+		if (oldState.guild.id !== '727257189940592670') return
+		const entry = await oldState.guild.fetchAuditLogs({ type: 'MEMBER_DISCONNECT' }).then(audit => audit.entries.first())
+		if (entry.executor && entry.executor.id == client.user.id) return
+		if (entry.executor && entry.createdTimestamp >= (Date.now() - 1000)) {
+			if (entry.extra.count == counter[entry.executor.id]) return
+      let username = client.users.cache.get(entry.executor.id)
+			let channel = client.channels.cache.get('887139237437255730')
+			if (!channel) return
+      if (!counter[entry.executor.id]) counter[entry.executor.id] = 0
+      counter[entry.executor.id]++
+      channel.send('<@'+entry.executor.id+'> has just disconnected <@'+oldState.member.user.id+'> in **#'+oldState.channel.name+'**\n** **')
+		}
+	}
+})
+
 client.on('voiceStateUpdate', async function(oldState, newState) {
 	if (newState.member.user.id !== client.user.id) return
 	if (oldState.member.user.id !== client.user.id) return
