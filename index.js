@@ -2805,7 +2805,7 @@ client.on('ready', function() {
 		.setDescription('<:protection:872911854391930942> **'+message.author.username+'** sorry **music** is playing right now! \n <:space:817796102761611264>You have to **stop** it first **before** you use radio!')
 		.setImage(empty)
 		.setTimestamp()
-		const isMusic = message.client.music.get(message.guild.id)
+		const isMusic = message.client.queue.get(message.guild.id)
 		if (isMusic) return message.channel.send(eemb)
 		
 		const permissions = message.channel.permissionsFor(message.client.user)
