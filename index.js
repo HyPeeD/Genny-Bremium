@@ -4469,6 +4469,7 @@ client.on('ready', function() {
 		.addField('Ping', `${Date.now() - message.createdTimestamp}` + ' ms', true)
 		.addField('Servers', `${client.guilds.cache.size}`, true)
 		.addField('Owner', `<@458997221170479124>`, true)
+		.addField('l helper dyalna', `<@541234063701442581>`, true)
 		.setImage(empty)
 		.setFooter(message.author.username, message.author.avatarURL())
 		.setTimestamp()
