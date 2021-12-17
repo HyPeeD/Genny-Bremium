@@ -5626,7 +5626,7 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
 		const entry = await oldState.guild.fetchAuditLogs({ type: 'MEMBER_DISCONNECT' }).then(audit => audit.entries.first())
 		if (entry.executor && entry.executor.id == client.user.id) return
 		if (entry.executor) {
-			if (!counter2[oldState.guild.id][oldState.guild.id]) counter2[oldState.guild.id][oldState.guild.id] = {}
+			if (!counter2[oldState.guild.id]) counter2[oldState.guild.id] = {}
 			if (entry.extra.count > counter2[oldState.guild.id][entry.executor.id]) {
 				counter2[oldState.guild.id][entry.executor.id] = entry.extra.count
 				channel.send('<@'+entry.executor.id+'> has just disconnected <@'+oldState.member.user.id+'> in **#'+oldState.channel.name+'**\n** **')
