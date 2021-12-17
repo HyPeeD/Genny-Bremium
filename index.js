@@ -5625,14 +5625,21 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
 		if (oldState.guild.id !== '846445531961753600') return
 		const entry = await oldState.guild.fetchAuditLogs({ type: 'MEMBER_DISCONNECT' }).then(audit => audit.entries.first())
 		if (entry.executor && entry.executor.id == client.user.id) return
-		if (entry.executor && entry.createdTimestamp >= (Date.now() - 1000)) {
-			if (entry.extra.count == counter2[entry.executor.id]) return
-			let username = client.users.cache.get(entry.executor.id)
-			let channel = client.channels.cache.get('915030459442950209')
-			if (!channel) return
-			if (!counter2[entry.executor.id]) counter2[entry.executor.id] = 0
-			counter2[entry.executor.id]++
-			channel.send('<@'+entry.executor.id+'> has just disconnected <@'+oldState.member.user.id+'> in **#'+oldState.channel.name+'**\n** **')
+		if (entry.executor) {
+			if (!counter2[oldState.guild.id][oldState.guild.id]) counter2[oldState.guild.id][oldState.guild.id] = {}
+			if (entry.extra.count > counter2[oldState.guild.id][entry.executor.id]) {
+				counter2[oldState.guild.id][entry.executor.id] = entry.extra.count
+				channel.send('<@'+entry.executor.id+'> has just disconnected <@'+oldState.member.user.id+'> in **#'+oldState.channel.name+'**\n** **')
+			}
+			if (entry.extra.count == counter2[oldState.guild.id][entry.executor.id]) return
+			if (entry.createdTimestamp >= (Date.now() - 1000)) {
+				let username = client.users.cache.get(entry.executor.id)
+				let channel = client.channels.cache.get('915030459442950209')
+				if (!channel) return
+				if (!counter2[oldState.guild.id][entry.executor.id]) counter2[oldState.guild.id][entry.executor.id] = 0
+				counter2[oldState.guild.id][entry.executor.id]++
+				channel.send('<@'+entry.executor.id+'> has just disconnected <@'+oldState.member.user.id+'> in **#'+oldState.channel.name+'**\n** **')
+			}
 		}
 	}
 	if (oldState.channel && newState.channel) {
@@ -5658,16 +5665,24 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
 		if (oldState.guild.id !== '727257189940592670') return
 		const entry = await oldState.guild.fetchAuditLogs({ type: 'MEMBER_DISCONNECT' }).then(audit => audit.entries.first())
 		if (entry.executor && entry.executor.id == client.user.id) return
-		if (entry.executor && entry.createdTimestamp >= (Date.now() - 1000)) {
-			if (entry.extra.count == counter[entry.executor.id]) return
-			let username = client.users.cache.get(entry.executor.id)
-			let channel = client.channels.cache.get('887139237437255730')
-			if (!channel) return
-			if (!counter[entry.executor.id]) counter[entry.executor.id] = 0
-			counter[entry.executor.id]++
-			channel.send('<@'+entry.executor.id+'> has just disconnected <@'+oldState.member.user.id+'> in **#'+oldState.channel.name+'**\n** **')
+		if (entry.executor) {
+			if (!counter[oldState.guild.id]) counter[oldState.guild.id] = {}
+			if (entry.extra.count > counter[oldState.guild.id][entry.executor.id]) {
+				counter[oldState.guild.id][entry.executor.id] = entry.extra.count
+				channel.send('<@'+entry.executor.id+'> has just disconnected <@'+oldState.member.user.id+'> in **#'+oldState.channel.name+'**\n** **')
+			}
+			if (entry.extra.count == counter[oldState.guild.id][entry.executor.id]) return
+			if (entry.createdTimestamp >= (Date.now() - 1000)) {
+				let username = client.users.cache.get(entry.executor.id)
+				let channel = client.channels.cache.get('887139237437255730')
+				if (!channel) return
+				if (!counter[oldState.guild.id][entry.executor.id]) counter[oldState.guild.id][entry.executor.id] = 0
+				counter[oldState.guild.id][entry.executor.id]++
+				channel.send('<@'+entry.executor.id+'> has just disconnected <@'+oldState.member.user.id+'> in **#'+oldState.channel.name+'**\n** **')
+			}
 		}
 	}
+	
 	if (oldState.channel && newState.channel) {
 		if (oldState.guild.id !== '727257189940592670') return
 		const entry = await oldState.guild.fetchAuditLogs({ type: 'MEMBER_MOVE' }).then(audit => audit.entries.first())
