@@ -1474,7 +1474,7 @@ client.on('ready', function() {
 					.setThumbnail('https://cdn.discordapp.com/emojis/867371656598257685.png?v=1')
 			
 					if (marry[author].marry == proposed.id) return message.channel.send({ embed: alreadymarried, buttons: [showtime] })
-					return message.channel.send('**'+message.author.username+'** are you cheating on **' + user.username + '**??! I will tell he/her <:scaaared:750050074968719411>')
+					return message.channel.send('**'+message.author.username+'** are you cheating on **' + user.username + '**??! I will tell him/her <:scaaared:750050074968719411>')
 				}
 				mongoose.connection.collection('marry-couples').findOne({ [proposed.id+'.id']: proposed.id }, async (error, pmarry) => {
 					if (pmarry == null) pmarry = {}
@@ -5643,6 +5643,34 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
 			if (entry.extra.count == counterm[entry.executor.id]) return
 			let username = client.users.cache.get(entry.executor.id)
 			let channel = client.channels.cache.get('920764958076182588')
+			if (!channel) return
+			if (!counterm[entry.executor.id]) counterm[entry.executor.id] = 0
+			counterm[entry.executor.id]++
+			channel.send('<@'+entry.executor.id+'> has just moved <@'+newState.member.user.id+'> from **#'+oldState.channel.name+'** to **#'+newState.channel.name+'**\n** **')
+		}
+	}
+	if (oldState.channel && !newState.channel) {
+		if (oldState.guild.id !== '846445531961753600') return
+		const entry = await oldState.guild.fetchAuditLogs({ type: 'MEMBER_DISCONNECT' }).then(audit => audit.entries.first())
+		if (entry.executor && entry.executor.id == client.user.id) return
+		if (entry.executor && entry.createdTimestamp >= (Date.now() - 1000)) {
+			if (entry.extra.count == counter[entry.executor.id]) return
+			let username = client.users.cache.get(entry.executor.id)
+			let channel = client.channels.cache.get('915030459442950209')
+			if (!channel) return
+			if (!counter[entry.executor.id]) counter[entry.executor.id] = 0
+			counter[entry.executor.id]++
+			channel.send('<@'+entry.executor.id+'> has just disconnected <@'+oldState.member.user.id+'> in **#'+oldState.channel.name+'**\n** **')
+		}
+	}
+	if (oldState.channel && newState.channel) {
+		if (oldState.guild.id !== '846445531961753600') return
+		const entry = await oldState.guild.fetchAuditLogs({ type: 'MEMBER_MOVE' }).then(audit => audit.entries.first())
+		if (entry.executor && entry.executor.id == client.user.id) return
+		if (entry.executor && entry.createdTimestamp >= (Date.now() - 1000)) {
+			if (entry.extra.count == counterm[entry.executor.id]) return
+			let username = client.users.cache.get(entry.executor.id)
+			let channel = client.channels.cache.get('915030459442950209')
 			if (!channel) return
 			if (!counterm[entry.executor.id]) counterm[entry.executor.id] = 0
 			counterm[entry.executor.id]++
