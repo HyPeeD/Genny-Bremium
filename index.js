@@ -5618,6 +5618,50 @@ client.on('ready', function() {
 	
 })
 
+let counter2 = {}
+let counterm2 = {}
+client.on('voiceStateUpdate', async (oldState, newState) => {
+	if (oldState.channel && !newState.channel) {
+		if (oldState.guild.id !== '846445531961753600') return
+		const entry = await oldState.guild.fetchAuditLogs({ type: 'MEMBER_DISCONNECT' }).then(audit => audit.entries.first())
+		if (entry.executor && entry.executor.id == client.user.id) return
+		if (entry.executor) {
+			if (!counter2[oldState.guild.id]) counter2[oldState.guild.id] = {}
+			if (!counter2[oldState.guild.id][entry.executor.id]) counter2[oldState.guild.id][entry.executor.id] = 0
+			if (entry.createdTimestamp >= (Date.now() - 1000)) {
+				if (entry.extra.count == counter2[oldState.guild.id][entry.executor.id]) return
+				let username = client.users.cache.get(entry.executor.id)
+				let channel = client.channels.cache.get('921824130851029072')
+				if (!channel) return
+				counter2[oldState.guild.id][entry.executor.id]++
+				return channel.send('<@'+entry.executor.id+'> has just disconnected <@'+oldState.member.user.id+'> in **#'+oldState.channel.name+'**\n** **')
+			}
+			if (entry.extra.count > counter2[oldState.guild.id][entry.executor.id]) {
+				let username = client.users.cache.get(entry.executor.id)
+				let channel = client.channels.cache.get('921824130851029072')
+				if (!channel) return
+				counter2[oldState.guild.id][entry.executor.id] = entry.extra.count
+				return channel.send('<@'+entry.executor.id+'> has just disconnected <@'+oldState.member.user.id+'> in **#'+oldState.channel.name+' ('+entry.extra.count+')**\n** **')
+			}
+		}
+	}
+	if (oldState.channel && newState.channel) {
+		if (oldState.channel.id == newState.channel.id) return
+		if (oldState.guild.id !== '846445531961753600') return
+		const entry = await oldState.guild.fetchAuditLogs({ type: 'MEMBER_MOVE' }).then(audit => audit.entries.first())
+		if (entry.executor && entry.executor.id == client.user.id) return
+		if (entry.executor && entry.createdTimestamp >= (Date.now() - 1000)) {
+			if (entry.extra.count == counterm2[entry.executor.id]) return
+			let username = client.users.cache.get(entry.executor.id)
+			let channel = client.channels.cache.get('921824130851029072')
+			if (!channel) return
+			if (!counterm2[entry.executor.id]) counterm2[entry.executor.id] = 0
+			counterm2[entry.executor.id]++
+			channel.send('<@'+entry.executor.id+'> has just moved <@'+newState.member.user.id+'> from **#'+oldState.channel.name+'** to **#'+newState.channel.name+'**\n** **')
+		}
+	}
+})
+
 let counter = {}
 let counterm = {}
 client.on('voiceStateUpdate', async (oldState, newState) => {
@@ -5641,7 +5685,7 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
 				let channel = client.channels.cache.get('887139237437255730')
 				if (!channel) return
 				counter[oldState.guild.id][entry.executor.id] = entry.extra.count
-				return channel.send('<@'+entry.executor.id+'> has just disconnected <@'+oldState.member.user.id+'> in **#'+oldState.channel.name+'**\n** **')
+				return channel.send('<@'+entry.executor.id+'> has just disconnected <@'+oldState.member.user.id+'> in **#'+oldState.channel.name+' ('+entry.extra.count+')**\n** **')
 			}
 		}
 	}
