@@ -5641,7 +5641,7 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
 				let channel = client.channels.cache.get('921824130851029072')
 				if (!channel) return
 				counter2[oldState.guild.id][entry.executor.id] = entry.extra.count
-				return channel.send('<@'+entry.executor.id+'> has just disconnected <@'+oldState.member.user.id+'> in **#'+oldState.channel.name+' ('+entry.extra.count+')**\n** **')
+				return channel.send('<@'+entry.executor.id+'> has just disconnected <@'+oldState.member.user.id+'> in **#'+oldState.channel.name+'** times (**'+entry.extra.count+'**)\n** **')
 			}
 		}
 	}
@@ -5685,7 +5685,7 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
 				let channel = client.channels.cache.get('887139237437255730')
 				if (!channel) return
 				counter[oldState.guild.id][entry.executor.id] = entry.extra.count
-				return channel.send('<@'+entry.executor.id+'> has just disconnected <@'+oldState.member.user.id+'> in **#'+oldState.channel.name+' ('+entry.extra.count+')**\n** **')
+				return channel.send('<@'+entry.executor.id+'> has just disconnected <@'+oldState.member.user.id+'> in **#'+oldState.channel.name+'** times (**'+entry.extra.count+'**)\n** **')
 			}
 		}
 	}
