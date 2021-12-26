@@ -203,7 +203,7 @@ client.on('ready', function() {
 
 			let error, res = await avatar.getBufferAsync(jimp.MIME_PNG)
 			await message.channel.send({ files: [{ attachment: res, name: outputName }] })
-			return m.delete()
+			return m.delete().catch(e => true)
 		} catch (e) {
 			await m.edit('<:service:872512824923013190> **'+message.author.username+'** sorry there was an error..')
 		}
@@ -231,7 +231,7 @@ client.on('ready', function() {
 
 			let error, res = await avatar.getBufferAsync(jimp.MIME_PNG)
 			await message.channel.send({ files: [{ attachment: res, name: `pixelate.png` }] })
-			return m.delete()
+			return m.delete().catch(e => true)
 		} catch (e) {
 			await m.edit('<:service:872512824923013190> **'+message.author.username+'** sorry there was an error..')
 		}
@@ -262,7 +262,7 @@ client.on('ready', function() {
 		 
 			let error, res = await base.getBufferAsync(jimp.MIME_PNG)
 			await message.channel.send({ files: [{ attachment: res, name: `shit.png` }] })
-			return m.delete()
+			return m.delete().catch(e => true)
 		} catch (e) {
 			await m.edit('<:service:872512824923013190> **'+message.author.username+'** sorry there was an error..')
 		}
@@ -298,7 +298,7 @@ client.on('ready', function() {
 		  
 			let error, res = await base.getBufferAsync(jimp.MIME_PNG)
 			await message.channel.send({ files: [{ attachment: res, name: `spank.png` }] })
-			m.delete()
+			m.delete().catch(e => true)
 		} catch (e) {
 			await m.edit('<:service:872512824923013190> **'+message.author.username+'** sorry there was an error..')
 		}
@@ -328,7 +328,7 @@ client.on('ready', function() {
 		  
 			let error, res = await base.getBufferAsync(jimp.MIME_PNG)
 			await message.channel.send({ files: [{ attachment: res, name: `egg.png` }] })
-			return m.delete()
+			return m.delete().catch(e => true)
 		} catch (e) {
 			await m.edit('<:service:872512824923013190> **'+message.author.username+'** sorry there was an error..')
 		}
@@ -348,10 +348,10 @@ client.on('ready', function() {
 			buffer.getBuffer(jimp.MIME_PNG, sendBuffer)
 			function sendBuffer(err, buff) {
 				message.channel.send({ files: [{ attachment: buff, name: `Lilguy.png` }] }).catch(console.error)
-				m.delete()
+				m.delete().catch(e => true)
 			}
 		} catch (e) {
-			await m.edit('<:service:872512824923013190> **'+message.author.username+'** sorry there was an error..')
+			await m.edit('<:service:872512824923013190> **'+message.author.username+'** sorry there was an error..').catch(e => true)
 		}
 	})
 	  
@@ -380,7 +380,7 @@ client.on('ready', function() {
 
 			avatar.getBuffer(jimp.MIME_PNG, (err, response) => {
 				message.channel.send({ files: [{ attachment: response, name: `gay.png` }] })
-				m.delete()
+				m.delete().catch(e => true)
 			})
 		} catch (e) {
 			await m.edit('<:service:872512824923013190> **'+message.author.username+'** sorry there was an error..')
@@ -420,7 +420,7 @@ client.on('ready', function() {
 
 				stream.on('data', async buffer => await buffers.push(buffer))
 				stream.on('end', async () => {
-					m.delete()
+					m.delete().catch(e => true)
 					return await message.channel.send({ files: [{ name: 'triggered.gif', attachment: Buffer.concat(buffers) }] })
 				})
 				for (let i = 0; i < options.frames; i++) {
@@ -468,7 +468,7 @@ client.on('ready', function() {
 
 				stream.on('data', async buffer => await buffers.push(buffer))
 				stream.on('end', async () => {
-					m.delete()
+					m.delete().catch(e => true)
 					return await message.channel.send({ files: [{ name: 'triggered.gif', attachment: Buffer.concat(buffers) }] })
 				})
 				for (let i = 0; i < options.frames; i++) {
@@ -522,7 +522,7 @@ client.on('ready', function() {
 			let res = await avatar.getBufferAsync(jimp.MIME_PNG)
 			
 			message.channel.send({ files: [{ attachment: res, name: `wasted.png` }] })
-			m.delete()
+			m.delete().catch(e => true)
 		} catch (e) {
 			await m.edit('<:service:872512824923013190> **'+message.author.username+'** sorry there was an error..')
 		}
@@ -548,7 +548,7 @@ client.on('ready', function() {
 			}).catch(console.error)
 			function sendBuffer(err, buff) {
 				message.channel.send({ files: [{ attachment: buff, name: `invert.png` }] })
-				m.delete()
+				m.delete().catch(e => true)
 			}
 		} catch (e) {
 			await m.edit('<:service:872512824923013190> **'+message.author.username+'** sorry there was an error..')
@@ -579,7 +579,7 @@ client.on('ready', function() {
 			}).then((font) => {
 				img.print(font, 340, 24, text ? text : message.author.username+' i am cute?!', 250).write('images/img01.png', () => {
 					message.channel.send({ files: [{ attachment: 'images/img01.png', name: 'images/retard_dog.png' }] })
-					m.delete()
+					m.delete().catch(e => true)
 					message.channel.stopTyping()
 				})
 			})
@@ -618,7 +618,7 @@ client.on('ready', function() {
 
 		  let res = await base.getBufferAsync(jimp.MIME_PNG)
 		  await message.channel.send({ files: [{ attachment: res, name: outputName }] })
-		  return m.delete()
+		  return m.delete().catch(e => true)
 		} catch (e) {
 			await m.edit('<:service:872512824923013190> **'+message.author.username+'** sorry there was an error..')
 		}
@@ -654,7 +654,7 @@ client.on('ready', function() {
 
 		  let error, res = await base.getBufferAsync(jimp.MIME_PNG)
 		  await message.channel.send({ files: [{ name: 'kalb.png', attachment: res }]})
-		  return m.delete()
+		  return m.delete().catch(e => true)
 		} catch (e) {
 			await m.edit('<:service:872512824923013190> **'+message.author.username+'** sorry there was an error..')
 		}
@@ -712,7 +712,7 @@ client.on('ready', function() {
 		try {
 			const options = { url: 'https://nekobot.xyz/api/imagegen?type=trash&url='+commander.displayAvatarURL({ format: 'png' }), json: true }
 			let body = await get(options)
-			m.delete()
+			m.delete().catch(e => true)
 			message.channel.send({ files: [{ name: 'trash.png', attachment: body.message }] })
 		} catch (e) {
 			await m.edit('<:service:872512824923013190> **'+message.author.username+'** sorry there was an error..')
@@ -734,7 +734,7 @@ client.on('ready', function() {
 			const options = { url: 'https://nekobot.xyz/api/imagegen?type=ship&user1='+shipped.user.displayAvatarURL({ dynamic: true, format: 'png' })+'&user2='+shipper.user.displayAvatarURL({ dynamic: true, format: 'png' }), json: true }
 			let body = await get(options)
 			message.channel.send({ files: [{ name: 'ship.png', attachment: body.message }] })
-			m.delete()
+			m.delete().catch(e => true)
 		} catch (e) {
 			await m.edit('<:service:872512824923013190> **'+message.author.username+'** sorry there was an error..')
 		}
@@ -755,19 +755,19 @@ client.on('ready', function() {
 		
 				let body = await get(options)
 				message.channel.send({ files: [{ name: 'gmagik.gif', attachment: body.message }] })
-				m.delete()
+				m.delete().catch(e => true)
 			} else {
 				message.channel.messages.fetch({ limit: 25 }).then(async messages => {
 					const result = messages.filter(m => m.attachments.size)
 					if (!result.first()) {
-						m.delete()
+						m.delete().catch(e => true)
 						return message.channel.send('Usage \`!!gmagik [image/recent]\`')
 					}
 					if (!result.first().attachments.first().url.split('?size=')[0].endsWith('.gif')) return m.edit('<:service:872512824923013190> **'+message.author.username+'** this image is not a gif to use gmagik on it try using **!!magik** for sure result!')
 					const options = { url: 'https://nekobot.xyz/api/imagegen?type=magik&image='+result.first().attachments.first().url, json: true }
 					let body = await get(options)
 					message.channel.send({ files: [{ name: 'gmagik.gif', attachment: body.message }] })
-					m.delete()
+					m.delete().catch(e => true)
 				})
 			}
 		} catch (e) {
@@ -789,19 +789,19 @@ client.on('ready', function() {
 				image.resize(200, 200)
 				let pic = await image.getBufferAsync(jimp.MIME_PNG)
 				message.channel.send({ files: [{ name: 'magik.png', attachment: pic }] })
-				m.delete()
+				m.delete().catch(e => true)
 			} else {
 				message.channel.messages.fetch({ limit: 25 }).then(async messages => {
 					const result = messages.filter(m => m.attachments.size)
 					if (!result.first()) {
-						m.delete()
+						m.delete().catch(e => true)
 						return message.channel.send('Usage \`!!magik [image/recent]\`')
 					}
 					let image = await jimp.read(`https://nekobot.xyz/api/imagegen?type=magik&image=${result.first().attachments.first().url.replace('.gif', '.png')}&raw=1`)
 					image.resize(200, 200)
 					let pic = await image.getBufferAsync(jimp.MIME_PNG)
 					message.channel.send({ files: [{ name: 'magik.png', attachment: pic }] })
-					m.delete()
+					m.delete().catch(e => true)
 				})
 			}
 		} catch (e) {
@@ -825,7 +825,7 @@ client.on('ready', function() {
 		let m = await message.channel.send('<:service:872512824923013190> **'+message.author.username+'** creating jpg deepfry picture you..')
 		try {
 			message.channel.send({ files: [{ name: 'deepfry.png', attachment: 'https://nekobot.xyz/api/imagegen?type=deepfry&image='+commander.displayAvatarURL({ format: 'png' })+'&raw=1' }] })
-			m.delete()
+			m.delete().catch(e => true)
 		} catch (e) {
 			await m.edit('<:service:872512824923013190> **'+message.author.username+'** sorry there was an error..')
 		}
@@ -847,7 +847,7 @@ client.on('ready', function() {
 		let m = await message.channel.send('<:service:872512824923013190> **'+message.author.username+'** creating jpg blurpify picture you..')
 		try {
 			message.channel.send({ files: [{ name: 'blurpify.png', attachment: 'https://nekobot.xyz/api/imagegen?type=blurpify&image='+commander.displayAvatarURL({ format: 'png' })+'&raw=1' }] })
-			m.delete()
+			m.delete().catch(e => true)
 		} catch (e) {
 			await m.edit('<:service:872512824923013190> **'+message.author.username+'** sorry there was an error..')
 		}
@@ -869,7 +869,7 @@ client.on('ready', function() {
 		let m = await message.channel.send('<:service:872512824923013190> **'+message.author.username+'** creating jpg jpeg picture you..')
 		try {
 			message.channel.send({ files: [{ name: 'jpeg.png', attachment: 'https://nekobot.xyz/api/imagegen?type=jpeg&url='+commander.displayAvatarURL({ dynamic: true, format: 'png' })+'&raw=1' }] })
-			m.delete()
+			m.delete().catch(e => true)
 		} catch (e) {
 			await m.edit('<:service:872512824923013190> **'+message.author.username+'** sorry there was an error..')
 		}
@@ -883,7 +883,7 @@ client.on('ready', function() {
 		let m = await message.channel.send('<:service:872512824923013190> **'+message.author.username+'** creating jpg nekoavatar picture you..')
 		try {
 			message.channel.send({ files: [{ name: 'nekoavatar.png', attachment: body.url }] })
-			m.delete()
+			m.delete().catch(e => true)
 		} catch (e) {
 			await m.edit('<:service:872512824923013190> **'+message.author.username+'** sorry there was an error..')
 		}
@@ -961,7 +961,7 @@ client.on('ready', function() {
 		message.channel.send('Press **F** to pay respects to **'+message.content.split(' ').slice(1).join(' ')+'**')
 		const collector = message.channel.createMessageCollector(m => m.content == 'f' || m.content == 'F', { time: 10000 })
 		collector.on('collect', m => {
-			m.delete()
+			m.delete().catch(e => true)
 			if(resp[m.author.id] && resp[m.author.id].status == true) return
 			message.channel.send('× **'+m.author.username+'** paid respects...')
 			resp[m.author.id] = {
@@ -1948,7 +1948,7 @@ client.on('ready', function() {
 	command(client, purge, async message => {
 		await waiting(message)
 		if (!message.member.hasPermission('ADMINISTRATOR')) return
-		await message.delete()
+		await message.delete().catch(e => true)
 		const user = message.mentions.users.first()
 		const amount = !!parseInt(message.content.split(' ').slice(1)[0]) ? parseInt(message.content.split(' ').slice(1)[0]) : parseInt(message.content.split(' ').slice(1)[1])
 		if (!amount) return message.channel.send('**'+message.author.username+'** please use an limit of messages!')
@@ -3176,9 +3176,9 @@ client.on('ready', function() {
 		 
 					let tax = Math.floor((args[2] * 4) / 100)
 					let Price = message.content.split(' ')[2]
-					let resulting = Math.floor(Price - ((Price * 4) / 100)) 
+					let resulting = Math.floor(Price - ((Price * 4) / 100))
 
-					message.delete()
+					message.delete().catch(e => true)
 					const item = speed[Math.floor(Math.random() * speed.length)]
 					const attachement = new MessageAttachment(item.type)
 					message.channel.send(`**${message.author.username}**, Transfer Fees \`${tax}\`, Amount :\`${resulting}\`\ntype these numbers to confirm : `, attachement).then(r => {
@@ -3192,12 +3192,12 @@ client.on('ready', function() {
 		  
 							message.channel.send(`<:twitter:872911855822209085> **${message.author.username}**, you transferred \`$${resulting == 0 ? 1 : resulting}\` to **${mention.tag}**!`)
 							collector.stop()
-							m.delete()
-							mention.send(`**:atm: | Transfer Receipt**\`\`\`You Have Received \$${resulting == 0 ? 1 : resulting}\ From User ${message.author.username} (ID ${message.author.id})\`\`\``)
+							m.delete().catch(e => true)
+							mention.send(`**:atm: | Transfer Receipt**\`\`\`You Have Received \$${resulting == 0 ? 1 : resulting}\ From User ${message.author.username} (ID ${message.author.id})\`\`\``).catch(e => true)
 							client.channels.cache.get('748195654911918226').send('**'+ message.author.tag +'** has transferred \`$'+(resulting == 0 ? 1 : resulting)+'\` to **'+mention.tag+'** __(ID '+mention.id+')__')
 						})
 						collector.on('end', collected => {
-							r.delete()
+							r.delete().catch(e => true)
 						})
 					})
 				}
@@ -3342,7 +3342,7 @@ client.on('ready', function() {
 						}
 
 						if (msg.content.length > 1 || hasOnlyLetters(msg.content) == false) return //Return, if user isn't guessing the letters
-						msg.delete() //Delete message to avoid spam
+						msg.delete().catch(e => true) //Delete message to avoid spam
 						
 						//If the word doesn't contain the letter
 						if (!word.includes(msg.content.toUpperCase())) {
@@ -3582,7 +3582,7 @@ client.on('ready', function() {
 						}
 
 						if (msg.content.length > 1 || hasOnlyLetters(msg.content) == false) return //Return, if user isn't guessing the letters
-						msg.delete() //Delete message to avoid spam
+						msg.delete().catch(e => true) //Delete message to avoid spam
 
 
 						//If the word doesn't contain the letter
@@ -4597,13 +4597,13 @@ client.on('ready', function() {
 				})
 				channel.send('**'+button.clicker.user.username+'**, you claimed a promotion gift for **1 week**! enjoy the premium plan! type (`!!premium help`) for P-commands!')
 			} else if (button.id === 'decline') {
-				m.delete()
+				m.delete().catch(e => true)
 				collector.stop()
 				channel.send('**'+button.clicker.user.username+'**, declined the gift promotion <:drinking:750050072707727371>')
 			}
 		})
 		setTimeout(() => {
-			m.delete()
+			m.delete().catch(e => true)
 		}, 180000)
 		collector.on('end', () => {
 			if (position == true) return position = null
@@ -4646,7 +4646,7 @@ client.on('ready', function() {
 				m.edit(m.content, { buttons: [accept.setStyle('grey').setDisabled(true), decline.setStyle('grey').setDisabled(true)] })
 				message.channel.send('**'+button.clicker.user.username+'**, you just demoted **'+message.mentions.users.first().tag+'** by owner decision (**Your decision**)')
 			} else if (button.id === 'decline') {
-				m.delete()
+				m.delete().catch(e => true)
 				collector.stop()
 				channel.send('**'+button.clicker.user.username+'**, you cancelled the demote for **'+message.mentions.users.first().tag+'** and he thanking you for forgiveness!')
 			}
@@ -5863,6 +5863,8 @@ mongo(database1).then(async mongoose => {
 			} else if(message.content.startsWith('assit')) {
 				if (message.author.id !== '458997221170479124') return message.channel.send('nn assit gha nta hhh')
 				message.channel.send(':service_dog: ')
+			} else if(message.content.toLowerCase() == 'hyped') {
+				message.reply('oui')
 			} else if (message.mentions.users.first() == client.user && message.content.includes('kayna wla la')) {
 				if (message.author.id !== '458997221170479124') return message.channel.send('nn hhhh')
 				message.channel.send('kaynaa <:hehe:750050074591232250>')
@@ -5899,10 +5901,10 @@ mongo(database1).then(async mongoose => {
 					afk[message.author.id] = {
 						reason: true
 					}
-					message.delete()
+					message.delete().catch(e => true)
 					message.channel.send('**'+message.author.username+'** is **AFK** now. don\'t disturb him <:oops:765590003694305351>')
 				} else {
-					message.delete()
+					message.delete().catch(e => true)
 					afk[message.author.id] = {
 						reason: args.join(' ')
 					}
