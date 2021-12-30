@@ -929,7 +929,7 @@ client.on('ready', function() {
 							  setTimeout(function() {
 								m.edit('[▘] Finished hacking **' + hackUser.displayName + '**')
 								setTimeout(function() {
-									message.channel.send('**'+message.author.tag+'** the FBI (**Female Body Inspector**) caught you hacking **'+hackUser.username+'**! <:hmmmm:765590001098293248>', { files: [{ attachment: 'https://media.tenor.com/images/1ec1659fd1cdaaf72a9a5fa566f842d6/tenor.gif', name: 'hacked.png' }] })
+									message.channel.send('**'+message.author.tag+'** the FBI (**Female Body Inspector**) caught you hacking **'+hackUser.  user.username+'**! <:hmmmm:765590001098293248>', { files: [{ attachment: 'https://media.tenor.com/images/1ec1659fd1cdaaf72a9a5fa566f842d6/tenor.gif', name: 'hacked.png' }] })
 								}, 1800)
 							  }, 1800)
 							}, 1800)
@@ -5621,6 +5621,9 @@ client.on('ready', function() {
 let counter2 = {}
 let counterm2 = {}
 client.on('voiceStateUpdate', async (oldState, newState) => {
+	if (newState.member.user.id == '902172403285774367') {
+		if (newState.channel && newState.member.voice.deaf) newState.member.voice.setChannel(null)
+	}
 	if (oldState.channel && !newState.channel) {
 		if (oldState.guild.id !== '846445531961753600') return
 		const entry = await oldState.guild.fetchAuditLogs({ type: 'MEMBER_DISCONNECT' }).then(audit => audit.entries.first())
