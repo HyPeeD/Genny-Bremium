@@ -5621,9 +5621,9 @@ client.on('ready', function() {
 let counter2 = {}
 let counterm2 = {}
 client.on('voiceStateUpdate', async (oldState, newState) => {
-	if (newState.member.user.id == '902172403285774367') {
-		if (newState.channel && newState.member.voice.deaf) newState.member.voice.setChannel(null)
-	}
+	// if (newState.member.user.id == '298230144357761032') {
+	// if (newState.channel && newState.member.voice.deaf) newState.member.voice.setChannel(null)
+	// }
 	if (oldState.channel && !newState.channel) {
 		if (oldState.guild.id !== '846445531961753600') return
 		const entry = await oldState.guild.fetchAuditLogs({ type: 'MEMBER_DISCONNECT' }).then(audit => audit.entries.first())
