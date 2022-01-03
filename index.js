@@ -3894,6 +3894,9 @@ client.on('ready', function() {
 				if (profile[message.author.id] && !profile[message.author.id].credits) return message.channel.send('**'+message.author.username+'**, you must go get some coins to play this game!')
 				if (profile[message.author.id].credits == 0) return message.channel.send('**'+message.author.username+'**, you must go get some coins to play this game!')
 				if (!message.content.split(' ').slice(2).join(' ')) return message.channel.send('**'+message.author.username+'**, please follow the option ranking (**option**) then (**amount**)')
+				let color
+				let prize
+				let loswin
 				if (message.content.split(' ')[2].toLowerCase() == 'all') {
 					if (value.toLowerCase() == message.content.split(' ')[1].toLowerCase()) {
 						color = 'GREEN'
@@ -3919,9 +3922,6 @@ client.on('ready', function() {
 					return
 				}
 				if (parseInt(message.content.split(' ').slice(2).join(' ')) > profile[message.author.id].credits) return message.channel.send(`**${message.author.username}**, your balance does not include this amount of coins!`)
-				let color
-				let prize
-				let loswin
 				
 				if (isNaN(message.content.split(' ').slice(2).join(' '))) return message.channel.send(`**${message.author.username}**, please follow the option ranking (**option**) then (**amount**)`)
 				if (parseInt(message.content.split(' ').slice(2).join(' ')) < 1) return message.channel.send(`**${message.author.username}**, please follow the option ranking (**option**) then (**amount**)`)
@@ -4607,7 +4607,7 @@ client.on('ready', function() {
 		}, 180000)
 		collector.on('end', () => {
 			if (position == true) return position = null
-			delete clicker[message.mentions.users.first().id]
+			if (message.mentions.users.first()) delete clicker[message.mentions.users.first().id]
 		})
 	})
 	
@@ -5692,6 +5692,7 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
 			}
 		}
 	}
+	
 	if (oldState.channel && newState.channel) {
 		if (oldState.channel.id == newState.channel.id) return
 		if (oldState.guild.id !== '727257189940592670') return
@@ -5703,7 +5704,7 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
 			if (entry.createdTimestamp >= (Date.now() - 1000)) {
 				if (entry.extra.count == counterm[oldState.guild.id][entry.executor.id]) return
 				let username = client.users.cache.get(entry.executor.id)
-				let channel = client.channels.cache.get('887139237437255730')
+				let channel = client.channels.cache.get('920764958076182588')
 				if (!channel) return
 				if (!counterm[oldState.guild.id][entry.executor.id]) counterm[oldState.guild.id][entry.executor.id] = 0
 				counterm[oldState.guild.id][entry.executor.id]++
@@ -5711,7 +5712,7 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
 			}
 			if (entry.extra.count > counterm[oldState.guild.id][entry.executor.id]) {
 				let username = client.users.cache.get(entry.executor.id)
-				let channel = client.channels.cache.get('887139237437255730')
+				let channel = client.channels.cache.get('920764958076182588')
 				if (!channel) return
 				if (!counterm[oldState.guild.id][entry.executor.id]) counterm[oldState.guild.id][entry.executor.id] = 0
 				counterm[oldState.guild.id][entry.executor.id]++
