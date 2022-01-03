@@ -5668,8 +5668,8 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
 let counter = {}
 let counterm = {}
 client.on('voiceStateUpdate', async (oldState, newState) => {
-	if (oldState.guild.id !== '727257189940592670') return
 	if (oldState.channel && !newState.channel) {
+		if (oldState.guild.id !== '727257189940592670') return
 		const entry = await oldState.guild.fetchAuditLogs({ type: 'MEMBER_DISCONNECT' }).then(audit => audit.entries.first())
 		if (entry.executor && entry.executor.id == client.user.id) return
 		if (entry.executor) {
@@ -5693,23 +5693,24 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
 		}
 	}
 	if (oldState.channel && newState.channel) {
+		if (newState.guild.id !== '727257189940592670') return
 		const entry = await newState.guild.fetchAuditLogs({ type: 'MEMBER_MOVE' }).then(audit => audit.entries.first())
 		if (entry.executor && entry.executor.id == client.user.id) return
 		if (entry.executor) {
 			if (!counterm[newState.guild.id]) counterm[newState.guild.id] = {}
 			if (!counterm[newState.guild.id][entry.executor.id]) counterm[newState.guild.id][entry.executor.id] = 0
 			if (entry.createdTimestamp >= (Date.now() - 1000)) {
-				if (entry.extra.count == counterm[newState.guild.id][entry.executor.id]) return
+				if (entry.extra.count == counterm[newState.guild.id][entry.executor.id]) return console.log('equal to')
 				let username = client.users.cache.get(entry.executor.id)
 				let channel = client.channels.cache.get('920764958076182588')
-				if (!channel) return
+				if (!channel) return console.log('Unknown channel!')
 				counterm[newState.guild.id][entry.executor.id]++
 				return channel.send('<@'+entry.executor.id+'> has just moved <@'+newState.member.user.id+'> from **#'+oldState.channel.name+'** to **#'+newState.channel.name+'**\n** **')
 			}
 			if (entry.extra.count > counterm[newState.guild.id][entry.executor.id]) {
 				let username = client.users.cache.get(entry.executor.id)
 				let channel = client.channels.cache.get('920764958076182588')
-				if (!channel) return
+				if (!channel) return console.log('Unknown channel!')
 				counterm[newState.guild.id][entry.executor.id]++
 				return channel.send('<@'+entry.executor.id+'> has just moved <@'+newState.member.user.id+'> from **#'+oldState.channel.name+'** to **#'+newState.channel.name+'** times (**'+entry.extra.count+'**)\n** **')
 			}
