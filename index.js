@@ -51,6 +51,8 @@ let firstvcarray = {}
 let firstarray = {}
 let editsnipes = {}
 let hypedstime = {}
+let ratelimitm = {}
+let ratelimitd = {}
 let penalcool = {}
 let smalldown = {}
 let hangcool = {}
@@ -4747,6 +4749,8 @@ client.on('ready', function() {
 				const shipper = message.mentions.users.size === 1 || message.mentions.users.size === 2 ? message.mentions.users.array()[0] : message.author
 				if (message.mentions.users.size !== 2) return message.channel.send('**'+message.author.username+'** you need to mention 2 users to be marry them <:cutie:675727723624136715>')
 				
+				if (!ratelimitm[message.author.id]) ratelimitm[message.author.id] = 0
+				if (ratelimitm[message.author.id] == 5) return message.channel.send('**'+message.author.username+'** you have been ratelimited for abuse 5 times!')
 				mongoose.connection.collection('marry-couples').findOne({ [shipped.id+'.id']: shipped.id }, async (error, marry) => {
 				mongoose.connection.collection('marry-couples').findOne({ [shipper.id+'.id']: shipper.id }, async (error, pmarry) => {
 					if (marry == null) marry = {}
@@ -4765,6 +4769,8 @@ client.on('ready', function() {
 					setTimeout(() => { mongoose.connection.collection('marry-couples').insertMany([{ [shipped.id ]: { marry: shipper.id, times: Datie, id: shipped.id } }, { [shipper.id]: { marry: shipped.id, times: Datie, id: shipper.id } }]) }, 1000)
 				})
 				})
+				ratelimitm[message.author.id]++
+				setTimeout(() => ratelimitm[message.author.id]--, 5 * 60 * 1000)
 			})
 		})
 	})
@@ -4791,6 +4797,9 @@ client.on('ready', function() {
 					}
 				}
 				if (!message.mentions.members.first()) return message.channel.send('**'+message.author.username+'** you must mention some one <:cutie:675727723624136715>')
+				
+				if (!ratelimitd[message.author.id]) ratelimitd[message.author.id] = 0
+				if (ratelimitd[message.author.id] == 5) return message.channel.send('**'+message.author.username+'** you have been ratelimited for abuse 5 times!')
 				mongoose.connection.collection('marry-couples').findOne({ [message.mentions.members.first().id+'.id']: message.mentions.members.first().id }, async (error, marry) => {
 					if (marry == null) marry = {}
 					if (marry == undefined) marry = {}
@@ -4803,6 +4812,8 @@ client.on('ready', function() {
 					mongoose.connection.collection('marry-couples').deleteOne({ [marry[message.mentions.members.first().id].marry+'.id']: marry[message.mentions.members.first().id].marry })
 					return message.channel.send('**'+message.mentions.users.first().username +'** HeHe single now <:cutie:675727723624136715>')
 				})
+				ratelimitd[message.author.id]++
+				setTimeout(() => ratelimitd[message.author.id]--, 5 * 60 * 1000)
 			})
 		})
 	})
@@ -5693,6 +5704,7 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
 		}
 	}
 	if (oldState.channel && newState.channel) {
+		if (oldState.channel.id == newState.channel.id) return
 		if (newState.guild.id !== '727257189940592670') return
 		const entry = await newState.guild.fetchAuditLogs({ type: 'MEMBER_MOVE' }).then(audit => audit.entries.first())
 		if (entry.executor && entry.executor.id == client.user.id) return
