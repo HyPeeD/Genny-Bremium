@@ -1167,17 +1167,17 @@ client.on('ready', function() {
 		if (!deletesnipes[message.channel.id]) return message.channel.send('**'+message.author.username+'** no targeted deletes in (**#'+message.channel.name+'**)')
 		
 		let args = message.content.split(' ')
-		if (args.slice(1) == 'clear') {
+		if (args[1] == 'clear') {
 			if (!message.member.hasPermission('MANAGE_MESSAGES')) return message.channel.send('**'+message.author.username+'**, you must have manage messages permission!')
-			if (args.slice(2).join(' ') !== '') {
-				if ((parseInt(args.slice(2).join(' ')) - 1) > deletesnipes[message.channel.id].length) return message.channel.send('**'+message.author.username+'**, the delete message number must be equal or less than deletenipes length!')
-				if ((parseInt(args.slice(2).join(' ')) - 1) < 0) return message.channel.send('**'+message.author.username+'**, the delete message number must be upper than zero!')
-				deletesnipes[message.channel.id][parseInt(args.slice(2).join(' ')) - 1] = {
+			if (args[2] !== '') {
+				if ((parseInt(args[2]) - 1) > deletesnipes[message.channel.id].length) return message.channel.send('**'+message.author.username+'**, the delete message number must be equal or less than deletenipes length!')
+				if ((parseInt(args[2]) - 1) < 0) return message.channel.send('**'+message.author.username+'**, the delete message number must be upper than zero!')
+				deletesnipes[message.channel.id][parseInt(args[2]) - 1] = {
 					message: 'Deleted by '+message.author.username,
-					author: deletesnipes[message.channel.id][parseInt(args.slice(2).join(' ')) - 1].author,
+					author: deletesnipes[message.channel.id][parseInt(args[2]) - 1].author,
 					img: empty
 				}
-				return message.channel.send('**'+message.author.username+'**, done the deleted message number (**'+args.slice(2).join(' ')+'**) has been removed from deletesnipes!')
+				return message.channel.send('**'+message.author.username+'**, done the deleted message number (**'+args[2]+'**) has been removed from deletesnipes!')
 			} else return message.channel.send('**'+message.author.username+'**, you must type the delete message number!')
 		}
 		
