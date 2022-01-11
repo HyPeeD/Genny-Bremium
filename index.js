@@ -1168,17 +1168,20 @@ client.on('ready', function() {
 		
 		let args = message.content.split(' ')
 		if (args[1] == 'clear') {
+			console.log('lvl 0')
 			if (!message.member.hasPermission('MANAGE_MESSAGES')) return message.channel.send('**'+message.author.username+'**, you must have manage messages permission!')
-			if (args[2] !== '') {
-				if ((parseInt(args[2]) - 1) > deletesnipes[message.channel.id].length) return message.channel.send('**'+message.author.username+'**, the delete message number must be equal or less than deletenipes length!')
-				if ((parseInt(args[2]) - 1) < 0) return message.channel.send('**'+message.author.username+'**, the delete message number must be upper than zero!')
-				deletesnipes[message.channel.id][parseInt(args[2]) - 1] = {
-					message: 'Deleted by '+message.author.username,
-					author: deletesnipes[message.channel.id][parseInt(args[2]) - 1].author,
-					img: empty
-				}
-				return message.channel.send('**'+message.author.username+'**, done the deleted message number (**'+args[2]+'**) has been removed from deletesnipes!')
-			} else return message.channel.send('**'+message.author.username+'**, you must type the delete message number!')
+			console.log('lvl 1')
+			if (!parseInt(args[2])) return message.channel.send('**'+message.author.username+'**, you must type the delete message number!')
+			if ((parseInt(args[2]) - 1) > deletesnipes[message.channel.id].length) return message.channel.send('**'+message.author.username+'**, the delete message number must be equal or less than deletenipes length!')
+			if ((parseInt(args[2]) - 1) < 0) return message.channel.send('**'+message.author.username+'**, the delete message number must be upper than zero!')
+			console.log('lvl 2')
+			deletesnipes[message.channel.id][parseInt(args[2]) - 1] = {
+				message: 'Deleted by '+message.author.username,
+				author: deletesnipes[message.channel.id][parseInt(args[2]) - 1].author,
+				img: empty
+			}
+			console.log('lvl 3')
+			return message.channel.send('**'+message.author.username+'**, done the deleted message number (**'+args[2]+'**) has been removed from deletesnipes!')
 		}
 		
 		let counter = 0
