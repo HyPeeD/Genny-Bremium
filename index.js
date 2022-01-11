@@ -1169,7 +1169,7 @@ client.on('ready', function() {
 		let args = message.content.split(' ')
 		if (args.slice(1) == 'clear') {
 			if (!message.member.hasPermission('MANAGE_MESSAGES')) return message.channel.send('**'+message.author.username+'**, you must have manage messages permission!')
-			if (args.slice(2).join(' ')) {
+			if (args.slice(2).join(' ') !== '') {
 				if ((parseInt(args.slice(2).join(' ')) - 1) > deletesnipes[message.channel.id].length) return message.channel.send('**'+message.author.username+'**, the delete message number must be equal or less than deletenipes length!')
 				if ((parseInt(args.slice(2).join(' ')) - 1) < 0) return message.channel.send('**'+message.author.username+'**, the delete message number must be upper than zero!')
 				deletesnipes[message.channel.id][parseInt(args.slice(2).join(' ')) - 1] = {
