@@ -1167,7 +1167,7 @@ client.on('ready', function() {
 		if (!deletesnipes[message.channel.id]) return message.channel.send('**'+message.author.username+'** no targeted deletes in (**#'+message.channel.name+'**)')
 		
 		let args = message.content.split(' ')
-		if (args[1] == 'clear', 'remove') {
+		if (args[1] == 'remove') {
 			if (!message.member.hasPermission('MANAGE_MESSAGES')) return message.channel.send('**'+message.author.username+'**, you must have manage messages permission!')
 			if (!parseInt(args[2])) return message.channel.send('**'+message.author.username+'**, you must type the delete message number!')
 			if ((parseInt(args[2]) - 1) > deletesnipes[message.channel.id].length) return message.channel.send('**'+message.author.username+'**, the delete message number must be equal or less than deletenipes length!')
