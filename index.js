@@ -4550,10 +4550,11 @@ client.on('ready', function() {
 	// ************************************************************************************************ PREMIUM ************************************************************************************************  \\
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+	let promoters = ['458997221170479124', '428692060619407370']
 	let promote = ['promote', 'gift']
 	command(client, promote, async message => {
 		if (!message.channel.permissionsFor(message.guild.me).has('EMBED_LINKS')) return message.channel.send('**'+message.author.username+'**, I must have embed links permission')
-		if (message.author.id !== '458997221170479124', '428692060619407370') return
+		if (!promoters.includes(message.author.id)) return
 		const accept = new MessageButton()
 		.setLabel('Accept')
 		.setID('accept')
@@ -4631,7 +4632,7 @@ client.on('ready', function() {
 	let demote = ['demote']
 	command(client, demote, async message => {
 		if (!message.channel.permissionsFor(message.guild.me).has('EMBED_LINKS')) return message.channel.send('**'+message.author.username+'**, I must have embed links permission')
-		if (message.author.id !== '458997221170479124', '428692060619407370') return
+		if (!promoters.includes(message.author.id)) return
 		const accept = new MessageButton()
 		.setLabel('Accept')
 		.setID('accept')
