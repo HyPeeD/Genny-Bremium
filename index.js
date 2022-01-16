@@ -5728,7 +5728,7 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
 			if (!counterm[newState.guild.id]) counterm[newState.guild.id] = {}
 			if (!counterm[newState.guild.id][entry.executor.id]) counterm[newState.guild.id][entry.executor.id] = 0
 			if (entry.createdTimestamp >= (Date.now() - 1000)) {
-				if (entry.extra.count == counterm[newState.guild.id][entry.executor.id]) return console.log('equal to')
+				if (entry.extra.count == counterm[newState.guild.id][entry.executor.id]) return
 				let username = client.users.cache.get(entry.executor.id)
 				let channel = client.channels.cache.get('920764958076182588')
 				if (!channel) return console.log('Unknown channel!')
@@ -5904,7 +5904,7 @@ mongo(database1).then(async mongoose => {
 				if (message.author.id !== '458997221170479124') return message.channel.send('nn assit gha nta hhh')
 				message.channel.send(':service_dog: ')
 			} else if(message.content.toLowerCase() == 'hyped') {
-				message.reply('oui')
+				message.inlineReply('https://cdn.discordapp.com/attachments/823637905729388554/932342196995235890/morty_sad_with_girls.png')
 			} else if (message.mentions.users.first() == client.user && message.content.includes('kayna wla la')) {
 				if (message.author.id !== '458997221170479124') return message.channel.send('nn hhhh')
 				message.channel.send('kaynaa <:hehe:750050074591232250>')
