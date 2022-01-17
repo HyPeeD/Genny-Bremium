@@ -1785,6 +1785,7 @@ client.on('ready', function() {
 	command(client, rolecmd, async message => {
 		let args = message.content.split(' ')
 		let member = message.mentions.members.first() || message.guild.members.cache.get(args[1])
+		if (!message.member.hasPermission('MANAGE_ROLES')) return
 		if (!member) return message.channel.send('**'+message.author.username+'** you must mention a member in this server!')
 		var args2 = message.content.split(' ').slice(2).join(' ').toLowerCase()
 		var roleGetted = message.guild.roles.cache.find(r => r.name.toLowerCase().includes(args2.toLowerCase())) || message.guild.roles.cache.get(args[2])
