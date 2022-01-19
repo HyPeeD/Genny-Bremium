@@ -81,7 +81,7 @@ let Datie = new Date().toLocaleString('en-US', {
 	weekday: 'short', 
 	month: 'long', 
 	day: '2-digit', 
-	year: 'numeric', 
+	year: 'numeric',
 	hour: '2-digit', 
 	minute: '2-digit'
 })
@@ -5906,6 +5906,8 @@ mongo(database1).then(async mongoose => {
 				message.channel.send(':service_dog: ')
 			} else if(message.content.toLowerCase() == 'hyped') {
 				message.inlineReply('https://cdn.discordapp.com/attachments/823637905729388554/882361821414178856/86f092786dd1b4bdc5e760472b0178a460098f4379cb3ca089be44a11bcf093c.png')
+			} else if(message.content.toLowerCase() == 'm9lama') {
+				message.inlineReply('https://cdn.discordapp.com/attachments/919188135647256616/933398667895898192/unknown.png')
 			} else if (message.mentions.users.first() == client.user && message.content.includes('kayna wla la')) {
 				if (message.author.id !== '458997221170479124') return message.channel.send('nn hhhh')
 				message.channel.send('kaynaa <:hehe:750050074591232250>')
