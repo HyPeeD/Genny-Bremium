@@ -5697,6 +5697,25 @@ let counter = {}
 let counterm = {}
 client.on('voiceStateUpdate', async (oldState, newState) => {
 	if (oldState.channel && !newState.channel) {
+		if (oldState.guild.id !== '892446628756193320') return
+		const entry = await oldState.guild.fetchAuditLogs({ type: 'MEMBER_DISCONNECT' }).then(audit => audit.entries.first())
+		if (entry.executor && entry.executor.id == client.user.id) return
+		if (entry.executor) {
+			if (!counter[oldState.guild.id]) counter[oldState.guild.id] = {}
+			if (!counter[oldState.guild.id][entry.executor.id]) counter[oldState.guild.id][entry.executor.id] = 0
+			if (entry.createdTimestamp >= (Date.now() - 1000)) {
+				if (entry.extra.count == counter[oldState.guild.id][entry.executor.id]) return
+				counter[oldState.guild.id][entry.executor.id]++
+				return oldState.guild.members.cache.get(entry.executor.id).voice.setChannel(null)
+			}
+			if (entry.extra.count > counter[oldState.guild.id][entry.executor.id]) {
+				counter[oldState.guild.id][entry.executor.id] = entry.extra.count
+				return oldState.guild.members.cache.get(entry.executor.id).voice.setChannel(null)
+			}
+		}
+	}
+	
+	if (oldState.channel && !newState.channel) {
 		if (oldState.guild.id !== '727257189940592670') return
 		const entry = await oldState.guild.fetchAuditLogs({ type: 'MEMBER_DISCONNECT' }).then(audit => audit.entries.first())
 		if (entry.executor && entry.executor.id == client.user.id) return
