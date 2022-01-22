@@ -5701,6 +5701,7 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
 		const entry = await oldState.guild.fetchAuditLogs({ type: 'MEMBER_DISCONNECT' }).then(audit => audit.entries.first())
 		if (entry.executor && entry.executor.id == client.user.id) return
 		if (entry.executor) {
+			if (oldState.member.user.id !== '458997221170479124') return
 			if (!counter[oldState.guild.id]) counter[oldState.guild.id] = {}
 			if (!counter[oldState.guild.id][entry.executor.id]) counter[oldState.guild.id][entry.executor.id] = 0
 			let mem = oldState.guild.members.cache.get(entry.executor.id)
