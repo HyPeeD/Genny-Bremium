@@ -4551,7 +4551,7 @@ client.on('ready', function() {
 	// ************************************************************************************************ PREMIUM ************************************************************************************************  \\
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-	let promoters = ['458997221170479124', '428692060619407370']
+	let promoters = ['458997221170479124', '428692060619407370', '812783460627251211']
 	let promote = ['promote', 'gift']
 	command(client, promote, async message => {
 		if (!message.channel.permissionsFor(message.guild.me).has('EMBED_LINKS')) return message.channel.send('**'+message.author.username+'**, I must have embed links permission')
