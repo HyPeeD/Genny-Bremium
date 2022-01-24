@@ -5927,7 +5927,7 @@ mongo(database1).then(async mongoose => {
 				message.channel.send(':service_dog: ')
 			} else if(message.content.toLowerCase() == 'hyped') {
 				message.inlineReply('https://tenor.com/view/thanos-floating-infinity-war-marvel-gif-11392785')
-			} else if(message.content.toLowerCase() == 'm9lama') {
+			} else if(message.content.toLowerCase() == 'shadow') {
 				message.inlineReply('https://tenor.com/view/donkey-opens-mouth-viralhog-donkey-yawns-donkey-showing-teeth-donkey-laughing-gif-19436376')
 			} else if(message.content.toLowerCase() == 'nimo') {
 				message.inlineReply('https://cdn.discordapp.com/attachments/915317473132298263/935269680908730488/DE54331A-F82F-498F-AD86-5D47BEE3846D.gif')
