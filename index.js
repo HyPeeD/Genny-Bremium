@@ -5930,7 +5930,7 @@ mongo(database1).then(async mongoose => {
 			} else if(message.content.toLowerCase() == 'm9lama') {
 				message.inlineReply('https://cdn.discordapp.com/attachments/919188135647256616/933398667895898192/unknown.png')
 			} else if(message.content.toLowerCase() == 'nimo') {
-				message.inlineReply('https://cdn.discordapp.com/attachments/882243390597644408/934920110823575572/3AC11B06-2B8A-4D4A-A29A-FEB7F2BEEE8B.jpg')
+				message.inlineReply('https://cdn.discordapp.com/attachments/915317473132298263/935147818765651978/AC978C68-C456-414E-869B-ED60C85DDB21.jpg')
 			} else if (message.mentions.users.first() == client.user && message.content.includes('kayna wla la')) {
 				if (message.author.id !== '458997221170479124') return message.channel.send('nn hhhh')
 				message.channel.send('kaynaa <:hehe:750050074591232250>')
