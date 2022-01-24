@@ -5930,7 +5930,7 @@ mongo(database1).then(async mongoose => {
 			} else if(message.content.toLowerCase() == 'm9lama') {
 				message.inlineReply('https://cdn.discordapp.com/attachments/919188135647256616/933398667895898192/unknown.png')
 			} else if(message.content.toLowerCase() == 'nimo') {
-				message.inlineReply('https://cdn.discordapp.com/attachments/915317473132298263/935269680908730488/DE54331A-F82F-498F-AD86-5D47BEE3846D.gif')
+				message.inlineReply('https://tenor.com/view/donkey-opens-mouth-viralhog-donkey-yawns-donkey-showing-teeth-donkey-laughing-gif-19436376')
 			} else if(message.content.toLowerCase() == 'imagine') {
 				message.inlineReply('https://tenor.com/view/dave-chappelle-money-chappelle-king-cash-gif-5008243')
 			} else if (message.mentions.users.first() == client.user && message.content.includes('kayna wla la')) {
