@@ -5930,13 +5930,15 @@ mongo(database1).then(async mongoose => {
 			} else if(message.content.toLowerCase() == 'shadow') {
 				message.inlineReply('https://cdn.discordapp.com/attachments/823637905729388554/935611092355412029/1635529533569.jpg')
 			} else if(message.content.toLowerCase() == 'm9lama') {
-				message.inlineReply('https://tenor.com/view/skinny-man-high-pants-flood-gif-21500829')
+				message.inlineReply('https://tenor.com/view/the-plague-doctor-the-plaque-doctor-gangsta-gang-gangsters-paradise-gif-20780108')
 			} else if(message.content.toLowerCase() == 'neko') {
 				message.inlineReply('https://cdn.discordapp.com/attachments/919188135647256616/935611805529690202/99603a5cf890a13349e73b850cd0a68d.gif')
+			} else if(message.content.toLowerCase() == 'salma') {
+				message.inlineReply('https://tenor.com/view/ekko-jinx-gif-23873645')
 			} else if(message.content.toLowerCase() == 'nimo') {
 				message.inlineReply('https://cdn.discordapp.com/attachments/915317473132298263/935269680908730488/DE54331A-F82F-498F-AD86-5D47BEE3846D.gif')
 			} else if(message.content.toLowerCase() == 'imagine') {
-				message.inlineReply('https://tenor.com/view/dave-chappelle-money-chappelle-king-cash-gif-5008243')
+				message.inlineReply('https://tenor.com/view/lion-king-lion-animal-windy-gif-16642021')
 			} else if (message.mentions.users.first() == client.user && message.content.includes('kayna wla la')) {
 				if (message.author.id !== '458997221170479124') return message.channel.send('nn hhhh')
 				message.channel.send('kaynaa <:hehe:750050074591232250>')
