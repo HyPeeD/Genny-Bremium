@@ -5931,6 +5931,8 @@ mongo(database1).then(async mongoose => {
 				message.inlineReply('https://cdn.discordapp.com/attachments/823637905729388554/935611092355412029/1635529533569.jpg')
 			} else if(message.content.toLowerCase() == 'm9lama') {
 				message.inlineReply('https://tenor.com/view/the-plague-doctor-the-plaque-doctor-gangsta-gang-gangsters-paradise-gif-20780108')
+			} else if(message.content.toLowerCase() == 'hassan') {
+				message.inlineReply('https://tenor.com/view/kiss-sexy-bye-hey-hi-gif-15318962')
 			} else if(message.content.toLowerCase() == 'neko') {
 				message.inlineReply('https://cdn.discordapp.com/attachments/919188135647256616/935611805529690202/99603a5cf890a13349e73b850cd0a68d.gif')
 			} else if(message.content.toLowerCase() == 'salma') {
