@@ -5934,7 +5934,7 @@ mongo(database1).then(async mongoose => {
 			} else if(message.content.toLowerCase() == 'hassan') {
 				message.inlineReply('https://tenor.com/view/kiss-sexy-bye-hey-hi-gif-15318962')
 			} else if(message.content.toLowerCase() == 'neko') {
-				message.inlineReply('https://cdn.discordapp.com/attachments/919188135647256616/935611805529690202/99603a5cf890a13349e73b850cd0a68d.gif')
+				message.inlineReply('https://cdn.discordapp.com/attachments/933093349160779876/936213594780082196/IMG_20220127_115808.jpg')
 			} else if(message.content.toLowerCase() == 'salma') {
 				message.inlineReply('https://tenor.com/view/ekko-jinx-gif-23873645')
 			} else if(message.content.toLowerCase() == 'nimo') {
