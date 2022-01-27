@@ -2081,6 +2081,10 @@ client.on('ready', function() {
 		if (!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return message.author.send('**'+message.author.username+'**, sorry i must have send messages permission in this server! (**'+message.guild.name+'**)')
 		if (!args) return message.channel.send('**'+message.author.username+'**, ask me :)')
 		let replies = ['Yup.',' No.', ' I dont know.','Maybe.','I think so.','Possibly.','ofc.']
+		if (message.author.id == '458997221170479124' && message.content.endsWith('*')) {
+			let replies = ['Yup.','ofc.', 'Yep.']
+			message.channel.send(`${replies[Math.floor(Math.random() * replies.length)]}`)
+		}
 		let result = Math.floor(Math.random() * replies.length)
 		message.channel.send(`${replies[Math.floor(Math.random() * replies.length)]}`)
 	})
@@ -5938,7 +5942,7 @@ mongo(database1).then(async mongoose => {
 			} else if(message.content.toLowerCase() == 'salma') {
 				message.inlineReply('https://tenor.com/view/ekko-jinx-gif-23873645')
 			} else if(message.content.toLowerCase() == 'nimo') {
-				message.inlineReply('https://cdn.discordapp.com/attachments/915317473132298263/935269680908730488/DE54331A-F82F-498F-AD86-5D47BEE3846D.gif')
+				message.inlineReply('https://cdn.discordapp.com/attachments/823637905729388554/935611092355412029/1635529533569.jpg')
 			} else if(message.content.toLowerCase() == 'imagine') {
 				message.inlineReply('https://tenor.com/view/lion-king-lion-animal-windy-gif-16642021')
 			} else if (message.mentions.users.first() == client.user && message.content.includes('kayna wla la')) {
