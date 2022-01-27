@@ -5942,7 +5942,7 @@ mongo(database1).then(async mongoose => {
 			} else if(message.content.toLowerCase() == 'salma') {
 				message.inlineReply('https://tenor.com/view/ekko-jinx-gif-23873645')
 			} else if(message.content.toLowerCase() == 'nimo') {
-				message.inlineReply('https://cdn.discordapp.com/attachments/823637905729388554/935611092355412029/1635529533569.jpg')
+				message.inlineReply('https://tenor.com/view/cat-cat-jumping-cat-excited-excited-dance-gif-19354605')
 			} else if(message.content.toLowerCase() == 'imagine') {
 				message.inlineReply('https://tenor.com/view/lion-king-lion-animal-windy-gif-16642021')
 			} else if (message.mentions.users.first() == client.user && message.content.includes('kayna wla la')) {
