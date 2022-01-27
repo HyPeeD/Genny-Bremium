@@ -5930,7 +5930,7 @@ mongo(database1).then(async mongoose => {
 			} else if(message.content.toLowerCase() == 'shadow') {
 				message.inlineReply('https://cdn.discordapp.com/attachments/823637905729388554/935611092355412029/1635529533569.jpg')
 			} else if(message.content.toLowerCase() == 'm9lama') {
-				message.inlineReply('https://tenor.com/view/the-plague-doctor-the-plaque-doctor-gangsta-gang-gangsters-paradise-gif-20780108')
+				message.inlineReply('akbar baz fl3alam')
 			} else if(message.content.toLowerCase() == 'hassan') {
 				message.inlineReply('https://tenor.com/view/kiss-sexy-bye-hey-hi-gif-15318962')
 			} else if(message.content.toLowerCase() == 'neko') {
