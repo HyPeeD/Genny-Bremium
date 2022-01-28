@@ -6239,7 +6239,7 @@ app.post('/dblwebhook', webhook.listener(vote => {
 
 // const { AutoPoster } = require('topgg-autoposter')
 // const dbl = AutoPoster(dblc, client)
-
+//
 // dbl.on('posted', () => {
 //	 console.log('Posted stats to Top.gg!')
 // })
