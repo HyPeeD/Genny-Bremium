@@ -5645,7 +5645,7 @@ client.on('ready', function() {
 	
 	let ttt = ['ttt','xo','tictactoe']
 	command(client, ttt, async message => {
-		
+		// anything
 	})
 	
 })
