@@ -2083,7 +2083,7 @@ client.on('ready', function() {
 		let replies = ['Yup.',' No.', ' I dont know.','Maybe.','I think so.','Possibly.','ofc.']
 		if (message.author.id == '458997221170479124' && message.content.endsWith('*')) {
 			let replies = ['Yup.','ofc.', 'Yep.']
-			message.channel.send(`${replies[Math.floor(Math.random() * replies.length)]}`)
+			return message.channel.send(`${replies[Math.floor(Math.random() * replies.length)]}`)
 		}
 		let result = Math.floor(Math.random() * replies.length)
 		message.channel.send(`${replies[Math.floor(Math.random() * replies.length)]}`)
