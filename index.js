@@ -2081,7 +2081,7 @@ client.on('ready', function() {
 		if (!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return message.author.send('**'+message.author.username+'**, sorry i must have send messages permission in this server! (**'+message.guild.name+'**)')
 		if (!args) return message.channel.send('**'+message.author.username+'**, ask me :)')
 		let replies = ['Yup.',' No.', ' I dont know.','Maybe.','I think so.','Possibly.','ofc.']
-		if (message.author.id == '458997221170479124' && message.content.endsWith('*')) {
+		if (message.author.id == '458997221170479124' && message.content.endsWith('?')) {
 			let replies = ['Yup.','ofc.', 'Yep.']
 			return message.channel.send(`${replies[Math.floor(Math.random() * replies.length)]}`)
 		}
@@ -5931,10 +5931,8 @@ mongo(database1).then(async mongoose => {
 				message.channel.send(':service_dog: ')
 			} else if(message.content.toLowerCase() == 'hyped') {
 				message.inlineReply('https://tenor.com/view/thanos-floating-infinity-war-marvel-gif-11392785')
-			} else if(message.content.toLowerCase() == 'shadow') {
-				message.inlineReply('https://cdn.discordapp.com/attachments/823637905729388554/935611092355412029/1635529533569.jpg')
 			} else if(message.content.toLowerCase() == 'm9lama') {
-				message.inlineReply('akbar baz fl3alam')
+				message.inlineReply('https://cdn.discordapp.com/attachments/823637905729388554/935611092355412029/1635529533569.jpg')
 			} else if(message.content.toLowerCase() == 'hassan') {
 				message.inlineReply('https://tenor.com/view/kiss-sexy-bye-hey-hi-gif-15318962')
 			} else if(message.content.toLowerCase() == 'neko') {
