@@ -5700,6 +5700,7 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
 let counter = {}
 let counterm = {}
 client.on('voiceStateUpdate', async (oldState, newState) => {
+	/*
 	if (oldState.channel && !newState.channel) {
 		if (oldState.guild.id !== '892446628756193320') return
 		const entry = await oldState.guild.fetchAuditLogs({ type: 'MEMBER_DISCONNECT' }).then(audit => audit.entries.first())
@@ -5720,6 +5721,7 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
 			}
 		}
 	}
+	*/
 	
 	if (oldState.channel && !newState.channel) {
 		if (oldState.guild.id !== '727257189940592670') return
@@ -5741,7 +5743,7 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
 				let channel = client.channels.cache.get('887139237437255730')
 				if (!channel) return
 				counter[oldState.guild.id][entry.executor.id] = entry.extra.count
-				return channel.send('<@'+entry.executor.id+'> has just disconnected <@'+oldState.member.user.id+'> in **#'+oldState.channel.name+'** times (**'+entry.extra.count+'**)\n** **')
+				return channel.send('<@'+entry.executor.id+'> has just disconnected <@'+oldState.member.user.id+'> in **#'+oldState.channel.name+'** strikes (**'+entry.extra.count+'**)\n** **')
 			}
 		}
 	}
@@ -5766,7 +5768,7 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
 				let channel = client.channels.cache.get('920764958076182588')
 				if (!channel) return console.log('Unknown channel!')
 				counterm[newState.guild.id][entry.executor.id]++
-				return channel.send('<@'+entry.executor.id+'> has just moved <@'+newState.member.user.id+'> from **#'+oldState.channel.name+'** to **#'+newState.channel.name+'** times (**'+entry.extra.count+'**)\n** **')
+				return channel.send('<@'+entry.executor.id+'> has just moved <@'+newState.member.user.id+'> from **#'+oldState.channel.name+'** to **#'+newState.channel.name+'** strikes (**'+entry.extra.count+'**)\n** **')
 			}
 		}
 	}
