@@ -5933,16 +5933,16 @@ mongo(database1).then(async mongoose => {
 				message.channel.send(':service_dog: ')
 			} else if(message.content.toLowerCase() == 'hyped') {
 				message.inlineReply('https://tenor.com/view/thanos-floating-infinity-war-marvel-gif-11392785')
+			} else if(message.content.toLowerCase() == 'pablo') {
+				message.inlineReply('https://cdn.discordapp.com/attachments/900454936863735808/938178298322776135/Screenshot_2021-09-17-23-58-11-34_572064f74bd5f9fa804b05334aa4f912.jpg')
 			} else if(message.content.toLowerCase() == 'm9lama') {
-				message.inlineReply('https://cdn.discordapp.com/attachments/823637905729388554/935611092355412029/1635529533569.jpg')
+				message.inlineReply('https://tenor.com/view/the-plague-doctor-the-plaque-doctor-gangsta-gang-gangsters-paradise-gif-20780108')
 			} else if(message.content.toLowerCase() == 'hassan') {
 				message.inlineReply('https://tenor.com/view/kiss-sexy-bye-hey-hi-gif-15318962')
 			} else if(message.content.toLowerCase() == 'neko') {
 				message.inlineReply('https://cdn.discordapp.com/attachments/933093349160779876/936213594780082196/IMG_20220127_115808.jpg')
 			} else if(message.content.toLowerCase() == 'salma') {
 				message.inlineReply('https://tenor.com/view/ekko-jinx-gif-23873645')
-			} else if(message.content.toLowerCase() == 'nimo') {
-				message.inlineReply('https://tenor.com/view/cat-cat-jumping-cat-excited-excited-dance-gif-19354605')
 			} else if(message.content.toLowerCase() == 'imagine') {
 				message.inlineReply('https://tenor.com/view/lion-king-lion-animal-windy-gif-16642021')
 			} else if (message.mentions.users.first() == client.user && message.content.includes('kayna wla la')) {
