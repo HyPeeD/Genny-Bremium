@@ -3358,7 +3358,7 @@ client.on('ready', function() {
 						if (usedLettersField.value == 'None.') {
 							usedLettersField.value = msg.content.toUpperCase()
 							if (!word.includes(msg.content.toUpperCase())) mistakesField.value = Number(mistakesField.value) + 1
-						} else if(!usedLettersField.value.includes(msg.content.toUpperCase())) {
+						} else if(usedLettersField.value && !usedLettersField.value.includes(msg.content.toUpperCase())) {
 							usedLettersField.value += ', '+msg.content.toUpperCase()
 							if (!word.includes(msg.content.toUpperCase())) mistakesField.value = Number(mistakesField.value) + 1
 						}
