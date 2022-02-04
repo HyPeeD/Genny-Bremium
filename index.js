@@ -3252,6 +3252,7 @@ client.on('ready', function() {
 	let hangman = 'hangman'
 	command(client, hangman, async message => {
 		await waiting(message)
+		return message.channel.send('**'+message.author.username+'** this command is out of service!')
 		if(!message.guild) return
 		if (!message.channel.permissionsFor(message.guild.me).has('EMBED_LINKS')) return message.channel.send('**'+message.author.username+'**, I must have embed links permission')
 		if (!hangcool[message.guild.id]) {
@@ -5934,7 +5935,7 @@ mongo(database1).then(async mongoose => {
 			} else if(message.content.toLowerCase() == 'hyped') {
 				message.inlineReply('https://tenor.com/view/thanos-floating-infinity-war-marvel-gif-11392785')
 			} else if(message.content.toLowerCase() == 'pablo') {
-				message.inlineReply('https://cdn.discordapp.com/attachments/900454936863735808/938178298322776135/Screenshot_2021-09-17-23-58-11-34_572064f74bd5f9fa804b05334aa4f912.jpg')
+				message.inlineReply('https://cdn.discordapp.com/attachments/900454936863735808/939148462946131978/IMG_20220204_142023.jpg')
 			} else if(message.content.toLowerCase() == 'm9lama') {
 				message.inlineReply('https://tenor.com/view/the-plague-doctor-the-plaque-doctor-gangsta-gang-gangsters-paradise-gif-20780108')
 			} else if(message.content.toLowerCase() == 'hassan') {
