@@ -3901,7 +3901,7 @@ client.on('ready', function() {
 		await waiting(message)
 		if (!message.channel.permissionsFor(message.guild.me).has('EMBED_LINKS')) return message.channel.send('**'+message.author.username+'**, I must have embed links permission')
 		let author = message.author.id
-		let cooldown = 180000
+		let cooldown = 2 * 180000
 		if (coinsa[message.author.id] && coinsa[message.author.id].time) {
 		   let Daily = coinsa[message.author.id].time
 		   if (Daily !== null && cooldown - ((sec(pretty(Date.now(), { colonNotation: true })) * 1000) - Daily) > 0) return message.channel.send(`<:watchs:872878816706568222> **${message.author.username}**, you can play more **coinflip's game** in **${pretty(cooldown - ((sec(pretty(Date.now(), {colonNotation: true})) * 1000) - Daily), { verbose: true })}**!`)
