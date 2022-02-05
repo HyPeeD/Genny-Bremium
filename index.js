@@ -33,6 +33,7 @@ client.queue = new Map()
 client.radio = new Map()
 client.music = new Map()
 client.volum = new Map()
+client.black = new Map()
 client.paus = new Map()
 client.prefix = prefix
 let position
@@ -4512,6 +4513,7 @@ client.on('ready', function() {
 			
 				if (blacklist[commander.id]) return message.channel.send('**'+commander.username+'** is already blacklisted')
 				mongoose.connection.collection('blacklists').insertOne({ [commander.id]: { time: Datie, id: commander.id } })
+				message.client.black.set(commander.id, true)
 				message.channel.send('**'+message.author.username+'** success **'+commander.username+'** has been blacklisted in (**'+Datie+'**)')
 			})
 		})
@@ -4530,6 +4532,7 @@ client.on('ready', function() {
 			
 				if (!blacklist[commander.id]) return message.channel.send('**'+commander.username+'** is not blacklisted')
 				mongoose.connection.collection('blacklists').deleteOne({ [commander.id+'.id']: commander.id })
+				message.client.black.delete(commander.id)
 				message.channel.send('**'+message.author.username+'** success **'+commander.username+'** has been unblacklisted in (**'+Datie+'**)')
 			})
 		})
@@ -5796,6 +5799,13 @@ client.on('voiceStateUpdate', async function(oldState, newState) {
 })
 
 mongo(database1).then(async mongoose => {
+	mongoose.connection.collection('blacklists').find({}, async (error, blacklist) => {
+		blacklist.toArray(async function(err, result) {
+			for (const data of result) {
+				client.black.set(Object.values(data)[0]['id'], true)
+			}
+		})
+	})
 	mongoose.connection.collection('setups').find({}, async (error, setups) => {
 		if (setups == null) setups = {}
 		if (setups == undefined) setups = {}
