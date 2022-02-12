@@ -4481,7 +4481,7 @@ client.on('ready', function() {
 		})
 	})
 	
-	let blacklisters = ['298230144357761032', '716011596467404852', '902172403285774367', '541234063701442581', '458997221170479124', '764067398507692063', '805216713935159306', '597630544720691202', '805552868391256094', '735876056656904236', '764447645673455616']
+	let blacklisters = ['298230144357761032', '902172403285774367', '458997221170479124', '764067398507692063', '805216713935159306', '597630544720691202', '805552868391256094', '735876056656904236', '764447645673455616']
 
 	let info = ['info', 'information']
 	command(client, info, async message => {
@@ -4493,7 +4493,6 @@ client.on('ready', function() {
 		.addField('Ping', `${Date.now() - message.createdTimestamp}` + ' ms', true)
 		.addField('Servers', `${client.guilds.cache.size}`, true)
 		.addField('Owner', `<@458997221170479124>`, true)
-		.addField('l helper dyalna', `<@541234063701442581>`, true)
 		.setImage(empty)
 		.setFooter(message.author.username, message.author.avatarURL())
 		.setTimestamp()
@@ -5898,22 +5897,6 @@ mongo(database1).then(async mongoose => {
 			} else if(message.content.startsWith('assit')) {
 				if (message.author.id !== '458997221170479124') return message.channel.send('nn assit gha nta hhh')
 				message.channel.send(':service_dog: ')
-			} else if(message.content.toLowerCase() == 'hyped') {
-				message.inlineReply('https://tenor.com/view/thanos-floating-infinity-war-marvel-gif-11392785')
-			} else if(message.content.toLowerCase() == 'nimo..') {
-				message.inlineReply('https://cdn.discordapp.com/attachments/749670212894457887/942054045328220200/8AB68724-92B3-4FA7-B81F-36794EDBA0D8.gif')
-			} else if(message.content.toLowerCase() == 'pablo') {
-				message.inlineReply('https://cdn.discordapp.com/attachments/900454936863735808/939148462946131978/IMG_20220204_142023.jpg')
-			} else if(message.content.toLowerCase() == 'm9lama') {
-				message.inlineReply('https://tenor.com/view/the-plague-doctor-the-plaque-doctor-gangsta-gang-gangsters-paradise-gif-20780108')
-			} else if(message.content.toLowerCase() == 'hassan') {
-				message.inlineReply('https://tenor.com/view/kiss-sexy-bye-hey-hi-gif-15318962')
-			} else if(message.content.toLowerCase() == 'neko') {
-				message.inlineReply('https://cdn.discordapp.com/attachments/933093349160779876/936213594780082196/IMG_20220127_115808.jpg')
-			} else if(message.content.toLowerCase() == 'salma') {
-				message.inlineReply('https://tenor.com/view/ekko-jinx-gif-23873645')
-			} else if(message.content.toLowerCase() == 'imagine') {
-				message.inlineReply('https://tenor.com/view/lion-king-lion-animal-windy-gif-16642021')
 			} else if (message.mentions.users.first() == client.user && message.content.includes('kayna wla la')) {
 				if (message.author.id !== '458997221170479124') return message.channel.send('nn hhhh')
 				message.channel.send('kaynaa <:hehe:750050074591232250>')
