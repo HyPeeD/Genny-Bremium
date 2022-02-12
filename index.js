@@ -5654,57 +5654,13 @@ client.on('ready', function() {
 	
 })
 
-let counter2 = {}
-let counterm2 = {}
-client.on('voiceStateUpdate', async (oldState, newState) => {
-	// if (newState.member.user.id == '298230144357761032') {
-	// if (newState.channel && newState.member.voice.deaf) newState.member.voice.setChannel(null)
-	// }
-	if (oldState.channel && !newState.channel) {
-		if (oldState.guild.id !== '846445531961753600') return
-		const entry = await oldState.guild.fetchAuditLogs({ type: 'MEMBER_DISCONNECT' }).then(audit => audit.entries.first())
-		if (entry.executor && entry.executor.id == client.user.id) return
-		if (entry.executor) {
-			if (!counter2[oldState.guild.id]) counter2[oldState.guild.id] = {}
-			if (!counter2[oldState.guild.id][entry.executor.id]) counter2[oldState.guild.id][entry.executor.id] = 0
-			if (entry.createdTimestamp >= (Date.now() - 1000)) {
-				if (entry.extra.count == counter2[oldState.guild.id][entry.executor.id]) return
-				let username = client.users.cache.get(entry.executor.id)
-				let channel = client.channels.cache.get('921824130851029072')
-				if (!channel) return
-				counter2[oldState.guild.id][entry.executor.id]++
-				return channel.send('<@'+entry.executor.id+'> has just disconnected <@'+oldState.member.user.id+'> in **#'+oldState.channel.name+'**\n** **')
-			}
-			if (entry.extra.count > counter2[oldState.guild.id][entry.executor.id]) {
-				let username = client.users.cache.get(entry.executor.id)
-				let channel = client.channels.cache.get('921824130851029072')
-				if (!channel) return
-				counter2[oldState.guild.id][entry.executor.id] = entry.extra.count
-				return channel.send('<@'+entry.executor.id+'> has just disconnected <@'+oldState.member.user.id+'> in **#'+oldState.channel.name+'** times (**'+entry.extra.count+'**)\n** **')
-			}
-		}
-	}
-	if (oldState.channel && newState.channel) {
-		if (oldState.channel.id == newState.channel.id) return
-		if (oldState.guild.id !== '846445531961753600') return
-		const entry = await oldState.guild.fetchAuditLogs({ type: 'MEMBER_MOVE' }).then(audit => audit.entries.first())
-		if (entry.executor && entry.executor.id == client.user.id) return
-		if (entry.executor && entry.createdTimestamp >= (Date.now() - 1000)) {
-			if (entry.extra.count == counterm2[entry.executor.id]) return
-			let username = client.users.cache.get(entry.executor.id)
-			let channel = client.channels.cache.get('921824130851029072')
-			if (!channel) return
-			if (!counterm2[entry.executor.id]) counterm2[entry.executor.id] = 0
-			counterm2[entry.executor.id]++
-			channel.send('<@'+entry.executor.id+'> has just moved <@'+newState.member.user.id+'> from **#'+oldState.channel.name+'** to **#'+newState.channel.name+'**\n** **')
-		}
-	}
-})
-
 let counter = {}
 let counterm = {}
 client.on('voiceStateUpdate', async (oldState, newState) => {
 	/*
+	// if (newState.member.user.id == '298230144357761032') {
+	// if (newState.channel && newState.member.voice.deaf) newState.member.voice.setChannel(null)
+	// }
 	if (oldState.channel && !newState.channel) {
 		if (oldState.guild.id !== '892446628756193320') return
 		const entry = await oldState.guild.fetchAuditLogs({ type: 'MEMBER_DISCONNECT' }).then(audit => audit.entries.first())
@@ -5944,6 +5900,8 @@ mongo(database1).then(async mongoose => {
 				message.channel.send(':service_dog: ')
 			} else if(message.content.toLowerCase() == 'hyped') {
 				message.inlineReply('https://tenor.com/view/thanos-floating-infinity-war-marvel-gif-11392785')
+			} else if(message.content.toLowerCase() == 'nimo..') {
+				message.inlineReply('https://cdn.discordapp.com/attachments/749670212894457887/942054045328220200/8AB68724-92B3-4FA7-B81F-36794EDBA0D8.gif')
 			} else if(message.content.toLowerCase() == 'pablo') {
 				message.inlineReply('https://cdn.discordapp.com/attachments/900454936863735808/939148462946131978/IMG_20220204_142023.jpg')
 			} else if(message.content.toLowerCase() == 'm9lama') {
