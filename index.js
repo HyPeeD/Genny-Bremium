@@ -4481,7 +4481,7 @@ client.on('ready', function() {
 		})
 	})
 	
-	let blacklisters = ['298230144357761032', '902172403285774367', '458997221170479124', '764067398507692063', '805216713935159306', '597630544720691202', '805552868391256094', '735876056656904236', '764447645673455616']
+	let blacklisters = ['298230144357761032', '902172403285774367', '458997221170479124', '541234063701442581', '764067398507692063', '805216713935159306', '597630544720691202', '805552868391256094', '735876056656904236', '764447645673455616']
 
 	let info = ['info', 'information']
 	command(client, info, async message => {
@@ -4492,7 +4492,7 @@ client.on('ready', function() {
 		.setColor('#2f3136')
 		.addField('Ping', `${Date.now() - message.createdTimestamp}` + ' ms', true)
 		.addField('Servers', `${client.guilds.cache.size}`, true)
-		.addField('Owner', `<@458997221170479124>`, true)
+		.addField('Owner', `<@458997221170479124>, <@541234063701442581>`, true)
 		.setImage(empty)
 		.setFooter(message.author.username, message.author.avatarURL())
 		.setTimestamp()
@@ -5896,7 +5896,7 @@ mongo(database1).then(async mongoose => {
 				message.channel.send(':dog2: 3awwawawaw')
 			} else if(message.content.startsWith('assit')) {
 				if (message.author.id !== '458997221170479124') return message.channel.send('nn assit gha nta hhh')
-				message.channel.send(':service_dog: ')
+				message.channel.send(':service_dog:')
 			} else if (message.mentions.users.first() == client.user && message.content.includes('kayna wla la')) {
 				if (message.author.id !== '458997221170479124') return message.channel.send('nn hhhh')
 				message.channel.send('kaynaa <:hehe:750050074591232250>')
