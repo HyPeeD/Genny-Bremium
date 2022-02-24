@@ -1944,6 +1944,7 @@ client.on('ready', function() {
 	let move = 'move'
 	command(client, move, async message => {
 		await waiting(message)
+		return message.channel.send('**'+message.author.username+'** this command is out of service!')
 		if (message.content.split(' ').slice(1).join(' ') == 'all') {
 			if (!message.member.hasPermission('ADMINISTRATOR')) return
 			if(!message.channel.permissionsFor(message.guild.me).has('MOVE_MEMBERS')) return message.channel.send('**'+message.author.username+'** I don\'t have perms <:hmmmm:765590001098293248>')
@@ -1953,7 +1954,6 @@ client.on('ready', function() {
 			})
 			return message.channel.send('**'+message.author.username+'** success! all members have been **dragged** to your voice channel!')
 		}
-	  
 		if (!message.member.hasPermission('MOVE_MEMBERS')) return message.channel.send('**'+message.author.username+'** you must have permission for moving members <:hmmmm:765590001098293248>')
 		if (message.mentions.users.size === 0) {
 			return message.channel.send('**'+message.author.username+'** oops didn\'t find him <:oops:765590003694305351>')
@@ -4481,7 +4481,7 @@ client.on('ready', function() {
 		})
 	})
 	
-	let blacklisters = ['298230144357761032', '902172403285774367', '458997221170479124', '541234063701442581', '764067398507692063', '805216713935159306', '597630544720691202', '805552868391256094', '735876056656904236', '764447645673455616']
+	let blacklisters = ['298230144357761032', '902172403285774367', '716011596467404852', '458997221170479124', '541234063701442581', '764067398507692063', '805216713935159306', '597630544720691202', '805552868391256094', '735876056656904236', '764447645673455616']
 
 	let info = ['info', 'information']
 	command(client, info, async message => {
@@ -4492,7 +4492,7 @@ client.on('ready', function() {
 		.setColor('#2f3136')
 		.addField('Ping', `${Date.now() - message.createdTimestamp}` + ' ms', true)
 		.addField('Servers', `${client.guilds.cache.size}`, true)
-		.addField('Owner', `<@458997221170479124>, <@541234063701442581>`, true)
+		.addField('Owner', `<@458997221170479124>, <@541234063701442581>, <@716011596467404852>`, true)
 		.setImage(empty)
 		.setFooter(message.author.username, message.author.avatarURL())
 		.setTimestamp()
