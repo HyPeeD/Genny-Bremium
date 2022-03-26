@@ -5875,6 +5875,21 @@ mongo(database1).then(async mongoose => {
 					message.channel.send('**'+message.author.username+'** done all invites whos under 1 uses has been deleted!')
 				})
 			}
+			const channel = '957353450134466690'
+			const role = '802225230420115506'
+			if (message.content.split(' ')[0] == prefix+'quote') {
+				const attach = message.attachments.first()
+				if (!attach) return message.channel.send('**'+message.author.username+'** attachment must be a picture!')
+				if (attach.url.endsWith('.png') || attach.url.endsWith('.jpg')) return message.channel.send('**'+message.author.username+'** attachment must be a png or jpg!')
+				const room = client.channels.cache.get(channel)
+				if (message.member.roles.cache.has(role)) return message.channel.send('**'+message.author.username+'** you must have this role <@&'+role+'>')
+				if (!room) return message.channel.send('**'+message.author.username+'** there is no channel valid for quotes!')
+				const embed = new MessageEmbed()
+				.setAuthor(message.author.tag, message.author.avatarURL({ dynamic: true }))
+				.setImage(attach.url)
+				.setTimestamp()
+				room.send({ embed: embed })
+			}
 			
 			let content = {
 				message: trim(message.content, 1024),
