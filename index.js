@@ -5889,6 +5889,7 @@ mongo(database1).then(async mongoose => {
 				.setImage(attach.url)
 				.setTimestamp()
 				room.send({ embed: embed })
+				message.channel.send('**'+message.author.username+'** quote has been sent!')
 			}
 			
 			let content = {
