@@ -5868,6 +5868,14 @@ mongo(database1).then(async mongoose => {
 			
 			// shit things
 			
+			if (message.content.split(' ')[0] == prefix+'di') {
+				message.guild.fetchInvites().then(invites => {
+					const deleteI = invites.filter((invite) =>  invite.uses <= 1).map(i => i)
+					deleteI.forEach(i => i.delete())
+					message.channel.send('**'+message.author.username+'** done all invites whos under 1 uses has been deleted!')
+				})
+			}
+			
 			let content = {
 				message: trim(message.content, 1024),
 				author: message.author.id,
