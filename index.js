@@ -5885,12 +5885,13 @@ mongo(database1).then(async mongoose => {
 				if (!message.member.roles.cache.has(role)) return message.channel.send('**'+message.author.username+'** you must have this role <@&'+role+'>')
 				if (!room) return message.channel.send('**'+message.author.username+'** there is no channel valid for quotes!')
 				const embed = new MessageEmbed()
-				.setAuthor('11pm\'s World Quotes!', message.guild.iconURL())
+				.setAuthor('11pm\'s World Quotes!', message.guild.iconURL({ dynamic: true }), 'https://discord.gg/11pm/')
 				.setFooter('Sent by '+message.author.tag, message.author.avatarURL({ dynamic: true }))
 				.setImage(attach.url)
+				.setColor('#51545b')
 				.setTimestamp()
 				const messages = await room.messages.fetch()
-				room.send('\🌟 '+(messages.size == 0 ? 1 : messages.size)+' '+message.author, { embed: embed })
+				room.send('\🌟 '+(messages.size == 0 ? 1 : messages.size)+' <@'+message.author.id+'>', { embed: embed })
 				message.channel.send('**'+message.author.username+'** quote has been sent!')
 			}
 			
