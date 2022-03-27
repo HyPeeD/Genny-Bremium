@@ -5891,7 +5891,7 @@ mongo(database1).then(async mongoose => {
 				.setColor('#2f3136')
 				.setTimestamp()
 				const messages = await room.messages.fetch()
-				room.send('\🌟 '+(messages.size == 0 ? 1 : messages.size)+' <@'+message.author.id+'>', { embed: embed }).then(m => m.react('😂'))
+				room.send('\🌟 '+(messages.size + 1)+' <@'+message.author.id+'>', { embed: embed }).then(m => m.react('😂'))
 				message.channel.send('**'+message.author.username+'** quote has been sent!')
 			}
 			
