@@ -5888,10 +5888,10 @@ mongo(database1).then(async mongoose => {
 				.setAuthor('11pm\'s World Quotes!', message.guild.iconURL({ dynamic: true }), 'https://discord.gg/11pm/')
 				.setFooter('Sent by '+message.author.tag, message.author.avatarURL({ dynamic: true }))
 				.setImage(attach.url)
-				.setColor('#51545b')
+				.setColor('#2f3136')
 				.setTimestamp()
 				const messages = await room.messages.fetch()
-				room.send('\🌟 '+(messages.size == 0 ? 1 : messages.size)+' <@'+message.author.id+'>', { embed: embed })
+				room.send('\🌟 '+(messages.size == 0 ? 1 : messages.size)+' <@'+message.author.id+'>', { embed: embed }).then(m => m.react(':joy:'))
 				message.channel.send('**'+message.author.username+'** quote has been sent!')
 			}
 			
