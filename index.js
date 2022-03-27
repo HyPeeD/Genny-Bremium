@@ -5889,7 +5889,8 @@ mongo(database1).then(async mongoose => {
 				.setFooter('Sent by '+message.author.tag, message.author.avatarURL({ dynamic: true }))
 				.setImage(attach.url)
 				.setTimestamp()
-				room.send({ embed: embed })
+				const messages = await room.messages.fetch()
+				room.send('\🌟 '+(messages.size == 0 ? 1 : messages.size)+' '+message.author, { embed: embed })
 				message.channel.send('**'+message.author.username+'** quote has been sent!')
 			}
 			
