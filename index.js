@@ -4459,7 +4459,7 @@ client.on('ready', function() {
 	command(client, invite, async message => {
 		await waiting(message)
 		if (!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return message.author.send('**'+message.author.username+'**, sorry i must have send messages permission in this server! (**'+message.guild.name+'**)')
-		message.channel.send('https://discord.com/oauth2/authorize?client_id=603988884694630430&scope=bot&permissions=-1')
+		message.channel.send('https://discord.com/oauth2/authorize?client_id=603988884694630430&scope=bot&permissions=8')
 	})
 
 	let support = 'support'
@@ -5885,7 +5885,8 @@ mongo(database1).then(async mongoose => {
 				if (!message.member.roles.cache.has(role)) return message.channel.send('**'+message.author.username+'** you must have this role <@&'+role+'>')
 				if (!room) return message.channel.send('**'+message.author.username+'** there is no channel valid for quotes!')
 				const embed = new MessageEmbed()
-				.setAuthor(message.author.tag, message.author.avatarURL({ dynamic: true }))
+				.setAuthor('11pm\'s World Quotes!', message.guild.iconURL())
+				.setFooter('Sent by '+message.author.tag, message.author.avatarURL({ dynamic: true }))
 				.setImage(attach.url)
 				.setTimestamp()
 				room.send({ embed: embed })
