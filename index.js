@@ -5875,8 +5875,8 @@ mongo(database1).then(async mongoose => {
 					message.channel.send('**'+message.author.username+'** done all invites whos under 1 uses has been deleted!')
 				})
 			}
-			const channel = '957353450134466690'
 			const role = '802225230420115506'
+			const channel = '957353450134466690'
 			if (message.content.split(' ')[0] == prefix+'quote') {
 				const attach = message.attachments.first()
 				if (!attach) return message.channel.send('**'+message.author.username+'** attachment must be a picture!')
@@ -5891,7 +5891,7 @@ mongo(database1).then(async mongoose => {
 				.setColor('#2f3136')
 				.setTimestamp()
 				const messages = await room.messages.fetch()
-				room.send('\🌟 '+(messages.size == 0 ? 1 : messages.size)+' <@'+message.author.id+'>', { embed: embed }).then(m => m.react(':joy:'))
+				room.send('\🌟 '+(messages.size == 0 ? 1 : messages.size)+' <@'+message.author.id+'>', { embed: embed }).then(m => m.react('😂'))
 				message.channel.send('**'+message.author.username+'** quote has been sent!')
 			}
 			
