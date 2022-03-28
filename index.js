@@ -5882,7 +5882,7 @@ mongo(database1).then(async mongoose => {
 				if (!attach) return message.channel.send('**'+message.author.username+'** attachment must be a picture!')
 				if (!attach.url.match(/\.(jpeg|jpg|png)$/) == null) return message.channel.send('**'+message.author.username+'** attachment must be a png or jpg!')
 				const room = client.channels.cache.get(channel)
-				if (!message.member.roles.cache.has(role)) return message.channel.send('**'+message.author.username+'** you must have this role <@&'+role+'>')
+				if (!message.member.roles.cache.has(role)) return message.channel.send('**'+message.author.username+'** you must have the quote role!')
 				if (!room) return message.channel.send('**'+message.author.username+'** there is no channel valid for quotes!')
 				const embed = new MessageEmbed()
 				.setAuthor('11pm\'s World Quotes!', message.guild.iconURL({ dynamic: true }), 'https://discord.gg/11pm/')
