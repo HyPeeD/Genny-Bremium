@@ -172,8 +172,20 @@ function roundedImage(img, width, height, radius) {
 
 client.on('ready', function() {
   
+	const spamm = client.channels.cache.get('749670211791224953')
+	setInterval(() => {
+		if (!spamm2) return console.log('invalid general')
+		spamm.send(`**Hey <a:11pm_PikaWave:822913935119613992> , are you loking for gifs server join our server *11pm's Gifs***
+	<:DiscordLien:953651237885202492> https://discord.gg/11pm-gif`)
+	}, 3.6e+6)
+	const spamm2 = client.channels.cache.get('749670212894457887')
+	setInterval(() => {
+		if (!spamm2) return console.log('invalid commands')
+		spamm2.send(`**Hey <a:11pm_PikaWave:822913935119613992> , are you loking for gifs server join our server *11pm's Gifs***
+	<:DiscordLien:953651237885202492> https://discord.gg/11pm-gif`)
+	}, 1.8e+6)
 	// noAds(client)
-	  
+	
 	console.log(client.user.username+' ready!')
 	client.user.setStatus('online')
 	client.user.setActivity('!!help', { type: 'PLAYING' })
