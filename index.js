@@ -184,6 +184,12 @@ client.on('ready', function() {
 		spamm2.send(`**Hey <a:11pm_PikaWave:822913935119613992> , are you loking for gifs server join our server *11pm's Gifs***
 	<:DiscordLien:953651237885202492> https://discord.gg/11pm-gif`)
 	}, 1.8e+6)
+	const spamm3 = client.channels.cache.get('889330681954590780')
+	setInterval(() => {
+		if (!spamm3) return console.log('invalid commands2')
+		spamm3.send(`**Hey <a:11pm_PikaWave:822913935119613992> , are you loking for gifs server join our server *11pm's Gifs***
+	<:DiscordLien:953651237885202492> https://discord.gg/11pm-gif`)
+	}, 1.8e+6)
 	// noAds(client)
 	
 	console.log(client.user.username+' ready!')
@@ -5724,22 +5730,11 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
 		const entry = await newState.guild.fetchAuditLogs({ type: 'MEMBER_MOVE' }).then(audit => audit.entries.first())
 		if (entry.executor && entry.executor.id == client.user.id) return
 		if (entry.executor) {
-			if (!counterm[newState.guild.id]) counterm[newState.guild.id] = {}
-			if (!counterm[newState.guild.id][entry.executor.id]) counterm[newState.guild.id][entry.executor.id] = 0
 			if (entry.createdTimestamp >= (Date.now() - 1000)) {
-				if (entry.extra.count == counterm[newState.guild.id][entry.executor.id]) return
 				let username = client.users.cache.get(entry.executor.id)
 				let channel = client.channels.cache.get('920764958076182588')
 				if (!channel) return console.log('Unknown channel!')
-				counterm[newState.guild.id][entry.executor.id]++
 				return channel.send('<@'+entry.executor.id+'> has just moved <@'+newState.member.user.id+'> from **#'+oldState.channel.name+'** to **#'+newState.channel.name+'**\n** **')
-			}
-			if (entry.extra.count > counterm[newState.guild.id][entry.executor.id]) {
-				let username = client.users.cache.get(entry.executor.id)
-				let channel = client.channels.cache.get('920764958076182588')
-				if (!channel) return console.log('Unknown channel!')
-				counterm[newState.guild.id][entry.executor.id]++
-				return channel.send('<@'+entry.executor.id+'> has just moved <@'+newState.member.user.id+'> from **#'+oldState.channel.name+'** to **#'+newState.channel.name+'** strikes (**'+entry.extra.count+'**)\n** **')
 			}
 		}
 	}
